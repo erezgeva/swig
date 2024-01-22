@@ -1,0 +1,31 @@
+--- director_min.i
++++ director_min.i
+@@ -6,15 +6,25 @@
+ 
+ class Callback {
+ public:
+-  virtual bool run() { return false; }
++  virtual bool run() {
++      printf("Callback::run\n");
++      return false;
++  }
+ };
+ 
+ class Caller {
+ private:
+   Callback *_callback;
+ public:
+-  Caller(Callback *cb): _callback(cb) { }
+-  bool call() { return _callback->run(); }
++  Caller(Callback *cb): _callback(cb) {
++    printf("Caller::Caller %p\n", cb);
++  }
++  bool call() {
++    printf("Caller::call\n");
++    if (_callback)
++      return _callback->run();
++    return false;
++  }
+ };
+ 
+ %}
