@@ -1,0 +1,10 @@
+--- director_min_wrap.cxx
++++ director_min_wrap.cxx
+@@ -2861,6 +2861,7 @@
+     
+     SWIG_check_num_args("Callback::Callback",0,0)
+     result = (Callback *)new Callback();
++    printf("_wrap_new_Callback %p\n", result);
+     SWIG_NewPointerObj(L,result,SWIGTYPE_p_Callback,1); SWIG_arg++; 
+     return SWIG_arg;
+     
