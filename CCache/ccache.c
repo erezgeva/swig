@@ -155,6 +155,9 @@ static void failed(void)
 		putenv("CCACHE_OUTFILES");
 	}
 
+	/* DEBUG */
+	for(int i = 0; i<orig_args->argc; i++)
+		printf("arg[%d] = %s\n", i, orig_args->argv[i]);
 #ifndef _WIN32
 	execv(orig_args->argv[0], orig_args->argv);
 	cc_log("execv returned (%s)!\n", strerror(errno));
@@ -806,6 +809,8 @@ static void find_compiler(int argc, char **argv)
 	}
 
 	orig_args->argv[0] = find_executable(base, MYNAME);
+	/* DEBUG */
+	printf("find_compiler base %s, exe %s\n", base, orig_args->argv[0]);
 
 	/* can't find the compiler! */
 	if (!orig_args->argv[0]) {
@@ -1349,6 +1354,8 @@ int main(int argc, char *argv[])
 			x_asprintf(&cache_dir, "%s/.ccache", home_directory);
 		}
 	}
+	/* DEBUG */
+	printf("cache_dir %s\n", cache_dir);
 
 	cache_logfile = getenv("CCACHE_LOGFILE");
 
@@ -1402,6 +1409,8 @@ int main(int argc, char *argv[])
 			exit(1);
 		}
 	}
+	/* DEBUG */
+	printf("temp_dir %s\n", temp_dir);
 
 	if (!getenv("CCACHE_READONLY")) {
 		if (create_cachedirtag(cache_dir) != 0) {
