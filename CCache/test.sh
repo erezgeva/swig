@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 # a simple test suite for ccache
 # tridge@samba.org

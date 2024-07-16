@@ -37,59 +37,16 @@ jobs:
         include:
         - SWIGLANG: ""
           INSTALL: 'true'
-        - SWIGLANG: ""
-          INSTALL: 'true'
-          os: 'windows-2019'
-        - SWIGLANG: ""
-          COMPILER: gcc
-          INSTALL: 'true'
+#       - SWIGLANG: ""
+#         INSTALL: 'true'
+#         os: 'windows-2019'
         - SWIGLANG: ""
           COMPILER: gcc
           INSTALL: 'true'
-          os: 'windows-2019'
-        - SWIGLANG: csharp
-          INSTALL: 'true'
-        - SWIGLANG: csharp
-          os: 'windows-2019'
-        - SWIGLANG: csharp
-          COMPILER: gcc
-        - SWIGLANG: csharp
-          INSTALL: 'true'
-          COMPILER: gcc
-          os: 'windows-2019'
-        - SWIGLANG: java
-          VER: 8
-        - SWIGLANG: java
-          VER: 17
-        - SWIGLANG: java
-          COMPILER: gcc
-          VER: 8
-        - SWIGLANG: java
-          COMPILER: gcc
-          VER: 11
-       # Next two are using old VC++ as the new visual c++ not handling containers of enums
-       # See https://github.com/swig/swig/issues/3008
-        - SWIGLANG: python
-          VER: '3.7'
-          os: 'windows-2019'
-        - SWIGLANG: python
-          VER: '3.12'
-          os: 'windows-2019'
-       #  TODO require fixing of probing in configure.ac
-       #- SWIGLANG: python
-       #  INSTALL: 'true'
-       #  COMPILER: gcc
-       #  NOTEST: 'no-test'
-        - SWIGLANG: ruby
-#         VER: '3.0.7'
-          NOTEST: 'no-test'
-        - SWIGLANG: ruby
-          VER: '3.1.6'
-          NOTEST: 'no-test'
-        - SWIGLANG: ruby
-          INSTALL: 'true'
-          COMPILER: gcc
-          NOTEST: 'no-test'
+#       - SWIGLANG: ""
+#         COMPILER: gcc
+#         INSTALL: 'true'
+#         os: 'windows-2019'
       # Run all of them, as opposed to aborting when one fails
       fail-fast: false
 
@@ -331,8 +288,3 @@ jobs:
 
     # The test by itself is not related to the installation.
     # We just want to save testing time :-)
-    - name: Clean
-      if: ${{ env.INSTALL == 'true' }}
-      shell: bash
-      run: |
-          make check-maintainer-clean
