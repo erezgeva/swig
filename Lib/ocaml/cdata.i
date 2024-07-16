@@ -3,7 +3,6 @@
  *
  * SWIG library file containing macros for manipulating raw C data.
  *
- * TODO: Need to test with li_cdata_cpp and li_cdata
  * ----------------------------------------------------------------------------- */
 
 %typemap(in) (const void *BYTES, size_t LENGTH) {
