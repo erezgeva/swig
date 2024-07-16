@@ -28,13 +28,25 @@ jobs:
 
     # The name of the test follow the tested language
     name: >
-      ${{ matrix.SWIGLANG }} ${{ matrix.VER }}
+      ${{ matrix.SWIGLANG || 'none' }} ${{ matrix.VER }}
       ${{ matrix.COMPILER || 'msvc' }} ${{ matrix.os }} ${{ matrix.NOTEST }}
       ${{ matrix.continue-on-error && '(can fail)' }}
 
     strategy:
       matrix:
         include:
+        - SWIGLANG: ""
+          INSTALL: 'true'
+        - SWIGLANG: ""
+          INSTALL: 'true'
+          os: 'windows-2019'
+        - SWIGLANG: ""
+          COMPILER: gcc
+          INSTALL: 'true'
+        - SWIGLANG: ""
+          COMPILER: gcc
+          INSTALL: 'true'
+          os: 'windows-2019'
         - SWIGLANG: csharp
           INSTALL: 'true'
         - SWIGLANG: csharp
@@ -164,6 +176,7 @@ jobs:
             echo "PCRE2_LIBS=-L/mingw64/lib -lpcre2-8" >> $GITHUB_ENV
 
             echo "MORE_MSYS_PKGS=base-devel $MORE_MSYS_PKGS" >> $GITHUB_ENV
+            echo "LIBS_CCACHE=-luserenv" >> $GITHUB_ENV
             echo "BOOST_PATH=/c/msys64/mingw64" >> $GITHUB_ENV
           else
              # COMPILER: cccl wrapping MSVC
@@ -262,11 +275,8 @@ jobs:
           if [[ "$COMPILER" = "gcc" ]]; then
             # Use MinGW-w64 compiler
             export PATH="/mingw64/bin:$PATH"
-            ./configure --disable-dependency-tracking --with-boost="$BOOST_PATH" --with-csharp-compiler="csc.exe"
-          else
-             # cccl wrapping MSVC
-            ./configure --disable-dependency-tracking --with-boost="$BOOST_PATH" --with-csharp-compiler="csc.exe" --disable-ccache
           fi
+          ./configure --disable-dependency-tracking --with-boost="$BOOST_PATH" --with-csharp-compiler="csc.exe"
 
     - name: Build
       shell: bash
@@ -296,10 +306,16 @@ jobs:
             export PATH="/mingw64/bin:$PATH"
           fi
           ./swig.exe -version
-          make check-$SWIGLANG-version
-          make check-$SWIGLANG-enabled
-          make -k check-$SWIGLANG-examples $SWIGJOBS $CHECK_OPTIONS
-          make -k check-$SWIGLANG-test-suite $SWIGJOBS $CHECK_OPTIONS
+          set -x
+          if [[ -z "$SWIGLANG" ]]; then
+            make $SWIGJOBS check-ccache
+            make $SWIGJOBS check-errors-test-suite
+          else
+            make check-$SWIGLANG-version
+            make check-$SWIGLANG-enabled
+            make -k check-$SWIGLANG-examples $SWIGJOBS $CHECK_OPTIONS
+            make -k check-$SWIGLANG-test-suite $SWIGJOBS $CHECK_OPTIONS
+          fi
 
     - name: Install
       if: ${{ env.INSTALL == 'true' }}
@@ -310,11 +326,8 @@ jobs:
           which swig.exe
           swig.exe -version
 
-          # TODO: Make install of ccache-swig do not work on Windows
-          #if [[ "$COMPILER" = "gcc" ]]; then
-          #  which ccache-swig.exe
-          #  ccache-swig.exe -V
-          #fi
+          which ccache-swig.exe
+          ccache-swig.exe -V
 
     # The test by itself is not related to the installation.
     # We just want to save testing time :-)
