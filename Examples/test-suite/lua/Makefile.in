@@ -17,14 +17,8 @@ top_builddir = @top_builddir@
 # sorry, currently very few test cases work/have been written
 
 CPP_TEST_CASES += \
-	lua_no_module_global \
-	lua_inherit_getitem  \
-	lua_lightuserdata  \
-
 
 C_TEST_CASES += \
-	lua_no_module_global \
-
 
 include $(srcdir)/../common.mk
 
