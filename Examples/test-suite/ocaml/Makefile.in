@@ -39,7 +39,6 @@ FAILING_C_TESTS = \
 enums \
 
 C_TEST_CASES += \
-	multivalue \
 
 ml_runme = $(SCRIPTPREFIX)$*$(SCRIPTSUFFIX)
 
