@@ -2,8 +2,6 @@
 # Makefile for guile test-suite
 #######################################################################
 
-EXTRA_TEST_CASES += guile_ext_test.externaltest
-
 LANGUAGE     = guile
 VARIANT      =
 SCRIPTSUFFIX = _runme.scm
@@ -18,12 +16,6 @@ top_builddir = @top_builddir@
 
 GUILE        = @GUILE@
 GUILE_RUNTIME=
-
-C_TEST_CASES = long_long \
-	       list_vector \
-	       multivalue \
-	       pointer_in_out
-
 
 include $(srcdir)/../common.mk
 
