@@ -28,13 +28,6 @@ default_constructor \
 enum_thorough \
 smart_pointer_inherit \
 
-CPP_TEST_CASES += \
-	ocaml_carray \
-
-C_TEST_CASES += \
-	multivalue \
-	ocaml_carray_c \
-
 ml_runme = $(SCRIPTPREFIX)$*$(SCRIPTSUFFIX)
 
 run_testcase = \
