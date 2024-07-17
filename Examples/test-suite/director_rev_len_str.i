@@ -2,7 +2,7 @@
 
 %feature("director") Callback;
 
-#if !defined(SWIGC) && !defined(SWIGOCAML) && !defined(SWIGGUILE)
+#ifndef SWIGC
 %apply (size_t LENGTH, char *STRING) { (int sizeAA, char *dataBufferAA) };
 #endif
 
