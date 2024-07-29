@@ -474,6 +474,17 @@ then LIBC=$withval
 else AC_MSG_ERROR([proper usage is --with-libc=STRING])
 fi])
 
+case $host in
+  dnl Windows path seperator
+  *-*-cygwin* | *-*-mingw* | *-*-msys*)
+    SH_PATH_SEP='\;'
+    ;;
+  *) dnl POSIX path seperator
+    SH_PATH_SEP=':'
+    ;;
+esac
+AC_SUBST(SH_PATH_SEP)
+
 #--------------------------------------------------------------------
 # Target languages
 #--------------------------------------------------------------------
@@ -2282,6 +2293,7 @@ if test -n "$RUBY"; then
 		dirs="$dirs $rb_archlibdir $rb_libdir $rb_bindir"
 
         rb_libruby=`($RUBY -rrbconfig -e 'print RbConfig::CONFIG[["LIBRUBY_A"]]') 2>/dev/null`
+        rb_dlibruby=`($RUBY -rrbconfig -e 'print RbConfig::CONFIG[["LIBRUBY"]]') 2>/dev/null`
         RUBYLINK=`($RUBY -rrbconfig -e '
             c = RbConfig::CONFIG
             if c.has_key? "LIBRUBYARG_STATIC" # 1.8.x
@@ -2309,9 +2321,10 @@ if test -n "$RUBY"; then
               puts link
             end') 2>/dev/null`
 
-		if test "$rb_libruby" != ""; then
+		if test -n "$rb_libruby" || test -n "$rb_dlibruby"; then
 			for i in $dirs; do
-				if (test -r $i/$rb_libruby;) then
+				if { test -n "$rb_libruby" && test -r $i/$rb_libruby ; } ||\
+				   { test -n "$rb_dlibruby" && test -r $i/$rb_dlibruby ; } ; then
 					RUBYLIB="$i"
 					break
 				fi
@@ -2339,7 +2352,7 @@ else
 fi
 
 case $host in
-*-*-cygwin* | *-*-mingw*)	RUBYDYNAMICLINKING="-L$RUBYLIB $RUBYLINK";;
+*-*-cygwin* | *-*-mingw* | *-*-msys*) RUBYDYNAMICLINKING="-L$RUBYLIB $RUBYLINK";;
 *)		RUBYDYNAMICLINKING="";;
 esac
 fi
@@ -2809,6 +2822,7 @@ if test "${srcdir}" = "."; then
     ], [SWIG_LIB_SET="env SWIG_LIB="], [])
 fi
 AC_SUBST(SWIG_LIB_SET)
+AC_SUBST(EXAMPLE_LIBS)
 
 AC_CONFIG_FILES([
     Makefile
