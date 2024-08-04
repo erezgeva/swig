@@ -13,8 +13,6 @@ datarootdir = @datarootdir@
 # Make options - override these to see more output
 #####################################################################
 
-RUNPIPE     = \>/dev/null
-FLAGS       = -k -s
 
 #####################################################################
 # Compiler and system configuration
