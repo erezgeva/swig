@@ -1463,7 +1463,7 @@ ruby_cpp: $(SRCDIR_SRCS)
 	echo "require 'mkmf'" > build/extconf.rb
 	echo "create_header" >> build/extconf.rb
 	echo "create_makefile '$(INTERFACE:.i=)'" >> build/extconf.rb
-	cd build && ruby extconf.rb && make
+	cd build && ruby extconf.rb && make V=1
 	mv build/$(LIBPREFIX)$(TARGET)$(RUBY_SO) .
 
 # -----------------------------------------------------------------
