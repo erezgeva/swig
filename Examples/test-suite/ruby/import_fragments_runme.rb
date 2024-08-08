@@ -9,15 +9,15 @@
 
 require 'swig_assert'
 
+exception_file = nil
+
 begin
   require 'import_fragments'
-#rescue LoadError => e
-rescue Exception => e
+rescue LoadError => e
   # due to missing import_fragments_a
-  puts "Error: #{e.message}"
-# exception_file = e.respond_to?(:path) ? e.path : e.to_s.sub(/.* -- /, '')
+  exception_file = e.respond_to?(:path) ? e.path : e.to_s.sub(/.* -- /, '')
 end
 
-# swig_assert(exception_file == "import_fragments_a",
-#             msg: "Loading should have failed due to missing 'import_fragments_a'")
+swig_assert(exception_file == "import_fragments_a",
+            msg: "Loading should have failed due to missing 'import_fragments_a'")
 

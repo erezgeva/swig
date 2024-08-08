@@ -1456,9 +1456,15 @@ ruby: $(SRCDIR_SRCS)
 # -----------------------------------------------------------------
 
 ruby_cpp: $(SRCDIR_SRCS)
+	rm -Rf build
+	mkdir build
 	$(SWIG) -c++ -ruby $(SWIGOPT) -o $(ICXXSRCS) $(INTERFACEPATH)
-	$(CXX) -c $(CCSHARED) $(CPPFLAGS) $(CXXFLAGS) $(RUBY_CFLAGS) $(ICXXSRCS) $(SRCDIR_SRCS) $(SRCDIR_CXXSRCS) $(INCLUDES) $(RUBY_INCLUDE)
-	$(CXXSHARED) $(CXXFLAGS) $(LDFLAGS) $(OBJS) $(IOBJS) $(RUBY_DLNK) $(LIBS) $(CPP_DLLIBS) -o $(LIBPREFIX)$(TARGET)$(RUBY_SO)
+	cp $(ICXXSRCS) build/
+	echo "require 'mkmf'" > build/extconf.rb
+	echo "create_header" >> build/extconf.rb
+	echo "create_makefile '$(INTERFACE:.i=)'" >> build/extconf.rb
+	cd build && ruby extconf.rb && make
+	mv build/$(LIBPREFIX)$(TARGET)$(RUBY_SO) .
 
 # -----------------------------------------------------------------
 # Build statically linked Ruby interpreter
