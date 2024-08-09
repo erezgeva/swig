@@ -1,6 +1,6 @@
 %module argcargvtest
 
-#if !defined(SWIGC) && !defined(SWIGOCAML)
+#if !defined(SWIGC)
 %include <argcargv.i>
 
 %apply (int ARGC, char **ARGV) { (size_t argc, const char **argv) }
