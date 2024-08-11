@@ -243,6 +243,12 @@ jobs:
 
           ./autogen.sh
 
+    - name: small ruby test
+      shell: bash
+      run: |
+          export PATH="$MINGW_CC:$PATH"
+          cd small_ruby;ruby extconf.rb;make;ruby -I. load.rb;echo $?
+
     - name: Configure
       shell: bash
       run: |
