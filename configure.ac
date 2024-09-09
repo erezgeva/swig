@@ -256,7 +256,7 @@ dnl -m, --mixed    like --windows, but with regular slashes (C:/WINNT)
 dnl -u             (default) print Unix form of NAMEs (/cygdrive/c/winnt)
 dnl -w             print Windows form of NAMEs (C:\WINNT)
 dnl See: https://cygwin.com/cygwin-ug-net/cygpath.html
-AC_CHECK_TOOL([CYGPATH], [cygpath])
+# AC_CHECK_TOOL([CYGPATH], [cygpath])
 dnl Fall back to convertpath
 AS_IF([test -z "$CYGPATH"],
       [AC_MSG_CHECKING([alternative for cygpath])
