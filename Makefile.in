@@ -2,7 +2,7 @@
 # SWIG top level Makefile
 #######################################################################
 
-.PHONY: swig source format-review format-check format-inplace format ccache
+.PHONY: swig source format-review format-check format-inplace format
 
 prefix      = @prefix@
 exec_prefix = @exec_prefix@
@@ -23,15 +23,13 @@ FLAGS       = -k -s
 SHELL       = /bin/sh
 SWIG_LIB_INSTALL = @SWIG_LIB_INSTALL@
 BIN_DIR     = @bindir@
-ENABLE_CCACHE = @ENABLE_CCACHE@
 PYTHON      = @PYTHON3@
 TARGET_NOEXE= swig
 TARGET      = $(TARGET_NOEXE)@EXEEXT@
 SOURCE      = Source
-CCACHE      = CCache
 DOCS        = Doc/Manual
 
-swig: libfiles source ccache
+swig: libfiles source
 
 source:
 	@$(MAKE) -C $(SOURCE)
@@ -46,9 +44,6 @@ format-inplace:
 	@$(MAKE) -C $(SOURCE) format-inplace
 
 format: format-inplace
-
-ccache:
-	test -z "$(ENABLE_CCACHE)" || $(MAKE) -C $(CCACHE)
 
 libfiles: $(srcdir)/Lib/swigwarn.swg
 
@@ -128,9 +123,6 @@ check-aliveness:
 	@$(skip-ruby)     || ./$(TARGET) -ruby       -help
 	@$(skip-scilab)   || ./$(TARGET) -scilab     -help
 	@$(skip-tcl)      || ./$(TARGET) -tcl        -help
-
-check-ccache:
-	test -z "$(ENABLE_CCACHE)" || $(MAKE) -C $(CCACHE) check
 
 # Checks that the warning numbers defined in Source/Include/swigwarn.h and the
 # warning list in Doc/Manual/Warnings.html are the same set.  Needs a Python
@@ -296,7 +288,7 @@ partialcheck-test-suite:
 partialcheck-%-test-suite:
 	@$(MAKE) $(FLAGS) check-$*-test-suite ACTION=partialcheck NOSKIP=1
 
-check: check-aliveness check-warnings check-ccache check-versions check-examples check-test-suite
+check: check-aliveness check-warnings check-versions check-examples check-test-suite
 
 # Run known-to-be-broken as well as not broken testcases in the test-suite
 all-test-suite:					\
@@ -350,7 +342,7 @@ broken-%-test-suite:
 
 clean: clean-objects clean-examples clean-test-suite
 
-clean-objects: clean-source clean-ccache
+clean-objects: clean-source
 
 clean-source:
 	@echo cleaning Source
@@ -369,9 +361,6 @@ clean-%-examples:
 clean-%-test-suite:
 	@$(MAKE) $(FLAGS) check-$*-test-suite ACTION=clean NOSKIP=1
 
-clean-ccache:
-	test -z "$(ENABLE_CCACHE)" || $(MAKE) -C $(CCACHE) $(FLAGS) clean
-
 #####################################################################
 # DISTCLEAN - clean what configure built
 #####################################################################
@@ -380,7 +369,7 @@ DISTCLEAN-DEAD = config.status config.log config.cache Makefile mkmf.log preinst
 
 distclean-helper: distclean-test-suite distclean-examples distclean-tools distclean-dead
 
-distclean: distclean-source distclean-ccache distclean-helper
+distclean: distclean-source distclean-helper
 
 distclean-source:
 	@echo distcleaning Source
@@ -401,9 +390,6 @@ distclean-examples:
 		done; \
 	fi
 
-distclean-ccache:
-	@test -z "$(ENABLE_CCACHE)" || $(MAKE) -C $(CCACHE) $(FLAGS) distclean
-
 distclean-tools:
 	@echo distcleaning Tools
 	@$(MAKE) -C Tools/javascript $(FLAGS) distclean
@@ -421,8 +407,6 @@ distclean-dead:
 maintainer-clean:
 	@echo maintainer-cleaning source
 	@$(MAKE) -C $(SOURCE) $(FLAGS) maintainer-clean
-	@echo maintainer-cleaning CCache
-	@test -z "$(ENABLE_CCACHE)" || $(MAKE) -C $(CCACHE) $(FLAGS) maintainer-clean
 	@echo maintainer-cleaning docs
 	@test ! -d $(DOCS) || $(MAKE) -C $(DOCS) $(FLAGS) maintainer-clean
 	@echo maintainer-cleaning Lib files
@@ -461,7 +445,7 @@ MKINSTDIRS      = ${INSTALL} -m 0755 -d
 # Use standard autoconf approach to transform executable name using --program-prefix and --program-suffix
 transform	= @program_transform_name@
 
-install: install-main install-lib install-ccache
+install: install-main install-lib
 	@echo "Installation complete"
 
 install-main:
@@ -506,15 +490,11 @@ install-lib:
 	      fi) ; 						\
 	done
 
-install-ccache:
-	@test -z "$(ENABLE_CCACHE)" || $(MAKE) -C $(CCACHE) install
-
-
 #####################################################################
 # TARGETS: uninstall & friends
 #####################################################################
 
-uninstall: uninstall-main uninstall-lib uninstall-ccache
+uninstall: uninstall-main uninstall-lib
 	@echo "Uninstall complete"
 
 uninstall-main:
@@ -524,9 +504,6 @@ uninstall-main:
 uninstall-lib:
 	@echo "Uninstalling the SWIG library"
 	rm -rf $(DESTDIR)$(SWIG_LIB_INSTALL)/
-
-uninstall-ccache:
-	test -z "$(ENABLE_CCACHE)" || $(MAKE) -C $(CCACHE) uninstall
 
 ############################################################################
 # DIST and other maintenance
