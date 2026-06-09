@@ -109,17 +109,9 @@ AS_IF([test "x$with_pcre" != xno],
     [],[],[--libs8])
   ])
 
-
-dnl CCache
-AC_ARG_ENABLE([ccache], AS_HELP_STRING([--disable-ccache], [disable building and installation of ccache-swig executable (default enabled)]), [enable_ccache=$enableval], [enable_ccache=yes])
-AC_MSG_CHECKING([whether to enable ccache-swig])
-AC_MSG_RESULT([$enable_ccache])
-
-if test "$enable_ccache" = yes; then
-  AC_CONFIG_SUBDIRS(CCache)
-  ENABLE_CCACHE=1
-fi
-AC_SUBST(ENABLE_CCACHE)
+dnl ccache is detched into a separate repository
+dnl The flag remains for backward compatability
+AC_ARG_ENABLE([ccache], AS_HELP_STRING([--disable-ccache], [ccache-swig is detched into a separate repository. The flag remains for backward compatability.]))
 
 #----------------------------------------------------------------
 # Optional packages for development
@@ -2759,7 +2751,6 @@ AC_CONFIG_FILES([
     Tools/javascript/Makefile
 ])
 AC_CONFIG_FILES([preinst-swig], [chmod +x preinst-swig])
-AC_CONFIG_FILES([CCache/ccache_swig_config.h])
 
 #--------------------------------------------------------------------
 # Building Examples/ out of source directory

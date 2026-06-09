@@ -72,7 +72,7 @@ jobs:
 
     # The name of the test follow the tested language
     name: >
-      ${{ matrix.SWIGLANG }} ${{ matrix.VER }}
+      ${{ matrix.SWIGLANG || 'none' }} ${{ matrix.VER }}
       ${{ matrix.SWIG_FEATURES }}
       ${{ matrix.COMPILER || 'msvc' }}
       ${{ matrix.CPPSTD }}
@@ -86,8 +86,16 @@ jobs:
     strategy:
       matrix:
         include:
-        - SWIGLANG: csharp
+        - SWIGLANG: ''
           INSTALL: 'true'
+        - SWIGLANG: ''
+          INSTALL: 'true'
+          COMPILER: gcc
+        - SWIGLANG: ''
+          INSTALL: 'true'
+          COMPILER: gcc
+          MSYS2_ENV: ucrt64
+        - SWIGLANG: csharp
         - SWIGLANG: csharp
           os: windows-2025-vs2026
         - SWIGLANG: csharp
@@ -415,10 +423,6 @@ jobs:
           if [[ $SWIGLANG = 'csharp' ]]; then
             CONFIGOPTS+=(--with-csharp-compiler="csc.exe")
           fi
-          if [[ -z "$COMPILER" ]]; then
-            # MSVC do not support C cache
-            CONFIGOPTS+=(--disable-ccache)
-          fi
           echo "${CONFIGOPTS[@]}"
           ./configure "${CONFIGOPTS[@]}"
 
@@ -457,10 +461,14 @@ jobs:
       run: |
           set -x
           ./swig.exe -version
-          make check-$SWIGLANG-version
-          make check-$SWIGLANG-enabled
-          make -k check-$SWIGLANG-examples $SWIGJOBS $CHECK_OPTIONS
-          make -k check-$SWIGLANG-test-suite $SWIGJOBS $CHECK_OPTIONS
+          if [[ -z "$SWIGLANG" ]]; then
+            make $SWIGJOBS check-errors-test-suite
+          else
+            make check-$SWIGLANG-version
+            make check-$SWIGLANG-enabled
+            make -k check-$SWIGLANG-examples $SWIGJOBS $CHECK_OPTIONS
+            make -k check-$SWIGLANG-test-suite $SWIGJOBS $CHECK_OPTIONS
+          fi
 
     - name: Install
       if: ${{ env.INSTALL == 'true' }}
@@ -470,12 +478,6 @@ jobs:
 
           which swig.exe
           swig.exe -version
-
-          # TODO: Make install of ccache-swig do not work on Windows
-          #if [[ "$COMPILER" = "gcc" ]]; then
-          #  which ccache-swig.exe
-          #  ccache-swig.exe -V
-          #fi
 
     # The test by itself is not related to the installation.
     # We just want to save testing time :-)

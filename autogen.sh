@@ -12,4 +12,3 @@ ${ACLOCAL-aclocal} -I Tools/config
 ${AUTOHEADER-autoheader}
 ${AUTOMAKE-automake} --add-missing --copy --force-missing
 ${AUTOCONF-autoconf}
-cd CCache && ${AUTORECONF-autoreconf}
