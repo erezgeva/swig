@@ -2376,7 +2376,9 @@ public:
 
       /* remove the wrapper 'w' since it was producing spurious temps */
       Swig_typemap_attach_parms("in", l, 0);
+      Printf(stdout, "============ classDirectorMethod =============\n");
       Swig_typemap_attach_parms("directorin", l, w);
+      Printf(stdout, "=== classDirectorMethod %s ===\n", l);
       Swig_typemap_attach_parms("directorargout", l, w);
 
       Parm *p;

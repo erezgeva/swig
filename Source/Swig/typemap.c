@@ -1160,7 +1160,11 @@ static int check_locals_type(ParmList *p, const char *s) {
  * used for $n, but not the various ways of representing types: $n_ltype, $n_type etc
  * ----------------------------------------------------------------------------- */
 
-static int typemap_replace_vars(String *s, ParmList *locals, SwigType *type, SwigType *rtype, String *pname, String *lname, int index, Hash *override_vars) {
+static int typemap_replace_vars1(String *s, ParmList *locals, SwigType *type, SwigType *rtype, String *pname, String *lname, int index, Hash *override_vars,
+                                 int do_print) {
+  if (do_print)
+    Printf(stdout, "=== typemap_replace_vars: |%s|-ParmList|%s|-type|%s|-rtype|%s|-pname|%s|-lname|%s|-index|%d| ===\n",
+           s, locals, type, rtype, pname, lname, index);
   char var[512];
   char *varname;
   size_t varname_size;
@@ -1289,7 +1293,8 @@ static int typemap_replace_vars(String *s, ParmList *locals, SwigType *type, Swi
       strcpy(varname, "descriptor");
       if (Replace(s, var, descriptor, DOH_REPLACE_ANY))
         SwigType_remember(type);
-
+      if (do_print)
+        Printf(stdout, "=== 3-typemap_replace_vars: %s var %s descriptor %s mangle %s type %s ===\n", s, var, descriptor, mangle, type);
       Delete(descriptor);
       Delete(mangle);
     }
@@ -1460,6 +1465,9 @@ static int typemap_replace_vars(String *s, ParmList *locals, SwigType *type, Swi
 
   Delete(ftype);
   return bare_substitution_count;
+}
+static int typemap_replace_vars(String *s, ParmList *locals, SwigType *type, SwigType *rtype, String *pname, String *lname, int index, Hash *override_vars) {
+  return typemap_replace_vars1(s, locals, type, rtype, pname, lname, index, override_vars, 0);
 }
 
 /* ------------------------------------------------------------------------
@@ -2065,6 +2073,8 @@ static void replace_vla_size(String *s, Hash *tm, ParmList *locals, SwigType *ma
  * ----------------------------------------------------------------------------- */
 
 static void typemap_attach_parms(const_String_or_char_ptr tmap_method, ParmList *parms, Wrapper *f, Hash *override_vars) {
+  if (Cmp(tmap_method, "directorin") == 0)
+    Printf(stdout, "=========== typemap_attach_parms ==========\n");
   Parm *p, *firstp;
   Hash *tm;
   int nmatch = 0;
@@ -2089,6 +2099,8 @@ static void typemap_attach_parms(const_String_or_char_ptr tmap_method, ParmList 
     Printf(stdout, "parms:  %s %s %s\n", tmap_method, Getattr(p, "name"), Getattr(p, "type"));
 #endif
     tm = typemap_search_multi(tmap_method, p, &nmatch);
+    if (Cmp(tmap_method, "directorin") == 0)
+      Printf(stdout, "=== typemap_attach_parms typemap_search_multi: %s ===\n", tm);
 #ifdef SWIG_DEBUG
     if (tm)
       Printf(stdout, "found:  %s\n", tm);
@@ -2149,6 +2161,8 @@ static void typemap_attach_parms(const_String_or_char_ptr tmap_method, ParmList 
     }
 
     s = Getattr(tm, "code");
+    if (Cmp(tmap_method, "directorin") == 0)
+      Printf(stdout, "=== typemap_attach_parms code: %s ===\n", s);
     if (!s) {
       p = nextSibling(p);
       continue;
@@ -2182,7 +2196,9 @@ static void typemap_attach_parms(const_String_or_char_ptr tmap_method, ParmList 
 
       Swig_vla_check_size_use(tmap_method, tm, matchtype, p, i + 1, 1);
       replace_vla_size(s, tm, locals, matchtype, p, parms, i + 1);
-      typemap_replace_vars(s, locals, wrappedtype ? wrappedtype : matchtype, type, pname, lname, i + 1, override_vars);
+      if (Cmp(tmap_method, "directorin") == 0)
+        Printf(stdout, "=== typemap_attach_parms call typemap_replace_vars: %s ===\n", p);
+      typemap_replace_vars1(s, locals, wrappedtype ? wrappedtype : matchtype, type, pname, lname, i + 1, override_vars, Cmp(tmap_method, "directorin") == 0);
       Delete(wrappedtype);
       if (mtype)
         Delattr(p, "tmap:match");
@@ -2250,6 +2266,8 @@ static void typemap_attach_parms(const_String_or_char_ptr tmap_method, ParmList 
 #ifdef SWIG_DEBUG
   Printf(stdout, "Swig_typemap_attach_parms: end\n");
 #endif
+  if (Cmp(tmap_method, "directorin") == 0)
+    Printf(stdout, "=== typemap_attach_parms-end: %s ===\n", parms);
 }
 
 void Swig_typemap_attach_parms(const_String_or_char_ptr tmap_method, ParmList *parms, Wrapper *f) {
