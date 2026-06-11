@@ -461,10 +461,16 @@
   SWIG_SetPointerZval($result, (void *)*$1, $*1_descriptor, $owner);
 %}
 
-/* map C++ reference to SWIG pointer and C++ reference of pointer to SWIG pointer of pointer */
+/* map C++ reference to SWIG pointer */
 %typemap(directorin) SWIGTYPE &,
-                     SWIGTYPE &&,
-                     SWIGTYPE *const&
+                     SWIGTYPE &&
+%{
+  ZVAL_UNDEF($input);
+  SWIG_SetPointerZval($input, (void *)&($1), $1_descriptor, $owner);
+%}
+
+/* map C++ reference of const pointer to SWIG pointer of pointer */
+%typemap(directorin, phptype="?SWIGTYPE") SWIGTYPE *const&
 %{
   ZVAL_UNDEF($input);
   SWIG_SetPointerZval($input, (void *)&($1), $1_descriptor, $owner);

@@ -273,7 +273,7 @@ check-%-test-suite: check-%-prepare
 	  echo warning: cannot $(ACTION) $* test-suite "(no dir $$dir)";\
 	else								\
 	  echo $(ACTION)ing $* test-suite;				\
-	  $(MAKE) -C $$dir $(FLAGS) $(ACTION)				\
+	  $(MAKE) -C $$dir $(ACTION)				\
 	  || passed=false;						\
 	fi;								\
 	test $$passed = true
