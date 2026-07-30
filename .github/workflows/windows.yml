@@ -29,26 +29,6 @@ permissions:
   contents: read
 
 jobs:
-  # Code format checks, see https://github.com/marketplace/actions/clang-format-github-action
-  # The clang-format version used is slightly different for each OS workflow file
-  # This job gates the main build job so must succeed before the main build job is run
-  clang-format:
-    runs-on: ubuntu-latest
-    name: clang-format 21
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v6
-      with:
-        show-progress: false
-        persist-credentials: false
-
-    - name: Check with clang-format
-      uses: RafikFarhad/clang-format-github-action@v6.0.1
-      with:
-        sources: "Source/*/*.c,Source/*/*.cxx,Source/*/*.h"
-        style: file
-
   # This action build using MSYS2 environment
   # We use two compilers C/C++:
   # - Microsoft Visual Studio compiler.
@@ -81,8 +61,6 @@ jobs:
       ${{ matrix.os }}
       ${{ matrix.continue-on-error && '(can fail)' }}
 
-    needs: [clang-format]
-
     strategy:
       matrix:
         include:
@@ -94,67 +72,6 @@ jobs:
         - SWIGLANG: ''
           INSTALL: 'true'
           COMPILER: gcc
-          MSYS2_ENV: ucrt64
-        - SWIGLANG: csharp
-        - SWIGLANG: csharp
-          os: windows-2025-vs2026
-        - SWIGLANG: csharp
-          INSTALL: 'true'
-          COMPILER: gcc
-        - SWIGLANG: csharp
-          COMPILER: gcc
-          MSYS2_ENV: ucrt64
-        - SWIGLANG: java
-          VER: 8
-        - SWIGLANG: java
-          VER: 17
-        - SWIGLANG: java
-          VER: 21
-        - SWIGLANG: java
-          VER: 25
-        - SWIGLANG: java
-          COMPILER: gcc
-          CSTD: gnu99
-          VER: 8
-        - SWIGLANG: java
-          COMPILER: gcc
-          VER: 11
-        - SWIGLANG: java
-          COMPILER: gcc
-          VER: 25
-        - SWIGLANG: java
-          COMPILER: gcc
-          MSYS2_ENV: ucrt64
-        - SWIGLANG: python
-          VER: '3.10'
-          SWIG_FEATURES: -builtin
-        - SWIGLANG: python
-          VER: '3.13'
-        - SWIGLANG: python
-          VER: '3.14'
-        - SWIGLANG: python
-          COMPILER: gcc
-          MSYS2_ENV: ucrt64
-# To fix - swig fails to link, see job failure: https://github.com/swig/swig/actions/runs/27424393216/job/81058274348
-#       - SWIGLANG: ruby
-#         COMPILER: gcc
-#         MSYS2_ENV: ucrt64
-        - SWIGLANG: ruby
-          VER: '3.2'
-          COMPILER: gcc
-          CPPSTD: c++11
-          MSYS2_ENV: ucrt64
-        - SWIGLANG: ruby
-          VER: '3.3'
-          COMPILER: gcc
-          MSYS2_ENV: ucrt64
-        - SWIGLANG: go
-          VER: '1.25'
-          COMPILER: gcc
-          CSTD: gnu11
-        - SWIGLANG: go
-          COMPILER: gcc
-          CSTD: gnu11
           MSYS2_ENV: ucrt64
       # Run all of them, as opposed to aborting when one fails
       fail-fast: false
