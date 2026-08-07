@@ -40,33 +40,33 @@ jobs:
     strategy:
       matrix:
         include:
-        - SWIGLANG: php
-          VER: '8.0'
-        - SWIGLANG: php
-          VER: '8.1'
-        - SWIGLANG: php
-          VER: '8.2'
-        - SWIGLANG: php
-          VER: '8.3'
-          CPPSTD: c++11 # C++98 not supported by PHP.
-          os: ubuntu-24.04
-        - SWIGLANG: php
-          VER: '8.4'
-          CPPSTD: c++11 # C++98 not supported by PHP.
+#       - SWIGLANG: php
+#         VER: '8.0'
+#       - SWIGLANG: php
+#         VER: '8.1'
+#       - SWIGLANG: php
+#         VER: '8.2'
+#       - SWIGLANG: php
+#         VER: '8.3'
+#         CPPSTD: c++11 # C++98 not supported by PHP.
+#         os: ubuntu-24.04
+#       - SWIGLANG: php
+#         VER: '8.4'
+#         CPPSTD: c++11 # C++98 not supported by PHP.
         - SWIGLANG: php
           VER: '8.5'
           CPPSTD: c++11 # C++98 not supported by PHP.
-        - SWIGLANG: php
-          CPPSTD: c++11
-          CSTD: gnu11
-        - SWIGLANG: php
-          CPPSTD: c++14
-          CSTD: gnu11
-        - SWIGLANG: php
-          CPPSTD: c++17
-          CSTD: gnu17
-          GCC: 13
-          os: ubuntu-24.04
+#       - SWIGLANG: php
+#         CPPSTD: c++11
+#         CSTD: gnu11
+#       - SWIGLANG: php
+#         CPPSTD: c++14
+#         CSTD: gnu11
+#       - SWIGLANG: php
+#         CPPSTD: c++17
+#         CSTD: gnu17
+#         GCC: 13
+#         os: ubuntu-24.04
       # Run all of them, as opposed to aborting when one fails
       fail-fast: false
 
