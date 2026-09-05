@@ -5077,7 +5077,7 @@ public:
                     Printf(bridge_args, ", ");
                   }
                   Printf(bridge_params, "%s: %s", ln, bridge_type);
-                  Printf(bridge_args, "%s", ln);
+                  Printv(bridge_args, ln, NIL);
                   Delete(bridge_type);
                 }
               }
@@ -5236,32 +5236,23 @@ public:
 
     String *upcall = NULL;
     String *bridge_code = NULL;
-    if (kotlin_use) {
-      if (!is_public(n) && !ignored_method) {
-        // Kotlin protected members are not accessible from the intermediary object (Java relies
-        // on package access here), so the upcall goes through an internal bridge method emitted
-        // into the proxy class which forwards to the protected method.
-        String *bridge_return = NULL;
-        if ((tm = Swig_typemap_lookup("jstype", n, "", 0))) {
-          bridge_return = Copy(tm);
-          substituteClassname(returntype, bridge_return);
-        } else {
-          bridge_return = NewString("Unit");
-        }
-        String *bridge_ret_clause = (Cmp(bridge_return, "Unit") == 0) ? NewString("") : NewStringf(": %s", bridge_return);
-        bridge_code = NewStringf("  internal fun %s(%s)%s {\n    %s%s(%s)\n  }\n\n",
-                                 imclass_dmethod,
-                                 bridge_params,
-                                 bridge_ret_clause,
-                                 is_void ? "" : "return ",
-                                 symname,
-                                 bridge_args);
-        Delete(bridge_ret_clause);
-        upcall = NewStringf("jself.%s(%s)", imclass_dmethod, imcall_args);
-        Delete(bridge_return);
+    if (kotlin_use && !is_public(n) && !ignored_method) {
+      // Kotlin protected members are not accessible from the intermediary object (Java relies
+      // on package access here), so the upcall goes through an internal bridge method emitted
+      // into the proxy class which forwards to the protected method.
+      String *bridge_return = NULL;
+      if ((tm = Swig_typemap_lookup("jstype", n, "", 0))) {
+        bridge_return = Copy(tm);
+        substituteClassname(returntype, bridge_return);
       } else {
-        upcall = NewStringf("jself.%s(%s)", symname, imcall_args);
+        bridge_return = NewString("Unit");
       }
+      String *bridge_ret_clause = (Cmp(bridge_return, "Unit") == 0) ? NewString("") : NewStringf(": %s", bridge_return);
+      bridge_code = NewStringf(
+        "  internal fun %s(%s)%s {\n    %s%s(%s)\n  }\n\n", imclass_dmethod, bridge_params, bridge_ret_clause, is_void ? "" : "return ", symname, bridge_args);
+      upcall = NewStringf("jself.%s(%s)", imclass_dmethod, imcall_args);
+      Delete(bridge_return);
+      Delete(bridge_ret_clause);
     } else {
       upcall = NewStringf("jself.%s(%s)", symname, imcall_args);
     }
@@ -5815,13 +5806,8 @@ public:
         if (member)
           return member;
       }
-      if (GetFlag(child, "feature:ignore"))
-        continue;
-      if (Cmp(Getattr(child, "sym:name"), symname) != 0)
-        continue;
-      if (decl && Cmp(Getattr(child, "decl"), decl) != 0)
-        continue;
-      return child;
+      if (!GetFlag(child, "feature:ignore") && !Cmp(Getattr(child, "sym:name"), symname) && (!decl || !Cmp(Getattr(child, "decl"), decl)))
+        return child;
     }
     return NULL;
   }
@@ -5845,19 +5831,16 @@ public:
       Node *first = NULL;
       List *baselist = Getattr(cls, "bases");
       if (baselist) {
-        for (Iterator base = First(baselist); base.item; base = Next(base)) {
-          if (!(GetFlag(base.item, "feature:ignore") || GetFlag(base.item, "feature:interface"))) {
-            if (getProxyName(Getattr(base.item, "name"))) {
-              first = base.item;
-              break;
-            }
+        for (Iterator base = First(baselist); base.item; base = Next(base))
+          if (!GetFlag(base.item, "feature:ignore") && !GetFlag(base.item, "feature:interface") && getProxyName(Getattr(base.item, "name"))) {
+            first = base.item;
+            break;
           }
-        }
       }
       if (!first)
         return false;
       Node *member = kotlinFindClassMember(first, symname, 0);
-      if (member && Cmp(Getattr(member, "kind"), "variable") == 0 && is_public(member))
+      if (member && !Cmp(Getattr(member, "kind"), "variable") && is_public(member))
         return true;
       cls = first;
     }
@@ -5875,7 +5858,7 @@ public:
 
   bool kotlinImplementsInterfaceMethod(Node *n) {
     Node *cls = getCurrentClass();
-    List *interface_bases = cls ? Getattr(cls, "interface:bases") : 0;
+    List *interface_bases = cls ? Getattr(cls, "interface:bases") : NULL;
     if (!interface_bases)
       return false;
     String *symname = Getattr(n, "sym:name");
@@ -5899,7 +5882,7 @@ public:
    * accessor with a local 'val', or a try/finally from pre/post code) return NULL.
    * ----------------------------------------------------------------------------- */
 
-  String *kotlinSingleReturnExpr(String *block) {
+  static String *kotlinSingleReturnExpr(String *block) {
     if (!block || Len(block) == 0)
       return NULL;
     String *expr = NULL;
@@ -5914,7 +5897,7 @@ public:
         middle++;
       while (isspace(*last))
         last++;
-      if (strcmp(first, "{") == 0 && strcmp(last, "}") == 0 && strncmp(middle, "return ", 7) == 0)
+      if (!strcmp(first, "{") && !strcmp(last, "}") && !strncmp(middle, "return ", 7))
         expr = NewString(middle + 7);
     }
     Delete(lines);
@@ -5931,7 +5914,7 @@ public:
    * body and closing brace align under the accessor keyword.
    * ----------------------------------------------------------------------------- */
 
-  String *kotlinFormatPropertyAccessor(const char *accessor, String *block) {
+  static String *kotlinFormatPropertyAccessor(const char *accessor, String *block) {
     if (!block || Len(block) == 0)
       return NewString(accessor);
 
@@ -5970,12 +5953,12 @@ public:
         Swig_offset_string(prop, 1);
       Printv(target, prop, NIL);
       Delete(prop);
+      Delete(kotlin_prop_getter_code);
+      kotlin_prop_getter_code = NULL;
     }
-    Delete(kotlin_prop_getter_code);
-    kotlin_prop_getter_code = NULL;
     Delete(kotlin_prop_setter_code);
-    kotlin_prop_setter_code = NULL;
     Delete(kotlin_prop_type);
+    kotlin_prop_setter_code = NULL;
     kotlin_prop_type = NULL;
   }
 
@@ -6021,10 +6004,8 @@ public:
    * ----------------------------------------------------------------------------- */
 
   bool kotlinIsOverrideInHierarchy(Node *n, Node *base_method) {
-    if (!base_method)
-      return false;
     // A %rename can give the two methods different target language names
-    if (Cmp(Getattr(n, "sym:name"), Getattr(base_method, "sym:name")) != 0)
+    if (!base_method || !Cmp(Getattr(n, "sym:name"), Getattr(base_method, "sym:name")))
       return false;
     // Methods added with %extend sit below an extend node inside the class
     Node *base_class = parentNode(base_method);
@@ -6032,25 +6013,20 @@ public:
       base_class = parentNode(base_class);
     if (!base_class)
       return false;
-    Node *cls = getCurrentClass();
-    while (cls) {
-      Node *first = NULL;
+    for (Node *cls = getCurrentClass(), *match = NULL; cls; cls = match) {
+      match = NULL;
       List *baselist = Getattr(cls, "bases");
       if (baselist) {
-        for (Iterator base = First(baselist); base.item; base = Next(base)) {
-          if (!(GetFlag(base.item, "feature:ignore") || GetFlag(base.item, "feature:interface"))) {
-            if (getProxyName(Getattr(base.item, "name"))) {
-              first = base.item;
-              break;
-            }
+        for (Iterator base = First(baselist); base.item; base = Next(base))
+          if (!GetFlag(base.item, "feature:ignore") && !GetFlag(base.item, "feature:interface") && getProxyName(Getattr(base.item, "name"))) {
+            match = base.item;
+            break;
           }
-        }
       }
-      if (!first)
+      if (!match)
         return false;
-      if (first == base_class)
+      if (match == base_class)
         return true;
-      cls = first;
     }
     return false;
   }
