@@ -6312,7 +6312,7 @@ public:
 
   // Convert C++ character to Kotlin
   static String *kotlinChar(const char *&pp) {
-    String *r = NULL;
+    String *ret = NULL;
     if (*pp == '\\') {
       // Escape sequences character
       if (isodigit(pp[1])) {
@@ -6323,23 +6323,20 @@ public:
           // octal value
           n = n * 8 + pp[e++] - '0';
         if (pp[e] == '\'') {
-          r = NewStringf("'\\u%.4x'", n);
+          ret = NewStringf("'\\u%.4x'", n);
           pp += e + 1;
-          return r;
         }
       } else if (pp[2] == '\'') {
         // Other escapes are passed as is
-        r = NewStringf("'\\%c'", pp[1]);
+        ret = NewStringf("'\\%c'", pp[1]);
         pp += 3;
-        return r;
       }
     } else if (pp[1] == '\'') {
       // Normal character, pass as is
-      r = NewStringf("'%c'", pp[0]);
+      ret = NewStringf("'%c'", pp[0]);
       pp += 2;
-      return r;
     }
-    return NULL;
+    return ret;
   }
 
   static String *kotlinParseUnary(const char *&pp) {
