@@ -6005,7 +6005,7 @@ public:
 
   bool kotlinIsOverrideInHierarchy(Node *n, Node *base_method) {
     // A %rename can give the two methods different target language names
-    if (!base_method || !Cmp(Getattr(n, "sym:name"), Getattr(base_method, "sym:name")))
+    if (!base_method || Cmp(Getattr(n, "sym:name"), Getattr(base_method, "sym:name")))
       return false;
     // Methods added with %extend sit below an extend node inside the class
     Node *base_class = parentNode(base_method);
@@ -6013,20 +6013,20 @@ public:
       base_class = parentNode(base_class);
     if (!base_class)
       return false;
-    for (Node *cls = getCurrentClass(), *match = NULL; cls; cls = match) {
-      match = NULL;
+    Node *cls = getCurrentClass();
+    while (cls) {
+      Node *first = NULL;
       List *baselist = Getattr(cls, "bases");
       if (baselist) {
         for (Iterator base = First(baselist); base.item; base = Next(base))
           if (!GetFlag(base.item, "feature:ignore") && !GetFlag(base.item, "feature:interface") && getProxyName(Getattr(base.item, "name"))) {
-            match = base.item;
+            first = base.item;
+            if (first == base_class)
+              return true;
             break;
           }
       }
-      if (!match)
-        return false;
-      if (match == base_class)
-        return true;
+      cls = first;
     }
     return false;
   }
