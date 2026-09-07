@@ -28,6 +28,8 @@ fun main() {
     check(string_constants.ES2, "", "ES2")
     check(string_constants.QQ1, "\b00! \u00018b00!", "QQ1")
     check(string_constants.QQ2, "\b00! \u00018b00!", "QQ2")
+    check(string_constants.AR1, "\u2192", "AR1")
+    check(string_constants.AR2, "\u2192", "AR2")
 
     // Variable forms come through JNI: an embedded null truncates the string there.
     check(string_constants.SS3, "\u00C6\u00CEOU\n", "SS3")
@@ -36,6 +38,7 @@ fun main() {
     check(string_constants.ZS3, "", "ZS3")
     check(string_constants.ES3, "", "ES3")
     check(string_constants.QQ3, "\b00! \u00018b00!", "QQ3")
+    check(string_constants.AR3, "\u2192", "AR3")
 
     // Default argument values mirror the variable (JNI) forms.
     val t = things()
@@ -45,4 +48,5 @@ fun main() {
     check(t.defarguments5(), "", "defarguments5")
     check(t.defarguments6(), "", "defarguments6")
     check(t.defarguments7(), "\b00! \u00018b00!", "defarguments7")
+    check(t.defarguments9(), "\u2192", "defarguments9")
 }

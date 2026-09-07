@@ -6260,14 +6260,31 @@ public:
           int n = *pp++ - '0';
           for (int i = 1; i < 3 && isodigit(*pp); i++)
             n = n * 8 + *pp++ - '0';
-          if ((n & 0xe0) == 0xc0 && *pp == '\\' && isodigit(pp[1])) {
-            // 2 UTF8 bytes to unicode
+          // We currently support up to 3 UTF8 bytes, upto Unicode U+FFFF
+          int b = 1;  // Number of bytes
+          if ((n & 0xe0) == 0xc0)
+            b = 2;  // Should be 2 UTF8 bytes
+          else if ((n & 0xf0) == 0xe0)
+            b = 3;  // Should be 3 UTF8 bytes
+          if (b > 1 && *pp == '\\' && isodigit(pp[1])) {
+            // 2 or 3 UTF8 bytes to unicode
             pp++;
             int n2 = *pp++ - '0';
             for (int i = 1; i < 3 && isodigit(*pp); i++)
               n2 = n2 * 8 + *pp++ - '0';
-            Printf(r, "\\u%.4x", ((n & 0x1f) << 6) + (n2 & 0x3f));
+            if (b > 2 && *pp == '\\' && isodigit(pp[1])) {
+              pp++;
+              int n3 = *pp++ - '0';
+              for (int i = 1; i < 3 && isodigit(*pp); i++)
+                n3 = n3 * 8 + *pp++ - '0';
+              // 3 UTF8 bytes to unicode
+              Printf(r, "\\u%.4x", ((n & 0xf) << 12) + ((n2 & 0x3f) << 6) + (n3 & 0x3f));
+            } else {
+              // 2 UTF8 bytes to unicode
+              Printf(r, "\\u%.4x", ((n & 0x1f) << 6) + (n2 & 0x3f));
+            }
           } else {
+            // one byte
             Printf(r, "\\u%.4x", n);
           }
         } else {
