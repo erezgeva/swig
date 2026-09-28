@@ -1,6 +1,6 @@
 
 
-# <a name="Library"></a> 14 SWIG library
+<h1 id="Library">14 SWIG library</h1>
 
 <!-- INDEX -->
 
@@ -18,7 +18,7 @@ these files are now deprecated and have been removed from the distribution.
 Alternative libraries provide similar functionality.  Please read this chapter
 carefully if you used the old libraries.
 
-## <a name="Library_nn2"></a> 14.1 The %include directive and library search path
+<h2 id="Library_nn2">14.1 The %include directive and library search path</h2>
 
 Library files are included using the `%include` directive.
 When searching for files, directories are searched in the following order:
@@ -39,7 +39,7 @@ Set the environment variable to hold an alternative library directory.
 
 The directories that are searched are displayed when using `-verbose` commandline option.
 
-## <a name="Library_nn3"></a> 14.2 C arrays and pointers
+<h2 id="Library_nn3">14.2 C arrays and pointers</h2>
 
 This section describes library modules for manipulating low-level C arrays and pointers.
 The primary use of these modules is in supporting C declarations that manipulate bare
@@ -48,7 +48,7 @@ used to allocate memory, manufacture pointers, dereference memory, and wrap
 pointers as class-like objects.   Since these functions provide direct access to
 memory, their use is potentially unsafe and you should exercise caution.
 
-### <a name="Library_argcargv"></a> 14.2.1 argcargv.i
+<h3 id="Library_argcargv">14.2.1 argcargv.i</h3>
 
 The argcargv.i library is a simple library providing multi-argument typemaps for handling C
 argc argv command line argument C string arrays.
@@ -77,7 +77,7 @@ mainApp(args);
 
 ```
 
-### <a name="Library_nn4"></a> 14.2.2 cpointer.i
+<h3 id="Library_nn4">14.2.2 cpointer.i</h3>
 
 The `cpointer.i` module defines macros that can be used
 to generate wrappers around simple C pointers.  The primary use of
@@ -219,7 +219,7 @@ In this example,  the function `int_to_uint()` would be used to cast types in th
 
 **Note:** When working with simple pointers, typemaps can often be used to provide more seamless operation.
 
-### <a name="Library_carrays"></a> 14.2.3 carrays.i
+<h3 id="Library_carrays">14.2.3 carrays.i</h3>
 
 This module defines macros that assist in wrapping ordinary C pointers as arrays.
 The module does not provide any safety or an extra layer of wrapping–it merely
@@ -348,7 +348,7 @@ you should consider using a special array object rather than a bare pointer.
 used with types of `char` or `char *`.
 SWIG's default handling of these types is to handle them as character strings and the two macros do not do enough to change this.
 
-### <a name="Library_nn6"></a> 14.2.4 cmalloc.i
+<h3 id="Library_nn6">14.2.4 cmalloc.i</h3>
 
 This module defines macros for wrapping the low-level C memory allocation functions
 `malloc()`, `calloc()`, `realloc()`, and `free()`.
@@ -454,7 +454,7 @@ Now, in a script:
 >>>
 ```
 
-### <a name="Library_nn7"></a> 14.2.5 cdata.i
+<h3 id="Library_nn7">14.2.5 cdata.i</h3>
 
 The `cdata.i` module defines functions for converting raw C data to and from a target language.
 
@@ -548,7 +548,7 @@ char *cdata_name(type* ptr, int nitems)
 **Note:** These functions provide direct access to memory and can be used to overwrite data.
 Clearly they are unsafe.
 
-## <a name="Library_nn8"></a> 14.3 C string handling
+<h2 id="Library_nn8">14.3 C string handling</h2>
 
 A common problem when working with C programs is dealing with
 functions that manipulate raw character data using `char *`.
@@ -563,7 +563,7 @@ well-known. However, SWIG is not in the business of enforcing
 morality.  The modules in this section provide basic functionality
 for manipulating raw C strings.
 
-### <a name="Library_nn9"></a> 14.3.1 Default string handling
+<h3 id="Library_nn9">14.3.1 Default string handling</h3>
 
 Suppose you have a C function with this prototype:
 
@@ -595,7 +595,7 @@ a `char *` argument points to data inside the target language, it is
 interpreter and lead to a crash).  Furthermore, the default behavior does
 not work well with binary data. Instead, strings are assumed to be NULL-terminated.
 
-### <a name="Library_nn10"></a> 14.3.2 Passing a string with length
+<h3 id="Library_nn10">14.3.2 Passing a string with length</h3>
 
 If you have a function that expects string with a length,
 
@@ -640,7 +640,7 @@ size_t parity(size_t len, char *str, size_t initial);
 The usage from target language will be identical.
 In the wrapper function, the supplied string will be expanded to a length parameter and pointer.
 
-### <a name="Library_nn11"></a> 14.3.3 Using %newobject to release memory
+<h3 id="Library_nn11">14.3.3 Using %newobject to release memory</h3>
 
 If you have a function that allocates memory like this,
 
@@ -672,7 +672,7 @@ SWIG provides the appropriate "newfree" typemap for `char *` so that the memory 
 however, you may need to provide your own "newfree" typemap for other types.
 See [Object ownership and %newobject](Customization/#Customization_ownership) for more details.
 
-### <a name="Library_nn12"></a> 14.3.4 cstring.i
+<h3 id="Library_nn12">14.3.4 cstring.i</h3>
 
 The `cstring.i` library file provides a collection of macros
 for dealing with functions that either mutate string arguments or
@@ -995,9 +995,9 @@ allocation.  If using C, the library uses `malloc()` and `free()`.
 - Rather than manipulating `char *` directly, you might consider using a special string
 structure or class instead.
 
-## <a name="Library_c_standard_library"></a> 14.4 C standard library
+<h2 id="Library_c_standard_library">14.4 C standard library</h2>
 
-### <a name="Library_complex"></a> 14.4.1 Complex floating types
+<h3 id="Library_complex">14.4.1 Complex floating types</h3>
 
 SWIG has some support for complex floating types.  By default the keyword
 `_Complex` is understood by the parser but `complex` is not
@@ -1031,7 +1031,7 @@ Then if wrapping as opaque types is not useful to you, you can use
 [`%ignore`](SWIG/#SWIG_ignore) to tell SWIG not to wrap
 the functions and/or variables which use complex floating types.
 
-## <a name="Library_stl_cpp_library"></a> 14.5 STL/C++ library
+<h2 id="Library_stl_cpp_library">14.5 STL/C++ library</h2>
 
 The library modules in this section provide access to parts of the standard C++ library including the STL.
 SWIG support for the STL is an ongoing effort. Support is quite comprehensive for some language modules
@@ -1066,7 +1066,7 @@ The following table shows which C++ classes are supported and the equivalent SWI
 The list is by no means complete; some language modules support a subset of the above and some support additional STL classes.
 Please look for the library files in the appropriate language library directory.
 
-### <a name="Library_std_string"></a> 14.5.1 std::string
+<h3 id="Library_std_string">14.5.1 std::string</h3>
 
 The `std_string.i` library provides typemaps for converting C++ `std::string`
 objects to and from strings in the target scripting language.  For example:
@@ -1137,7 +1137,7 @@ void foo(string s, const String &t);     // std_string typemaps still applied
 
 ```
 
-### <a name="Library_std_string_view"></a> 14.5.2 std::string_view
+<h3 id="Library_std_string_view">14.5.2 std::string_view</h3>
 
 The `std_string_view.i` library provides typemaps for converting C++17 `std::string_view`
 objects to and from strings in the target scripting language.  For example:
@@ -1174,7 +1174,7 @@ string to return somewhere which will persist for the lifetime the caller
 needs (e.g. put it in a member variable) - you can't return a temporary target
 language string.  In both cases SWIG will issue a warning by default.
 
-### <a name="Library_std_vector"></a> 14.5.3 std::vector
+<h3 id="Library_std_vector">14.5.3 std::vector</h3>
 
 The `std_vector.i` library provides support for the C++ `std::vector` class in the STL.
 Using this library involves the use of the `%template` directive.  All you need to do is to
@@ -1320,7 +1320,7 @@ if you want to make their head explode.
 **Note:** This module is defined for all SWIG target languages.  However argument conversion
 details and the public API exposed to the interpreter vary.
 
-### <a name="Library_stl_exceptions"></a> 14.5.4 STL exceptions
+<h3 id="Library_stl_exceptions">14.5.4 STL exceptions</h3>
 
 Many of the STL wrapper functions add parameter checking and will throw a language dependent error/exception
 should the values not be valid. The classic example is array bounds checking.
@@ -1361,9 +1361,9 @@ The `%exception` directive can be used by placing the following code before any 
 
 Any thrown STL exceptions will then be gracefully handled instead of causing a crash.
 
-### <a name="Library_std_shared_ptr"></a> 14.5.5 shared_ptr smart pointer
+<h3 id="Library_std_shared_ptr">14.5.5 shared_ptr smart pointer</h3>
 
-#### <a name="Library_shared_ptr_basics"></a> 14.5.5.1 shared_ptr basics
+<h4 id="Library_shared_ptr_basics">14.5.5.1 shared_ptr basics</h4>
 
 Some target languages have support for handling the shared_ptr reference counted smart pointer.
 This smart pointer is available in the standard C++11 library as `std::shared_ptr`.
@@ -1445,7 +1445,7 @@ System.out.println(val1 + " " + val2);
 
 ```
 
-#### <a name="Library_shared_ptr_inheritance"></a> 14.5.5.2 shared_ptr and inheritance
+<h4 id="Library_shared_ptr_inheritance">14.5.5.2 shared_ptr and inheritance</h4>
 
 The shared_ptr library works quite differently to SWIG's normal, but somewhat limited, 
 [smart pointer handling](SWIGPlus/#SWIGPlus_smart_pointers).
@@ -1525,7 +1525,7 @@ Adding the missing `%shared_ptr` macros will fix this:
 
 ```
 
-#### <a name="Library_shared_ptr_overloading"></a> 14.5.5.3 shared_ptr and method overloading
+<h4 id="Library_shared_ptr_overloading">14.5.5.3 shared_ptr and method overloading</h4>
 
 A C++ compiler can disambiguate a method overloaded by a shared_ptr and one using the raw underlying type.
 For example, either one of these methods can be called in C++:
@@ -1542,7 +1542,7 @@ SWIG will choose to wrap just the first method by default.
 [Ambiguity in overloading](SWIGPlus/#SWIGPlus_nn25) discusses ways to control which method(s) gets wrapped using `%ignore` or `%rename`.
 For the interested reader, SWIG detects that they are equivalent types via the [typecheck typemaps](Typemaps/#Typemaps_typecheck_pointer) in the shared_ptr library.
 
-#### <a name="Library_shared_ptr_templates"></a> 14.5.5.4 shared_ptr and templates
+<h4 id="Library_shared_ptr_templates">14.5.5.4 shared_ptr and templates</h4>
 
 The `%shared_ptr` macro should be used for all the required instantiations
 of the template before each of the `%template` instantiations.
@@ -1579,11 +1579,11 @@ The SWIG code below shows the required ordering:
 
 ```
 
-#### <a name="Library_shared_ptr_directors"></a> 14.5.5.5 shared_ptr and directors
+<h4 id="Library_shared_ptr_directors">14.5.5.5 shared_ptr and directors</h4>
 
 The languages that support shared_ptr also have support for using shared_ptr with directors.
 
-### <a name="Library_std_unique_ptr"></a> 14.5.6 unique_ptr smart pointer
+<h3 id="Library_std_unique_ptr">14.5.6 unique_ptr smart pointer</h3>
 
 The `std_unique_ptr.i` library file provides SWIG's unique_ptr support.
 It provides move semantics for the smart pointer's underlying object,
@@ -1601,7 +1601,7 @@ by copying and customising the typemaps in the appropriate `std_unique_ptr.i` li
 Note that SWIG doesn't currently support using both `%shared_ptr(T)` and
 `%unique_ptr<T>` on the same type `T`.
 
-#### <a name="Library_std_unique_ptr_by_value"></a> 14.5.6.1 unique_ptr passed by value
+<h4 id="Library_std_unique_ptr_by_value">14.5.6.1 unique_ptr passed by value</h4>
 
 Example usage of a `std::unique_ptr` being returned from a function by value is shown below.
 
@@ -1690,7 +1690,7 @@ Consider implementing additional checks via the 'check' typemap.
 Attempts to pass ownership from a proxy class to a `std::unique` parameter more than once will result
 in a "Cannot release ownership as memory is not owned" exception. For example, if `example.take(k)` in the example above is called twice.
 
-#### <a name="Library_std_unique_ptr_by_ref"></a> 14.5.6.2 unique_ptr passed by reference
+<h4 id="Library_std_unique_ptr_by_ref">14.5.6.2 unique_ptr passed by reference</h4>
 
 The effect of passing a `std::unique_ptr` by rvalue reference into a function is identical to passing it by value.
 The ownership of the memory of the object being pointed to by the underyling pointer is transferred from the proxy class to the C++ function being called. Example:
@@ -1742,7 +1742,7 @@ std::unique_ptr<Klass>&& RvalueRefReturn();
 **Compatibility note:** Support for `std::unique_ptr` was first added in SWIG-4.1.0.
 This initial support contained the move semantics when passing a `std::unique_ptr` around by value. Support for passing a `std::unique_ptr` around by reference was added in SWIG-4.3.0.
 
-### <a name="Library_std_auto_ptr"></a> 14.5.7 auto_ptr smart pointer
+<h3 id="Library_std_auto_ptr">14.5.7 auto_ptr smart pointer</h3>
 
 While `std::auto_ptr` is deprecated in C++11, some existing code may
 still be using it. SWIG provides support for this class which is nearly identical
@@ -1798,7 +1798,7 @@ That is, it works the same way covered in the previous section for `std::unique_
 
 Input parameters also work the same way as `std::unique_ptr` covered in the previous section.
 
-### <a name="Library_std_function"></a> 14.5.8 std::function
+<h3 id="Library_std_function">14.5.8 std::function</h3>
 
 The `std_function.i` library file wraps the C++11 `std::function`
 polymorphic function-object template. It exposes the partial specialisation
@@ -1887,9 +1887,9 @@ or
 `std_function.i` so that
 `std::function` can be usefully used.
 
-## <a name="Library_nn16"></a> 14.6 Utility Libraries
+<h2 id="Library_nn16">14.6 Utility Libraries</h2>
 
-### <a name="Library_nn17"></a> 14.6.1 exception.i
+<h3 id="Library_nn17">14.6.1 exception.i</h3>
 
 The `exception.i` library provides a language-independent function for raising a run-time
 exception in the target language. This library is largely used by the SWIG library writers.
@@ -1935,7 +1935,7 @@ For example:
 
 ```
 
-### <a name="Library_attributes"></a> 14.6.2 attribute.i
+<h3 id="Library_attributes">14.6.2 attribute.i</h3>
 
 The attribute library contains a set of macros to convert a pair of set/get methods
 into a "native" attribute/property.
@@ -2120,7 +2120,7 @@ have `%naturalvar` turned on and so is also useful for
 shared_ptr which has `%naturalvar` turned on in
 `%shared_ptr`.
 
-#### <a name="Library_attribute_templates"></a> 14.6.2.1 %attribute and C++ templates
+<h4 id="Library_attribute_templates">14.6.2.1 %attribute and C++ templates</h4>
 
 `%attribute` and friends have to be used on fully specified classes. For example
 

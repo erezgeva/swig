@@ -1,12 +1,12 @@
 
 
-# <a name="Modules"></a> 22 Working with Modules
+<h1 id="Modules">22 Working with Modules</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="Modules_introduction"></a> 22.1 Modules Introduction
+<h2 id="Modules_introduction">22.1 Modules Introduction</h2>
 
 Each invocation of SWIG requires a module name to be specified.
 The module name is used to name the resulting target language extension module. 
@@ -47,7 +47,7 @@ This chapter describes the problem of using SWIG in programs
 where you want to create a collection of modules. 
 Each module in the collection is created via separate invocations of SWIG.
 
-## <a name="Modules_nn1"></a> 22.2 Basics
+<h2 id="Modules_nn1">22.2 Basics</h2>
 
 The basic usage case with multiple modules is when modules do not have
 cross-references (ie. when wrapping multiple independent C APIs). In that case,
@@ -151,7 +151,7 @@ to beware of is that multiple dependent wrappers should not be linked/loaded
 in parallel from multiple threads as SWIG provides no locking - for more on that
 issue, read on.
 
-## <a name="Modules_nn2"></a> 22.3 The SWIG runtime code
+<h2 id="Modules_nn2">22.3 The SWIG runtime code</h2>
 
 Many of SWIG's target languages generate a set of functions commonly known as
 the "SWIG runtime." These functions are primarily related to the runtime type
@@ -202,7 +202,7 @@ can peacefully coexist. So the type structures are separated by the
 (SWIG_TYPE_TABLE, SWIG_RUNTIME_VERSION) pair, where by default SWIG_TYPE_TABLE
 is empty. Only modules compiled with the same pair will share type information.
 
-## <a name="Modules_external_run_time"></a> 22.4 External access to the runtime
+<h2 id="Modules_external_run_time">22.4 External access to the runtime</h2>
 
 As described in [The run-time type checker](Typemaps/#Typemaps_runtime_type_checker),
 the functions `SWIG_TypeQuery`, `SWIG_NewPointerObj`, and others sometimes need
@@ -239,7 +239,7 @@ compiling any code which includes the generated header file should define the
 SWIG_TYPE_TABLE to be the same as the module whose types you are trying to
 access.
 
-## <a name="Modules_nn4"></a> 22.5 A word of caution about static libraries
+<h2 id="Modules_nn4">22.5 A word of caution about static libraries</h2>
 
 When working with multiple SWIG modules, you should take care not to use static
 libraries.  For example, if you have a static library `libfoo.a` and you link a collection
@@ -247,12 +247,12 @@ of SWIG modules with that library, each module will get its own private copy of 
 into it. This is very often **NOT** what you want and it can lead to unexpected or bizarre program
 behavior. When working with dynamically loadable modules, you should try to work exclusively with shared libraries.
 
-## <a name="Modules_nn5"></a> 22.6 References
+<h2 id="Modules_nn5">22.6 References</h2>
 
 Due to the complexity of working with shared libraries and multiple modules, it might be a good idea to consult
 an outside reference.  John Levine's "Linkers and Loaders" is highly recommended.
 
-## <a name="Modules_nn6"></a> 22.7 Reducing the wrapper file size
+<h2 id="Modules_nn6">22.7 Reducing the wrapper file size</h2>
 
 Using multiple modules with the `%import` directive is the most common approach to modularising large projects.
 In this way a number of different wrapper files can be generated, thereby avoiding the generation of a single large wrapper file.

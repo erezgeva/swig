@@ -1,6 +1,6 @@
 
 
-# <a name="Perl5"></a> 33 SWIG and Perl5
+<h1 id="Perl5">33 SWIG and Perl5</h1>
 
 <!-- INDEX -->
 
@@ -15,7 +15,7 @@ and has been improved greatly with the help of SWIG users. As of SWIG
 We can no longer easily test with older versions, and they no longer
 seem to be in active use.
 
-## <a name="Perl5_nn2"></a> 33.1 Overview
+<h2 id="Perl5_nn2">33.1 Overview</h2>
 
 To build Perl extension modules, SWIG uses a layered approach.  At
 the lowest level, simple procedural wrappers are generated for
@@ -31,7 +31,7 @@ procedural interface is presented.  Finally, proxy classes are
 described.  Advanced customization features, typemaps, and other
 options are found near the end of the chapter.
 
-## <a name="Perl5_nn3"></a> 33.2 Preliminaries
+<h2 id="Perl5_nn3">33.2 Preliminaries</h2>
 
 To build a Perl5 module, run SWIG using the `-perl` or `-perl5` option as
 follows:
@@ -50,7 +50,7 @@ properly load the module.
 To build the module, you will need to compile the file
 `example_wrap.c` and link it with the rest of your program.
 
-### <a name="Perl5_nn4"></a> 33.2.1 Getting the right header files
+<h3 id="Perl5_nn4">33.2.1 Getting the right header files</h3>
 
 In order to compile, SWIG extensions need the following Perl5 header files:
 
@@ -81,7 +81,7 @@ $ perl -e 'use Config; print "$Config{archlib}\n";'
 
 ```
 
-### <a name="Perl5_nn5"></a> 33.2.2 Compiling a dynamic module
+<h3 id="Perl5_nn5">33.2.2 Compiling a dynamic module</h3>
 
 The preferred approach to building an extension module is to compile it into
 a shared object file or DLL. Assuming you have code you need to link to in a file called `example.c`,
@@ -109,7 +109,7 @@ the SWIG interface file. If you used ``%module example`', then
 the target should be named ``example.so`',
 ``example.sl`', or the appropriate dynamic module name on your system.
 
-### <a name="Perl5_nn6"></a> 33.2.3 Building a dynamic module with MakeMaker
+<h3 id="Perl5_nn6">33.2.3 Building a dynamic module with MakeMaker</h3>
 
 It is also possible to use Perl to build dynamically loadable modules
 for you using the MakeMaker utility.  To do this, write a Perl
@@ -142,7 +142,7 @@ the preferred approach to compilation.  More information about MakeMaker can be
 found in "Programming Perl, 2nd ed." by Larry Wall, Tom Christiansen,
 and Randal Schwartz.
 
-### <a name="Perl5_nn7"></a> 33.2.4 Building a static version of Perl
+<h3 id="Perl5_nn7">33.2.4 Building a static version of Perl</h3>
 
 If you machine does not support dynamic loading or if you've tried to
 use it without success, you can build a new version of the Perl
@@ -208,7 +208,7 @@ should be functionality identical to Perl with your C/C++ extension
 added to it.  Depending on your machine, you may need to link with
 additional libraries such as `-lsocket, -lnsl, -ldl`, etc.
 
-### <a name="Perl5_nn8"></a> 33.2.5 Using the module
+<h3 id="Perl5_nn8">33.2.5 Using the module</h3>
 
 To use the module, simply use the Perl `use` statement.  If
 all goes well, you will be able to do this:
@@ -335,7 +335,7 @@ Finally, you can use a command such as `ldconfig` (Linux) or
 system configuration (this requires root access and you will need to
 read the man pages).
 
-### <a name="Perl5_nn9"></a> 33.2.6 Compilation problems and compiling with C++
+<h3 id="Perl5_nn9">33.2.6 Compilation problems and compiling with C++</h3>
 
 Compilation of C++ extensions has traditionally been a tricky problem.
 Since the Perl interpreter is written in C, you need to take steps to
@@ -460,7 +460,7 @@ in Lib/perl5/noembed.h while compiling the wrapper, you will
 have to find the macro that conflicts and add an #undef into the .i file.  Please report
 any conflicting macros you find to [swig-user mailing list](https://www.swig.org/mail.html).
 
-### <a name="Perl5_nn10"></a> 33.2.7 Compiling for 64-bit platforms
+<h3 id="Perl5_nn10">33.2.7 Compiling for 64-bit platforms</h3>
 
 On platforms that support 64-bit applications (Solaris, Irix, etc.),
 special care is required when building extension modules.  On these
@@ -480,7 +480,7 @@ that software.  This may prevent the use of 64-bit extensions.  It may
 also introduce problems on platforms that support more than one
 linking standard (e.g., -o32 and -n32 on Irix).
 
-## <a name="Perl5_nn11"></a> 33.3 Building Perl Extensions under Windows
+<h2 id="Perl5_nn11">33.3 Building Perl Extensions under Windows</h2>
 
 Building a SWIG extension to Perl under Windows is roughly
 similar to the process used with Unix.  Normally, you will want to
@@ -488,7 +488,7 @@ produce a DLL that can be loaded into the Perl interpreter.  This
 section assumes you are using SWIG with Microsoft Visual C++
 although the procedure may be similar with other compilers.
 
-### <a name="Perl5_nn12"></a> 33.3.1 Running SWIG from Developer Studio
+<h3 id="Perl5_nn12">33.3.1 Running SWIG from Developer Studio</h3>
 
 If you are developing your application within Microsoft developer
 studio, SWIG can be invoked as a custom build option.  The process
@@ -538,19 +538,19 @@ print "$a\n";
 
 ```
 
-### <a name="Perl5_nn13"></a> 33.3.2 Using other compilers
+<h3 id="Perl5_nn13">33.3.2 Using other compilers</h3>
 
 SWIG is known to work with Cygwin and may work with other compilers on Windows.
 For general hints and suggestions refer to the [Windows](Windows/#Windows) chapter.
 
-## <a name="Perl5_nn14"></a> 33.4 The low-level interface
+<h2 id="Perl5_nn14">33.4 The low-level interface</h2>
 
 At its core, the Perl module uses a simple low-level interface
 to C function, variables, constants, and classes.  This low-level interface
 can be used to control your application.  However, it is also used to
 construct more user-friendly proxy classes as described in the next section.
 
-### <a name="Perl5_nn15"></a> 33.4.1 Functions
+<h3 id="Perl5_nn15">33.4.1 Functions</h3>
 
 C functions are converted into new Perl built-in commands (or
 subroutines). For example:
@@ -572,7 +572,7 @@ $a = &example::fact(2);
 
 ```
 
-### <a name="Perl5_nn16"></a> 33.4.2 Global variables
+<h3 id="Perl5_nn16">33.4.2 Global variables</h3>
 
 Global variables are handled using Perl's magic
 variable mechanism.   SWIG generates a pair of functions
@@ -634,7 +634,7 @@ extern char *path;       // Declared later in the input
 
 ```
 
-### <a name="Perl5_nn17"></a> 33.4.3 Constants
+<h3 id="Perl5_nn17">33.4.3 Constants</h3>
 
 By default, constants are wrapped as read-only Perl variables.  For example:
 
@@ -667,7 +667,7 @@ print example::FOO, "\n";
 
 ```
 
-### <a name="Perl5_nn18"></a> 33.4.4 Pointers
+<h3 id="Perl5_nn18">33.4.4 Pointers</h3>
 
 SWIG represents pointers as blessed references.  A blessed reference
 is the same as a Perl reference except that it has additional
@@ -766,7 +766,7 @@ C-style cast may return a bogus result whereas as the C++-style cast will return
 as XS and `xsubpp`.  Given the advancement of the SWIG typesystem and the growing differences between 
 SWIG and XS, this is no longer supported.
 
-### <a name="Perl5_nn19"></a> 33.4.5 Structures
+<h3 id="Perl5_nn19">33.4.5 Structures</h3>
 
 Access to the contents of a structure are provided through a set of low-level
 accessor functions as described in the "SWIG Basics" chapter.  For example,
@@ -881,7 +881,7 @@ void Bar_f_set(Bar *b, Foo *val) {
 
 ```
 
-### <a name="Perl5_nn20"></a> 33.4.6 C++ classes
+<h3 id="Perl5_nn20">33.4.6 C++ classes</h3>
 
 C++ classes are wrapped by building a set of low level accessor functions. 
 Consider the following class:
@@ -942,7 +942,7 @@ as the first argument.   Although this interface is fairly primitive, it
 provides direct access to C++ objects.  A higher level interface using Perl proxy classes
 can be built using these low-level accessors.  This is described shortly.
 
-### <a name="Perl5_nn21"></a> 33.4.7 C++ classes and type-checking
+<h3 id="Perl5_nn21">33.4.7 C++ classes and type-checking</h3>
 
 The SWIG type-checker is fully aware of C++ inheritance.  Therefore, if you have
 classes like this
@@ -971,7 +971,7 @@ then the function `spam()` accepts `Foo *` or a pointer to any class derived fro
 If necessary, the type-checker also adjusts the value of the pointer (as is necessary when
 multiple inheritance is used).
 
-### <a name="Perl5_nn22"></a> 33.4.8 C++ overloaded functions
+<h3 id="Perl5_nn22">33.4.8 C++ overloaded functions</h3>
 
 If you have a C++ program with overloaded functions or methods, you will need to disambiguate
 those methods using `%rename`.   For example:
@@ -1008,7 +1008,7 @@ example::Spam_foo_d($s, 3.14);
 
 Please refer to the "SWIG Basics" chapter for more information.
 
-### <a name="Perl5_nn23"></a> 33.4.9 Operators
+<h3 id="Perl5_nn23">33.4.9 Operators</h3>
 
 As of version 1.3.27 SWIG automatically renames the most common C++ operators, and maps them into the perl module with the proper 'use overload ...' so you don't need to do any work.
 
@@ -1028,7 +1028,7 @@ The following C++ operators are currently supported by the Perl module:
 - operator and
 - operator or
 
-### <a name="Perl5_nn24"></a> 33.4.10 Modules and packages
+<h3 id="Perl5_nn24">33.4.10 Modules and packages</h3>
 
 When you create a SWIG extension, everything gets placed into
 a single Perl module. The name of the module is determined by the
@@ -1112,7 +1112,7 @@ print Foo::fact(4), "\n";        # Call a function in package FooBar
 </pre></div>
 -->
 
-## <a name="Perl5_nn25"></a> 33.5 Input and output parameters
+<h2 id="Perl5_nn25">33.5 Input and output parameters</h2>
 
 A common problem in some C programs is handling parameters passed as simple pointers.  For
 example:
@@ -1294,7 +1294,7 @@ print "$c\n";
 
 **Note:** The `REFERENCE` feature is only currently supported for numeric types (integers and floating point).
 
-## <a name="Perl5_nn26"></a> 33.6 Exception handling
+<h2 id="Perl5_nn26">33.6 Exception handling</h2>
 
 The SWIG `%exception` directive can be used to create a
 user-definable exception handler for converting exceptions in your
@@ -1425,7 +1425,7 @@ For example:
 Since SWIG's exception handling is user-definable, you are not limited to C++ exception handling.
 See the chapter on "[Customization features](Customization/#Customization)" for more examples.
 
-## <a name="Perl5_nn27"></a> 33.7 Remapping datatypes with typemaps
+<h2 id="Perl5_nn27">33.7 Remapping datatypes with typemaps</h2>
 
 This section describes how you can modify SWIG's default wrapping behavior
 for various C/C++ datatypes using the `%typemap` directive.   This
@@ -1437,7 +1437,7 @@ part of using SWIG—the default wrapping behavior is enough in most cases.
 Typemaps are only used if you want to change some aspect of the primitive
 C-Perl interface.
 
-### <a name="Perl5_nn28"></a> 33.7.1 A simple typemap example
+<h3 id="Perl5_nn28">33.7.1 A simple typemap example</h3>
 
 A typemap is nothing more than a code generation rule that is attached to 
 a specific C datatype.   For example, to convert integers from Perl to C,
@@ -1527,7 +1527,7 @@ example::count("e", "Hello World");
 >>>
 ```
 
-### <a name="Perl5_nn29"></a> 33.7.2 Perl5 typemaps
+<h3 id="Perl5_nn29">33.7.2 Perl5 typemaps</h3>
 
 The previous section illustrated an "in" typemap for converting Perl objects to C.
 A variety of different typemap methods are defined by the Perl module.  For example,
@@ -1582,7 +1582,7 @@ Setting of C++ member data (all languages).
 
 Check value of input parameter.
 
-### <a name="Perl5_nn30"></a> 33.7.3 Typemap variables
+<h3 id="Perl5_nn30">33.7.3 Typemap variables</h3>
 
 Within typemap code, a number of special variables prefaced with a `$` may appear.
 A full list of variables can be found in the "[Typemaps](Typemaps/#Typemaps)" chapter.
@@ -1622,7 +1622,7 @@ properly assigned.
 
 The Perl name of the wrapper function being created.
 
-### <a name="Perl5_nn31"></a> 33.7.4 Useful functions
+<h3 id="Perl5_nn31">33.7.4 Useful functions</h3>
 
 When writing typemaps, it is necessary to work directly with Perl5
 objects.  This, unfortunately, can be a daunting task.  Consult the
@@ -1679,13 +1679,13 @@ int       sv_isa(SV *, char *0;
 
 ```
 
-## <a name="Perl5_nn32"></a> 33.8 Typemap Examples
+<h2 id="Perl5_nn32">33.8 Typemap Examples</h2>
 
 This section includes a few examples of typemaps.  For more examples, you
 might look at the files "`perl5.swg`" and "`typemaps.i`" in
 the SWIG library.
 
-### <a name="Perl5_nn33"></a> 33.8.1 Converting a Perl5 array to a char **
+<h3 id="Perl5_nn33">33.8.1 Converting a Perl5 array to a char **</h3>
 
 A common problem in many C programs is the processing of command line
 arguments, which are usually passed in an array of NULL terminated
@@ -1774,7 +1774,7 @@ print @$b, "\n";                                 # Print it out
 
 ```
 
-### <a name="Perl5_nn34"></a> 33.8.2 Return values
+<h3 id="Perl5_nn34">33.8.2 Return values</h3>
 
 Return values are placed on the argument stack of each wrapper
 function.  The current value of the argument stack pointer is
@@ -1800,7 +1800,7 @@ can be done using the `EXTEND()` macro as in:
 
 ```
 
-### <a name="Perl5_nn35"></a> 33.8.3 Returning values from arguments
+<h3 id="Perl5_nn35">33.8.3 Returning values from arguments</h3>
 
 Sometimes it is desirable for a function to return a value in one of
 its arguments.  This example describes the implementation of the `OUTPUT` typemap.
@@ -1853,7 +1853,7 @@ print "multout(7, 13) = @r\n";
 
 ```
 
-### <a name="Perl5_nn36"></a> 33.8.4 Accessing array structure members
+<h3 id="Perl5_nn36">33.8.4 Accessing array structure members</h3>
 
 Consider the following data structure:
 
@@ -1909,7 +1909,7 @@ the "in" typemap in the previous section would be used to convert an
 `int[]` array to C whereas the "memberin" typemap would be used
 to copy the converted array into a C data structure.
 
-### <a name="Perl5_nn37"></a> 33.8.5 Turning Perl references into C pointers
+<h3 id="Perl5_nn37">33.8.5 Turning Perl references into C pointers</h3>
 
 A frequent confusion on the SWIG mailing list is errors caused by the
 mixing of Perl references and C pointers.  For example, suppose you
@@ -1972,7 +1972,7 @@ print "$c\n";
 
 ```
 
-### <a name="Perl5_nn38"></a> 33.8.6 Pointer handling
+<h3 id="Perl5_nn38">33.8.6 Pointer handling</h3>
 
 Occasionally, it might be necessary to convert pointer values that have
 been stored using the SWIG typed-pointer representation.  To convert a pointer from Perl to C, the following
@@ -2041,7 +2041,7 @@ For example:
 
 ```
 
-## <a name="Perl5_nn39"></a> 33.9 Proxy classes
+<h2 id="Perl5_nn39">33.9 Proxy classes</h2>
 
 **Out of date. Needs update.**
 
@@ -2052,7 +2052,7 @@ that provides an OO wrapper
 to the underlying code.  This section describes the implementation
 details of the proxy interface.
 
-### <a name="Perl5_nn40"></a> 33.9.1 Preliminaries
+<h3 id="Perl5_nn40">33.9.1 Preliminaries</h3>
 
 Proxy classes, are generated by default. If you want to turn them off, use the `-noproxy` command line option.
 For example:
@@ -2069,7 +2069,7 @@ you provided with the `%module` directive.  Then, in place of the original modul
 SWIG creates a collection of high-level Perl wrappers.  In your scripts, you will use these
 high level wrappers.  The wrappers, in turn, interact with the low-level procedural module.
 
-### <a name="Perl5_nn41"></a> 33.9.2 Structure and class wrappers
+<h3 id="Perl5_nn41">33.9.2 Structure and class wrappers</h3>
 
 Suppose you have the following SWIG interface file:
 
@@ -2190,7 +2190,7 @@ $v->DESTROY();
 
 ```
 
-### <a name="Perl5_nn42"></a> 33.9.3 Object Ownership
+<h3 id="Perl5_nn42">33.9.3 Object Ownership</h3>
 
 In order for proxy classes to work properly, it is necessary for Perl
 to manage some mechanism of object ownership.  Here's the crux of the
@@ -2274,7 +2274,7 @@ As always, a little care is in order.  SWIG does not provide reference
 counting, garbage collection, or advanced features one might find in
 sophisticated languages.
 
-### <a name="Perl5_nn43"></a> 33.9.4 Nested Objects
+<h3 id="Perl5_nn43">33.9.4 Nested Objects</h3>
 
 Suppose that we have a new object that looks like this:
 
@@ -2322,7 +2322,7 @@ $p->{f}->{x} = 0.0;
 
 ```
 
-### <a name="Perl5_nn44"></a> 33.9.5 Proxy Functions
+<h3 id="Perl5_nn44">33.9.5 Proxy Functions</h3>
 
 When functions take arguments involving a complex object, it is
 sometimes necessary to write a proxy function.  For example:
@@ -2353,7 +2353,7 @@ sub dot_product {
 This function replaces the original function, but operates in an
 identical manner.
 
-### <a name="Perl5_nn45"></a> 33.9.6 Inheritance
+<h3 id="Perl5_nn45">33.9.6 Inheritance</h3>
 
 Simple C++ inheritance is handled using the Perl `@ISA` array
 in each class package. For example, if you have the following
@@ -2422,7 +2422,7 @@ class. However, be forewarned that this is not a trivial problem.  In
 particular, inheritance of data members is extremely tricky (and I'm
 not even sure if it really works).
 
-### <a name="Perl5_nn46"></a> 33.9.7 Modifying the proxy methods
+<h3 id="Perl5_nn46">33.9.7 Modifying the proxy methods</h3>
 
 It is possible to override the SWIG generated proxy/shadow methods, using `%feature("shadow")`.
 It works like all the other [%feature directives](Customization/#Customization_features).
@@ -2449,7 +2449,7 @@ public:
 
 ```
 
-## <a name="Perl5_nn47"></a> 33.10 Adding additional Perl code
+<h2 id="Perl5_nn47">33.10 Adding additional Perl code</h2>
 
 If writing support code in C isn't enough, it is also possible to write code in
 Perl.  This code gets inserted in to the `.pm` file created by SWIG.   One
@@ -2495,7 +2495,7 @@ set_transform($im, $a);
 
 ```
 
-## <a name="Perl5_directors"></a> 33.11 Cross language polymorphism
+<h2 id="Perl5_directors">33.11 Cross language polymorphism</h2>
 
 Proxy classes provide a more natural, object-oriented way to access
 extension classes. As described above, each proxy instance has an
@@ -2522,7 +2522,7 @@ to know where a particular method is implemented: the combination of
 proxy classes, director classes, and C wrapper functions takes care of
 all the cross-language method routing transparently.
 
-### <a name="Perl5_nn48"></a> 33.11.1 Enabling directors
+<h3 id="Perl5_nn48">33.11.1 Enabling directors</h3>
 
 The director feature is disabled by default.  To use directors you
 must make two changes to the interface file.  First, add the "directors"
@@ -2598,7 +2598,7 @@ sub one {
 
 ```
 
-### <a name="Perl5_nn49"></a> 33.11.2 Director classes
+<h3 id="Perl5_nn49">33.11.2 Director classes</h3>
 
 For each class that has directors enabled, SWIG generates a new class
 that derives from both the class in question and a special
@@ -2665,7 +2665,7 @@ unmodified proxy classes, all methods are ultimately implemented in C++
 so there is no need for the extra overhead involved with routing the
 calls through Perl.
 
-### <a name="Perl5_nn50"></a> 33.11.3 Ownership and object destruction
+<h3 id="Perl5_nn50">33.11.3 Ownership and object destruction</h3>
 
 Memory management issues are slightly more complicated with directors
 than for proxy classes alone. Perl instances hold a pointer to the
@@ -2706,7 +2706,7 @@ sub DESTROY {
 
 ```
 
-### <a name="Perl5_nn51"></a> 33.11.4 Exception unrolling
+<h3 id="Perl5_nn51">33.11.4 Exception unrolling</h3>
 
 With directors routing method calls to Perl, and proxies routing them
 to C++, the handling of exceptions is an important concern. By default, the
@@ -2753,7 +2753,7 @@ exception. Because the Perl error state is still set when
 Swig::DirectorMethodException is thrown, Perl will register the
 exception as soon as the C wrapper function returns.
 
-### <a name="Perl5_nn52"></a> 33.11.5 Overhead and code bloat
+<h3 id="Perl5_nn52">33.11.5 Overhead and code bloat</h3>
 
 Enabling directors for a class will generate a new director method for
 every virtual method in the class' inheritance chain. This alone can
@@ -2780,7 +2780,7 @@ optimized by selectively enabling director methods (using the %feature
 directive) for only those methods that are likely to be extended in
 Perl.
 
-### <a name="Perl5_nn53"></a> 33.11.6 Typemaps
+<h3 id="Perl5_nn53">33.11.6 Typemaps</h3>
 
 Typemaps for input and output of most of the basic types from director
 classes have been written. These are roughly the reverse of the usual

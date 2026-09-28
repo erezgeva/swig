@@ -1,12 +1,12 @@
 
 
-# <a name="Introduction"></a> 2 Introduction
+<h1 id="Introduction">2 Introduction</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="Introduction_nn2"></a> 2.1 What is SWIG?
+<h2 id="Introduction_nn2">2.1 What is SWIG?</h2>
 
 SWIG is a software development tool that simplifies the task of
 interfacing different languages to C and C++ programs.  In a
@@ -40,7 +40,7 @@ small; especially the research and development work that is commonly found
 in scientific and engineering projects. However, nowadays SWIG is known to be used in many
 large open source and commercial projects.
 
-## <a name="Introduction_nn3"></a> 2.2 Why use SWIG?
+<h2 id="Introduction_nn3">2.2 Why use SWIG?</h2>
 
 As stated in the previous section, the primary purpose of SWIG is to simplify
 the task of integrating C/C++ with other programming languages.  However, why would
@@ -97,7 +97,7 @@ it provides a wide variety of customization features that let you change almost
 every aspect of the language bindings.  This is the main reason why SWIG has such a large
 user manual ;-).
 
-## <a name="Introduction_target_languages"></a> 2.3 Target languages
+<h2 id="Introduction_target_languages">2.3 Target languages</h2>
 
 SWIG in essence is a tool to generate code for making C/C++ code available to various other programming languages.
 These higher level programming languages are the target languages for the SWIG code generator and C or C++ are the input languages.
@@ -116,7 +116,7 @@ This status is provided to indicate the level of maturity to expect when using a
 The second part of the SWIG documentation contains a chapter for each target level language.
 The target language chapters are under one of the sections indicating the status (Supported, Experimental or Deprecated) for that language.
 
-### <a name="Introduction_supported_status"></a> 2.3.1 Supported status
+<h3 id="Introduction_supported_status">2.3.1 Supported status</h3>
 
 A target language is given the 'Supported' status when
 
@@ -129,7 +129,7 @@ A target language is given the 'Supported' status when
 The above is a short summary and further details are outlined in the [Supported status](Extending/#Extending_supported_status) section in the Extending chapter.
 The good news is that all the well-known and most popular languages have this status.
 
-### <a name="Introduction_experimental_status"></a> 2.3.2 Experimental status
+<h3 id="Introduction_experimental_status">2.3.2 Experimental status</h3>
 
 A target language is given the 'Experimental' status when
 
@@ -145,7 +145,7 @@ The usual [warning suppression](Warnings/#Warnings_suppression) techniques can b
 
 The above is a short summary and further details are outlined in the [Experimental status](Extending/#Extending_experimental_status) section in the Extending chapter.
 
-### <a name="Introduction_deprecated_status"></a> 2.3.3 Deprecated status
+<h3 id="Introduction_deprecated_status">2.3.3 Deprecated status</h3>
 
 A target language that was once 'Supported' or 'Experimental' is changed to the 'Deprecated' status when
 it has been neglected over time and become non-functional.
@@ -156,7 +156,7 @@ Please see the [Deprecated status](Extending/#Extending_deprecated_status) secti
 SWIG displays a deprecated warning notice whenever a 'Deprecated' language is used.
 The usual [warning suppression](Warnings/#Warnings_suppression) techniques can be used if required.
 
-## <a name="Introduction_nn4"></a> 2.4 A SWIG example
+<h2 id="Introduction_nn4">2.4 A SWIG example</h2>
 
 The best way to illustrate SWIG is with a simple example. Consider the
 following C code:
@@ -187,7 +187,7 @@ variable `My_variable` from Tcl.  You start by making a SWIG
 interface file as shown below (by convention, these files carry a .i
 suffix) :
 
-### <a name="Introduction_nn5"></a> 2.4.1 SWIG interface file
+<h3 id="Introduction_nn5">2.4.1 SWIG interface file</h3>
 
 ```swig
 
@@ -212,7 +212,7 @@ module that will be created by SWIG.  The `%{ %}` block
 provides a location for inserting additional code, such as C header
 files or additional C declarations, into the generated C wrapper code.
 
-### <a name="Introduction_nn6"></a> 2.4.2 The swig command
+<h3 id="Introduction_nn6">2.4.2 The swig command</h3>
 
 SWIG is invoked using the `swig` command. We can use this to
 build a Tcl module (under Linux) as follows :
@@ -244,7 +244,7 @@ and variables declared in the SWIG interface.  A look at the file
 `example_wrap.c` reveals a hideous mess.  However, you 
 almost never need to worry about it.
 
-### <a name="Introduction_nn7"></a> 2.4.3 Building a Perl5 module
+<h3 id="Introduction_nn7">2.4.3 Building a Perl5 module</h3>
 
 Now, let's turn these functions into a Perl5 module. Without making
 any changes type the following (shown for Solaris):
@@ -267,7 +267,7 @@ print $example::My_variable + 4.5, "\n";
 unix >
 ```
 
-### <a name="Introduction_nn8"></a> 2.4.4 Building a Python module
+<h3 id="Introduction_nn8">2.4.4 Building a Python module</h3>
 
 Finally, let's build a module for Python (shown for Linux).
 
@@ -288,7 +288,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 ```
 
-### <a name="Introduction_nn9"></a> 2.4.5 Shortcuts
+<h3 id="Introduction_nn9">2.4.5 Shortcuts</h3>
 
 To the truly lazy programmer, one may wonder why we needed the extra
 interface file at all. As it turns out, you can often do without
@@ -313,7 +313,7 @@ print $example::My_variable + 4.5, "\n";
 
 ```
 
-## <a name="Introduction_nn10"></a> 2.5 Supported C/C++ language features
+<h2 id="Introduction_nn10">2.5 Supported C/C++ language features</h2>
 
 A primary goal of the SWIG project is to make the language binding
 process extremely easy.  Although a few simple examples have been shown,
@@ -346,7 +346,7 @@ to be just as capable of dealing with nasty corner cases as it is in
 wrapping simple C++ code.  In fact, SWIG is able to handle C++ code that
 stresses the very limits of many C++ compilers.
 
-## <a name="Introduction_nn11"></a> 2.6 Non-intrusive interface building
+<h2 id="Introduction_nn11">2.6 Non-intrusive interface building</h2>
 
 When used as intended, SWIG requires minimal (if any) modification to
 existing C or C++ code. This makes SWIG extremely easy to use with existing
@@ -355,7 +355,7 @@ the C/C++ code independent of the high level interface, you can change the
 interface and reuse the code in other applications.   It is also
 possible to support different types of interfaces depending on the application.
 
-## <a name="Introduction_build_system"></a> 2.7 Incorporating SWIG into a build system
+<h2 id="Introduction_build_system">2.7 Incorporating SWIG into a build system</h2>
 
 SWIG is a command line tool and as such can be incorporated into any build system that supports invoking external tools/compilers.
 SWIG is most commonly invoked from within a Makefile, but is also known to be invoked from popular IDEs such as 
@@ -405,7 +405,7 @@ The above example will generate native build files such as makefiles, nmake file
 which will invoke SWIG and compile the generated C++ files into _example.so (UNIX) or _example.pyd (Windows).
 For other target languages on Windows a dll, instead of a .pyd file, is usually generated.
 
-## <a name="Introduction_nn12"></a> 2.8 Hands off code generation
+<h2 id="Introduction_nn12">2.8 Hands off code generation</h2>
 
 SWIG is designed to produce working code that needs no
 hand-modification (in fact, if you look at the output, you probably
@@ -415,7 +415,7 @@ file. While this approach may limit flexibility for hard-core hackers,
 it allows others to forget about the low-level implementation
 details.
 
-## <a name="Introduction_nn13"></a> 2.9 SWIG and freedom
+<h2 id="Introduction_nn13">2.9 SWIG and freedom</h2>
 
 No, this isn't a special section on the sorry state of world politics.
 However, it may be useful to know that SWIG was written with a

@@ -1,12 +1,12 @@
 
 
-# <a name="Extending"></a> 42 Extending SWIG to support new languages
+<h1 id="Extending">42 Extending SWIG to support new languages</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="Extending_nn2"></a> 42.1 Introduction
+<h2 id="Extending_nn2">42.1 Introduction</h2>
 
 This chapter primarily describes SWIG's internal organization and the process by which
 new target languages can be developed.
@@ -20,7 +20,7 @@ date, but changes are ongoing.   Expect a few inconsistencies.
 Also, this chapter is not meant to be a hand-holding tutorial.  As a starting point,
 you should probably look at one of SWIG's existing modules.
 
-## <a name="Extending_nn3"></a> 42.2 Prerequisites
+<h2 id="Extending_nn3">42.2 Prerequisites</h2>
 
 In order to extend SWIG, it is useful to have the following background:
 
@@ -41,7 +41,7 @@ extension of the C++ *type* system.  At first glance, this might not be
 obvious, but almost all SWIG directives as well as the low-level generation of
 wrapper code are driven by C++ datatypes.
 
-## <a name="Extending_nn4"></a> 42.3 The Big Picture
+<h2 id="Extending_nn4">42.3 The Big Picture</h2>
 
 SWIG is a special purpose compiler that parses C++ declarations to
 generate wrapper code.  To make this conversion possible, SWIG makes
@@ -67,7 +67,7 @@ fundamental concepts.  The type system and pattern matching rules also play a cr
 role in making the system work.  For example, both typemaps and declaration annotation are
 based on pattern matching and interact heavily with the underlying type system.
 
-## <a name="Extending_nn5"></a> 42.4 Execution Model
+<h2 id="Extending_nn5">42.4 Execution Model</h2>
 
 When you run SWIG on an interface, processing is handled in stages by a series of system components:
 
@@ -96,7 +96,7 @@ latter stage of compilation.
 
 The next few sections briefly describe some of these stages.
 
-### <a name="Extending_nn6"></a> 42.4.1 Preprocessing
+<h3 id="Extending_nn6">42.4.1 Preprocessing</h3>
 
 The preprocessor plays a critical role in the SWIG implementation.  This is because a lot
 of SWIG's processing and internal configuration is managed not by code written in C, but
@@ -170,7 +170,7 @@ Also, like a regular C/C++ compiler, the preprocessed output can be generated in
 then fed back in with a second invocation.
 This is the approach that the [CCache](CCache/#CCache) tool uses as part of its strategy to speed up repeated builds with the same inputs.
 
-### <a name="Extending_nn7"></a> 42.4.2 Parsing
+<h3 id="Extending_nn7">42.4.2 Parsing</h3>
 
 The current C++ parser handles a subset of C++.  Most incompatibilities with C are due to
 subtle aspects of how SWIG parses declarations.  Specifically, SWIG expects all C/C++ declarations to follow this general form:
@@ -249,7 +249,7 @@ interprets the above code as an abstract declarator for a function
 returning a `foo` and taking types `a` and `b` as
 arguments).
 
-### <a name="Extending_nn8"></a> 42.4.3 Parse Trees
+<h3 id="Extending_nn8">42.4.3 Parse Trees</h3>
 
 The SWIG parser produces a complete parse tree of the input file before any wrapper code
 is actually generated.  Each item in the tree is known as a "Node".   Each node is identified
@@ -531,7 +531,7 @@ debug-module stage 1
 
 ```
 
-### <a name="Extending_nn9"></a> 42.4.4 Attribute namespaces
+<h3 id="Extending_nn9">42.4.4 Attribute namespaces</h3>
 
 Attributes of parse tree nodes are often prepended with a namespace qualifier.
 For example, the attributes
@@ -545,7 +545,7 @@ of wrapper code.  The convention for doing this is to place these attributes in 
 that matches the name of the target language.  For example, `python:foo` or
 `perl:foo`.
 
-### <a name="Extending_nn10"></a> 42.4.5 Symbol Tables
+<h3 id="Extending_nn10">42.4.5 Symbol Tables</h3>
 
 During parsing, all symbols are managed in the space of the target
 language.  The `sym:name` attribute of each node contains the symbol name
@@ -624,7 +624,7 @@ example.i:5. Previous declaration is foo_i(int )
 
 ```
 
-### <a name="Extending_nn11"></a> 42.4.6 The %feature directive
+<h3 id="Extending_nn11">42.4.6 The %feature directive</h3>
 
 A number of SWIG directives such as `%exception` are implemented using the
 low-level `%feature` directive.  For example:
@@ -672,7 +672,7 @@ data stored in a feature attribute is usually just a raw unparsed string.
 For example, the exception code above is simply
 stored without any modifications.
 
-### <a name="Extending_nn12"></a> 42.4.7 Code Generation
+<h3 id="Extending_nn12">42.4.7 Code Generation</h3>
 
 Language modules work by defining handler functions that know how to respond to
 different types of parse-tree nodes.  These handlers simply look at the
@@ -777,7 +777,7 @@ public :
 
 The role of these functions is described shortly.
 
-### <a name="Extending_nn13"></a> 42.4.8 SWIG and XML
+<h3 id="Extending_nn13">42.4.8 SWIG and XML</h3>
 
 Much of SWIG's current parser design was originally motivated by
 interest in using XML to represent SWIG parse trees.  Although XML is
@@ -813,7 +813,7 @@ process numerous extra SWIG system files and also add to the parse tree quite co
 The XML is a dump of SWIG's internal parse tree and as such it is subject to change at any
 time as and when SWIG's implementation changes.
 
-## <a name="Extending_nn14"></a> 42.5 Primitive Data Structures
+<h2 id="Extending_nn14">42.5 Primitive Data Structures</h2>
 
 Most of SWIG is constructed using three basic data structures:
 strings, hashes, and lists.  These data structures are dynamic in same way as
@@ -848,7 +848,7 @@ typedef Hash   Typetab;
 
 ```
 
-### <a name="Extending_nn15"></a> 42.5.1 Strings
+<h3 id="Extending_nn15">42.5.1 Strings</h3>
 
 **`String *NewString(const String_or_char *val)`**
 
@@ -931,7 +931,7 @@ Returns the number of replacements made (if any).
 At most one of `DOH_REPLACE_ANY` and `DOH_REPLACE_FIRST` should be specified.
 `DOH_REPLACE_ANY` is the default if neither is specified.
 
-### <a name="Extending_nn16"></a> 42.5.2 Hashes
+<h3 id="Extending_nn16">42.5.2 Hashes</h3>
 
 **`Hash *NewHash()`**
 
@@ -978,7 +978,7 @@ Returns the list of hash table keys.
 
 Returns the list of sorted hash table keys.
 
-### <a name="Extending_nn17"></a> 42.5.3 Lists
+<h3 id="Extending_nn17">42.5.3 Lists</h3>
 
 **`List *NewList()`**
 
@@ -1030,7 +1030,7 @@ can be used for `pos` to indicate insertion at the end of the list (appending).
 If `t` is not a standard object, it is assumed to be a `char *`
 and is used to create a String object.
 
-### <a name="Extending_nn18"></a> 42.5.4 Common operations
+<h3 id="Extending_nn18">42.5.4 Common operations</h3>
 
 The following operations are applicable to all datatypes.
 
@@ -1060,7 +1060,7 @@ objects and report errors.
 
 Gets the line number associated with `x`.
 
-### <a name="Extending_nn19"></a> 42.5.5 Iterating over Lists and Hashes
+<h3 id="Extending_nn19">42.5.5 Iterating over Lists and Hashes</h3>
 
 To iterate over the elements of a list or a hash table, the following functions are used:
 
@@ -1095,7 +1095,7 @@ for (j = First(j); j.item; j= Next(j)) {
 
 ```
 
-### <a name="Extending_nn20"></a> 42.5.6 I/O
+<h3 id="Extending_nn20">42.5.6 I/O</h3>
 
 Special I/O functions are used for all internal I/O.  These operations
 work on C `FILE *` objects, String objects, and special `File` objects
@@ -1178,7 +1178,7 @@ Printf(f, "%s\n", s);
 
 Similarly, the preprocessor and parser all operate on string-files.
 
-## <a name="Extending_nn21"></a> 42.6 Navigating and manipulating parse trees
+<h2 id="Extending_nn21">42.6 Navigating and manipulating parse trees</h2>
 
 Parse trees are built as collections of hash tables.   Each node is a hash table in which
 arbitrary attributes can be stored.  Certain attributes in the hash table provide links to
@@ -1251,7 +1251,7 @@ Append a child to `parent`.  The appended node becomes the last child.
 Deletes a node from the parse tree.  Deletion reconnects siblings and properly updates
 the parent so that sibling nodes are unaffected.
 
-## <a name="Extending_nn22"></a> 42.7 Working with attributes
+<h2 id="Extending_nn22">42.7 Working with attributes</h2>
 
 Since parse tree nodes are just hash tables, attributes are accessed using the `Getattr()`,
 `Setattr()`, and `Delattr()` operations.  For example:
@@ -1341,13 +1341,13 @@ attribute is saved as with `Swig_save()`.  If an attribute is specified as "?*na
 the attribute is optional.   `Swig_restore()` must always be called after using this
 function.
 
-## <a name="Extending_nn23"></a> 42.8 Type system
+<h2 id="Extending_nn23">42.8 Type system</h2>
 
 SWIG implements the complete C++ type system including typedef, inheritance,
 pointers, references, and pointers to members.   A detailed discussion of
 type theory is impossible here.   However, let's cover the highlights.
 
-### <a name="Extending_nn24"></a> 42.8.1 String encoding of types
+<h3 id="Extending_nn24">42.8.1 String encoding of types</h3>
 
 All types in SWIG consist of a base datatype and a collection of type
 operators that are applied to the base.   A base datatype is almost
@@ -1414,7 +1414,7 @@ is processed in a few pieces.  In this case, you have the base type
 make the final type, the two parts are just joined together using
 string concatenation.
 
-### <a name="Extending_nn25"></a> 42.8.2 Type construction
+<h3 id="Extending_nn25">42.8.2 Type construction</h3>
 
 The following functions are used to construct types.  You should use
 these functions instead of trying to build the type strings yourself.
@@ -1508,7 +1508,7 @@ Returns the prefix of a type. For example, if `ty` is
 `"p.a(20).int"`, this function would return `"p.a(20)."`.
 `ty` is unmodified.
 
-### <a name="Extending_nn26"></a> 42.8.3 Type tests
+<h3 id="Extending_nn26">42.8.3 Type tests</h3>
 
 The following functions can be used to test properties of a datatype.
 
@@ -1552,7 +1552,7 @@ Checks if `ty` is a varargs type.
 
 Checks if `ty` is a templatized type.
 
-### <a name="Extending_nn27"></a> 42.8.4 Typedef and inheritance
+<h3 id="Extending_nn27">42.8.4 Typedef and inheritance</h3>
 
 The behavior of `typedef` declaration is to introduce a type alias.
 For instance, `typedef int Integer` makes the identifier
@@ -1631,7 +1631,7 @@ The following function will fully reduce a datatype:
 Fully reduces `ty` according to typedef rules.  Resulting datatype
 will consist only of primitive typenames.
 
-### <a name="Extending_nn28"></a> 42.8.5 Lvalues
+<h3 id="Extending_nn28">42.8.5 Lvalues</h3>
 
 When generating wrapper code, it is necessary to emit datatypes that can
 be used on the left-hand side of an assignment operator (an lvalue). However,
@@ -1659,7 +1659,7 @@ Literal y;    // type = 'Literal', ltype='p.char'
 
 ```
 
-### <a name="Extending_nn29"></a> 42.8.6 Output functions
+<h3 id="Extending_nn29">42.8.6 Output functions</h3>
 
 The following functions produce strings that are suitable for output.
 
@@ -1698,7 +1698,7 @@ C identifier.   The resulting string is used in various parts of
 SWIG, but is most commonly associated with type-descriptor objects
 that appear in wrappers (e.g., `SWIGTYPE_p_double`).
 
-## <a name="Extending_nn30"></a> 42.9 Parameters
+<h2 id="Extending_nn30">42.9 Parameters</h2>
 
 Several type-related functions involve parameter lists.  These include
 functions and templates.  Parameter list are represented as a list of
@@ -1762,7 +1762,7 @@ included.  Used to emit prototypes.
 
 Returns the number of required (non-optional) arguments in `p`.
 
-## <a name="Extending_nn31"></a> 42.10 Writing a Language Module
+<h2 id="Extending_nn31">42.10 Writing a Language Module</h2>
 
 One of the easiest routes to supporting a new language module is to copy an already
 supported language module implementation and modify it.
@@ -1774,14 +1774,14 @@ Since the code is relatively easy to read, this section
 describes the creation of a minimal Python module.   You should be able to extrapolate
 this to other languages.
 
-### <a name="Extending_nn32"></a> 42.10.1 Execution model
+<h3 id="Extending_nn32">42.10.1 Execution model</h3>
 
 Code generation modules are defined by inheriting from the `Language` class,
 currently defined in the `Source/Modules` directory of SWIG.  Starting from
 the parsing of command line options, all aspects of code generation are controlled by
 different methods of the `Language` that must be defined by your module.
 
-### <a name="Extending_starting_out"></a> 42.10.2 Starting out
+<h3 id="Extending_starting_out">42.10.2 Starting out</h3>
 
 To define a new language module, first create a minimal implementation using
 this example as a guide:
@@ -1867,7 +1867,7 @@ Once it finishes compiling, try running SWIG with the command-line option
 that activates your module. For example, `swig -python foo.i`. The
 messages from your new module should appear.
 
-### <a name="Extending_nn34"></a> 42.10.3 Command line options
+<h3 id="Extending_nn34">42.10.3 Command line options</h3>
 
 When SWIG starts, the command line options are passed to your language module.  This occurs
 before any other processing occurs (preprocessing, parsing, etc.).   To capture the
@@ -1919,7 +1919,7 @@ If a module recognizes an option, it should always call `Swig_mark_arg()`
 to mark the option as valid.   If you forget to do this, SWIG will terminate with an
 unrecognized command line option error.
 
-### <a name="Extending_nn35"></a> 42.10.4 Configuration and preprocessing
+<h3 id="Extending_nn35">42.10.4 Configuration and preprocessing</h3>
 
 In addition to looking at command line options, the `main()` method is responsible
 for some initial configuration of the SWIG library and preprocessor.   To do this,
@@ -1956,7 +1956,7 @@ Just to review, your language module should now consist of two files–
 an implementation file `python.cxx` and a configuration file
 `python.swg`.
 
-### <a name="Extending_nn36"></a> 42.10.5 Entry point to code generation
+<h3 id="Extending_nn36">42.10.5 Entry point to code generation</h3>
 
 SWIG is a multi-pass compiler.  Once the `main()` method has
 been invoked, the language module does not execute again until
@@ -2005,7 +2005,7 @@ int Python::top(Node *n) {
 
 ```
 
-### <a name="Extending_nn37"></a> 42.10.6 Module I/O and wrapper skeleton
+<h3 id="Extending_nn37">42.10.6 Module I/O and wrapper skeleton</h3>
 
 <!-- please report bugs in this section to mgossage -->
 
@@ -2138,7 +2138,7 @@ functionWrapper   : void Shape_y_set(Shape *self, double y)
 
 ```
 
-### <a name="Extending_nn38"></a> 42.10.7 Low-level code generators
+<h3 id="Extending_nn38">42.10.7 Low-level code generators</h3>
 
 <!-- please report bugs in this section to mgossage -->
 
@@ -2279,7 +2279,7 @@ virtual int functionWrapper(Node *n) {
 Executing this code will produce wrappers which have our basic skeleton
 but without the typemaps, there is still work to do.
 
-### <a name="Extending_configuration_files"></a> 42.10.8 Configuration files
+<h3 id="Extending_configuration_files">42.10.8 Configuration files</h3>
 
 <!-- please report bugs in this section to ttn -->
 
@@ -2396,13 +2396,13 @@ As you can see, most usages are direct.
     ignored if it is not installed and detected on a box, that is, `make check-examples` and `make check-test-suite`
     politely displays the ignoring language message.
 
-### <a name="Extending_nn40"></a> 42.10.9 Runtime support
+<h3 id="Extending_nn40">42.10.9 Runtime support</h3>
 
 Discuss the kinds of functions typically needed for SWIG runtime support (e.g.
 `SWIG_ConvertPtr()` and `SWIG_NewPointerObj()`) and the names of
 the SWIG files that implement those functions.
 
-### <a name="Extending_nn41"></a> 42.10.10 Standard library files
+<h3 id="Extending_nn41">42.10.10 Standard library files</h3>
 
 The standard library files that most languages supply keeps growing as SWIG matures.
 The following are the minimum that are usually supported:
@@ -2414,7 +2414,7 @@ The following are the minimum that are usually supported:
 
 Please copy these and modify for any new language.
 
-### <a name="Extending_nn42"></a> 42.10.11 User examples
+<h3 id="Extending_nn42">42.10.11 User examples</h3>
 
 Each of the language modules provides one or more examples. These examples
 are used to demonstrate different features of the language module to SWIG
@@ -2435,7 +2435,7 @@ By default, all of the examples are built and run when the user types
 `make check`. To ensure that your examples are automatically run
 during this process, see the section on [configuration files](#Extending_configuration_files).
 
-### <a name="Extending_test_suite"></a> 42.10.12 Test driven development and the test-suite
+<h3 id="Extending_test_suite">42.10.12 Test driven development and the test-suite</h3>
 
 A test driven development approach is central to the improvement and development of SWIG.
 Most modifications to SWIG are accompanied by additional regression tests and checking all 
@@ -2479,7 +2479,7 @@ Compilation or runtime errors result in a testcase failure and will be immediate
 It is therefore essential that the runtime tests are written in a manner that displays nothing to stdout/stderr on success 
 but error/exception out with an error message on stderr on failure.
 
-#### <a name="Extending_running_test_suite"></a> 42.10.12.1 Running the test-suite
+<h4 id="Extending_running_test_suite">42.10.12.1 Running the test-suite</h4>
 
 In order for the test-suite to work for a particular target language, the language must be correctly detected
 and configured during the configure stage so that the correct Makefiles are generated.
@@ -2670,7 +2670,7 @@ There is also a special 'errors' test-suite which is a set of regression tests c
 It can be run in the same way as the other language test-suites, replacing [lang] with errors, such as `make check-errors-test-suite`.
 The test cases used and the way it works is described in `Examples/test-suite/errors/Makefile.in`.
 
-### <a name="Extending_nn43"></a> 42.10.13 Documentation
+<h3 id="Extending_nn43">42.10.13 Documentation</h3>
 
 Don't forget to write end-user documentation for your language module. Currently,
 each language module has a dedicated chapter 
@@ -2694,7 +2694,7 @@ Some topics that you'll want to be sure to address include:
      Provide as much detail as appropriate, and links to other resources
      if available.
 
-### <a name="Extending_coding_style_guidelines"></a> 42.10.14 Coding style guidelines
+<h3 id="Extending_coding_style_guidelines">42.10.14 Coding style guidelines</h3>
 
 The coding guidelines for the C/C++ source code are defined and implemented by the clang-format tool using
 the `Source/.clang-format` config file.
@@ -2792,13 +2792,13 @@ Prior to that the GNU `indent` tool was recommended for formatting.
 The switch to clang-format was made in order to gain automated, consistent and working reformatting for C++ source code.
 The SWIG code base had to undergo some subtle formatting changes as a result.
 
-### <a name="Extending_language_status"></a> 42.10.15 Target language status
+<h3 id="Extending_language_status">42.10.15 Target language status</h3>
 
 Target languages are given a status of either 'Supported', 'Experimental' or 'Deprecated' depending on their maturity as broadly outlined in
 the [Target language introduction](Introduction/#Introduction_target_languages).
 This section provides more details on how this status is given.
 
-#### <a name="Extending_supported_status"></a> 42.10.15.1 Supported status
+<h4 id="Extending_supported_status">42.10.15.1 Supported status</h4>
 
 A target language is given the 'Supported' status when
 
@@ -2824,7 +2824,7 @@ A target language is given the 'Supported' status when
 - Examples must be available and run successfully.
 - The examples and test-suite must be fully functioning on the Github Actions Continuous Integration platform.
 
-#### <a name="Extending_experimental_status"></a> 42.10.15.2 Experimental status
+<h4 id="Extending_experimental_status">42.10.15.2 Experimental status</h4>
 
 A target language is given the 'Experimental' status when
 
@@ -2852,7 +2852,7 @@ Some minimum requirements and notes about languages with the 'Experimental' stat
 - No backwards compatibility is guaranteed as the module is effectively 'in development'.
   If a language module has an official maintainer, then a backwards compatibility guarantee may be provided at the maintainer's discretion and should be documented as such.
 
-#### <a name="Extending_deprecated_status"></a> 42.10.15.3 Deprecated status
+<h4 id="Extending_deprecated_status">42.10.15.3 Deprecated status</h4>
 
 Unfortunately target languages that once met 'Experimental' or 'Supported' status can become non-functional and simply bit rot
 due to neglect or due to the language's C/C++ API evolving and changing over time.
@@ -2870,7 +2870,7 @@ This step becomes the final plea for help from the community who use the target 
 The language will need updating by an interested community member to meet the requirements of at least 'Experimental' status in order to prevent removal.
 If you are a user of a 'Deprecated' target language and would like to keep it available in future releases, please contact the SWIG developers for details of how you can help.
 
-### <a name="Extending_prerequisites"></a> 42.10.16 Prerequisites for adding a new language module to the SWIG distribution
+<h3 id="Extending_prerequisites">42.10.16 Prerequisites for adding a new language module to the SWIG distribution</h3>
 
 New target language modules can be included in SWIG and contributions are encouraged for popular languages.
 In order to be considered for inclusion, a language must at a minimum fit the 'Experimental' status described above.
@@ -2908,7 +2908,7 @@ Runtime tests should be added for existing testcases and new test cases
 can be added should there be an area not already covered by 
 the existing tests.
 
-## <a name="Extending_debugging_options"></a> 42.11 Debugging Options
+<h2 id="Extending_debugging_options">42.11 Debugging Options</h2>
 
 There are various command line options which can aid debugging a SWIG interface as well as debugging the development of a language module. These are as follows:
 
@@ -2933,7 +2933,7 @@ There are various command line options which can aid debugging a SWIG interface 
 
 The complete list of command line options for SWIG are available by running `swig -help`.
 
-## <a name="Extending_nn46"></a> 42.12 Guide to parse tree nodes
+<h2 id="Extending_nn46">42.12 Guide to parse tree nodes</h2>
 
 This section describes the different parse tree nodes and their attributes.
 
@@ -3279,7 +3279,7 @@ extern "X" { ... } declaration.
 
 ```
 
-## <a name="Extending_further_info"></a> 42.13 Further Development Information
+<h2 id="Extending_further_info">42.13 Further Development Information</h2>
 
 There is further documentation available on the internals of SWIG, API documentation and debugging information.
 This is shipped with SWIG in the `Doc/Devel` directory.

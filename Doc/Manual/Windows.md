@@ -1,6 +1,6 @@
 
 
-# <a name="Windows"></a> 3 Getting started on Windows 
+<h1 id="Windows">3 Getting started on Windows</h1>
 
 <!-- INDEX -->
 
@@ -10,19 +10,19 @@ This chapter describes SWIG usage on Microsoft Windows.
 Installing SWIG and running the examples is covered as well as building the SWIG executable.
 Usage within the Unix like environments MinGW and Cygwin is also detailed.
 
-## <a name="Windows_installation"></a> 3.1 Installation on Windows
+<h2 id="Windows_installation">3.1 Installation on Windows</h2>
 
 SWIG does not come with the usual Windows type installation program, however it is quite easy to get started. The main steps are:
 
 - Download the swigwin zip package from the [SWIG website](https://www.swig.org) and unzip into a directory. This is all that needs downloading for the Windows platform.
 - Set environment variables as described in the [SWIG Windows Examples](#Windows_examples) section in order to run examples using Visual C++.
 
-### <a name="Windows_executable"></a> 3.1.1 Windows Executable
+<h3 id="Windows_executable">3.1.1 Windows Executable</h3>
 
 The swigwin distribution contains the SWIG Windows 64-bit executable, swig.exe, which will only run on 64-bit versions of Windows.
 If you want to build your own swig.exe have a look at [Building swig.exe on Windows](#Windows_swig_exe).
 
-## <a name="Windows_examples"></a> 3.2 SWIG Windows Examples
+<h2 id="Windows_examples">3.2 SWIG Windows Examples</h2>
 
 Microsoft Visual C++ is used for compiling and linking SWIG's output on Windows for some languages.
 However, MinGW and gcc is often the only supported toolchain for a number of target languages.
@@ -35,7 +35,7 @@ Alternatively run the [examples using Cygwin](#Windows_examples_cygwin).
 
 More information on each of the examples is available with the examples distributed with SWIG (Examples/index.html).
 
-### <a name="Windows_visual_studio"></a> 3.2.1 Instructions for using the Examples with Visual Studio
+<h3 id="Windows_visual_studio">3.2.1 Instructions for using the Examples with Visual Studio</h3>
 
 Ensure the SWIG executable is as supplied in the SWIG root directory in order for the examples to work. 
 Most languages require some environment variables to be set **before** running Visual C++. 
@@ -49,13 +49,13 @@ They are usually set from the Control Panel and System properties, but this depe
 If you don't want to use environment variables then change all occurrences of the environment variables in the .dsp files with hard coded values.
 If you are interested in how the project files are set up there is explanatory information in some of the language module's documentation.
 
-#### <a name="Windows_csharp"></a> 3.2.1.1 C#
+<h4 id="Windows_csharp">3.2.1.1 C#</h4>
 
 The C# examples do not require any environment variables to be set as a C# project file is included.
 Just open up the .sln solution file in Visual Studio 2019 or later, select Release Build, and do a Rebuild Solution from the Build menu.
 The accompanying C# and C++ project files are automatically used by the solution file.
 
-#### <a name="Windows_java"></a> 3.2.1.2 Java
+<h4 id="Windows_java">3.2.1.2 Java</h4>
 
 **`JAVA_INCLUDE`** : Set this to the directory containing jni.h
 
@@ -69,7 +69,7 @@ JAVA_INCLUDE: C:\miniconda3\envs\java\Library\lib\jvm\include
 JAVA_BIN: C:\miniconda3\envs\java\Library\lib\jvm\bin
 ```
 
-#### <a name="Windows_python"></a> 3.2.1.3 Python
+<h4 id="Windows_python">3.2.1.3 Python</h4>
 
 **`PYTHON_INCLUDE`** : Set this to the directory that contains Python.h
 
@@ -83,7 +83,7 @@ PYTHON_INCLUDE: C:\miniconda3\envs\python\include
 PYTHON_LIB: C:\miniconda3\envs\python\libs\python313.lib
 ```
 
-#### <a name="Windows_tcl"></a> 3.2.1.4 TCL
+<h4 id="Windows_tcl">3.2.1.4 TCL</h4>
 
 **`TCL_INCLUDE`** : Set this to the directory containing tcl.h
 
@@ -97,11 +97,11 @@ TCL_INCLUDE: C:\ActiveTcl\include
 TCL_LIB: C:\ActiveTcl\lib\tcl86t.lib
 ```
 
-### <a name="Windows_other_compilers"></a> 3.2.2 Instructions for using the Examples with other compilers
+<h3 id="Windows_other_compilers">3.2.2 Instructions for using the Examples with other compilers</h3>
 
 If you do not have access to Visual C++ you will have to set up project files / Makefiles for your chosen compiler. There is a section in each of the language modules detailing what needs setting up using Visual C++ which may be of some guidance. Alternatively you may want to use Cygwin as described in the following section.
 
-## <a name="Windows_swig_exe"></a> 3.3 Building swig.exe on Windows
+<h2 id="Windows_swig_exe">3.3 Building swig.exe on Windows</h2>
 
 The SWIG distribution provides a pre-built swig.exe and so it is not necessary for users to build the SWIG executable.
 However, this section is provided for those that want to modify the SWIG source code in a Windows environment. 
@@ -113,7 +113,7 @@ SWIG can also be compiled and run using [MSYS2](https://www.msys2.org/) with [Mi
 
 SWIG can also be compiled with MSYS2 using MSVC and SWIG [MSVC wrapper](https://github.com/swig/cccl).
 
-### <a name="Windows_cmake"></a> 3.3.1 Building swig.exe using CMake
+<h3 id="Windows_cmake">3.3.1 Building swig.exe using CMake</h3>
 
 SWIG can be built using [CMake](https://cmake.org/) and Visual Studio rather than autotools. As with the other approaches to 
 building SWIG the dependencies need to be installed. The steps below are one of a number of ways of installing the dependencies without requiring Cygwin or MinGW.
@@ -185,7 +185,7 @@ the SWIG source use the following:
 -python -c++ -o C:\Temp\doxygen_parsing.cpp C:\swig\Examples\test-suite\doxygen_parsing.i
 ```
 
-### <a name="Windows_msys2"></a> 3.3.2 Building swig.exe using MSYS2 and MinGW-w64
+<h3 id="Windows_msys2">3.3.2 Building swig.exe using MSYS2 and MinGW-w64</h3>
 
 Download and install MSYS2 from [www.msys2.org](https://www.msys2.org/) (tested with version msys2-x86_64-20201109).
 Launch the MSYS2 shell.
@@ -227,7 +227,7 @@ make install
 
 ```
 
-### <a name="Windows_mingw_msys"></a> 3.3.3 Building swig.exe using MinGW and MSYS
+<h3 id="Windows_mingw_msys">3.3.3 Building swig.exe using MinGW and MSYS</h3>
 
 Warning: These instructions were added in 2006 and have barely changed since
 so are unlikely to work exactly as written.
@@ -319,7 +319,7 @@ make
 
 ```
 
-### <a name="Windows_cygwin"></a> 3.3.4 Building swig.exe using Cygwin
+<h3 id="Windows_cygwin">3.3.4 Building swig.exe using Cygwin</h3>
 
 Note that SWIG can also be built using Cygwin.
 However, SWIG will then require the Cygwin DLL when executing. 
@@ -327,15 +327,15 @@ Follow the Unix instructions in the README file in the SWIG root directory.
 Note that the Cygwin environment will also allow one to regenerate the autotool generated files which are supplied with the release distribution. 
 These files are generated using the `autogen.sh` script and will only need regenerating in circumstances such as changing the build system.
 
-#### <a name="Windows_examples_cygwin"></a> 3.3.4.1 Running the examples on Windows using Cygwin
+<h4 id="Windows_examples_cygwin">3.3.4.1 Running the examples on Windows using Cygwin</h4>
 
 The examples and test-suite work as successfully on Cygwin as on any other Unix operating system. 
 The modules which are known to work are Python, Tcl, Perl, Ruby, Java and C#.
 Follow the Unix instructions in the README file in the SWIG root directory to build the examples.
 
-## <a name="Windows_interface_file"></a> 3.4 Microsoft extensions and other Windows quirks
+<h2 id="Windows_interface_file">3.4 Microsoft extensions and other Windows quirks</h2>
 
-### <a name="Windows_msvc_cpp_standards"></a> 3.4.1 Visual C++ standards compliance
+<h3 id="Windows_msvc_cpp_standards">3.4.1 Visual C++ standards compliance</h3>
 
 The Visual C++ compiler (MSVC) has a long history of not being standards compliant, but this has been getting better
 over the years.
@@ -347,7 +347,7 @@ MSVC users are urged to ensure this macro is defined correctly by consulting the
 [/std](https://learn.microsoft.com/en-us/cpp/build/reference/std-specify-language-standard-version) and 
 [/Zc:__cplusplus](https://learn.microsoft.com/en-us/cpp/build/reference/zc-cplusplus).
 
-### <a name="Windows_calling_conventions"></a> 3.4.2 Calling conventions
+<h3 id="Windows_calling_conventions">3.4.2 Calling conventions</h3>
 
 A common problem when using SWIG on Windows are the Microsoft function calling conventions which are not in the C++ standard.
 SWIG parses ISO C/C++ so cannot deal with proprietary conventions such as `__declspec(dllimport)`, `__stdcall` etc.

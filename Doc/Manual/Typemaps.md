@@ -1,12 +1,12 @@
 
 
-# <a name="Typemaps"></a> 16 Typemaps
+<h1 id="Typemaps">16 Typemaps</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="Typemaps_nn2"></a> 16.1 Introduction
+<h2 id="Typemaps_nn2">16.1 Introduction</h2>
 
 Chances are, you are reading this chapter for one of two reasons; you
 either want to customize SWIG's behavior or you overheard someone
@@ -20,7 +20,7 @@ non-trivial topic of its own).  Typemaps are generally
 to re-read the earlier chapters if you have found your way to this
 chapter with only a vague idea of what SWIG already does by default.
 
-### <a name="Typemaps_nn3"></a> 16.1.1 Type conversion
+<h3 id="Typemaps_nn3">16.1.1 Type conversion</h3>
 
 One of the most important problems in wrapper code generation is the
 conversion or marshalling of datatypes between programming languages.  Specifically,
@@ -96,7 +96,7 @@ utility functions and short bits of C code like this—you simply have
 to read the extension documentation for your favorite language to know
 how it works (an exercise left to the reader).
 
-### <a name="Typemaps_nn4"></a> 16.1.2 Typemaps
+<h3 id="Typemaps_nn4">16.1.2 Typemaps</h3>
 
 Since type handling is so central to wrapper code generation, SWIG
 allows it to be completely defined (or redefined) by the user.  To do this,
@@ -186,7 +186,7 @@ whole idea behind typemaps–they simply let you insert arbitrary code into diff
 parts of the generated wrapper functions.   Because arbitrary code can be inserted, it
 possible to completely change the way in which values are converted.
 
-### <a name="Typemaps_nn5"></a> 16.1.3 Pattern matching
+<h3 id="Typemaps_nn5">16.1.3 Pattern matching</h3>
 
 As the name implies, the purpose of a typemap is to "map" C datatypes to 
 types in the target language.   Once a typemap is defined for a C datatype,
@@ -276,7 +276,7 @@ int count(char *str, int len, char c);
 In this case, a single input object is expanded into a pair of C arguments.  This example also
 provides a hint to the unusual variable naming scheme involving `$1`, `$2`, and so forth.
 
-### <a name="Typemaps_nn6"></a> 16.1.4 Reusing typemaps
+<h3 id="Typemaps_nn6">16.1.4 Reusing typemaps</h3>
 
 Typemaps are normally defined for specific type and argument name patterns.  However, typemaps can also 
 be copied and reused.  One way to do this is to use assignment like this:
@@ -339,7 +339,7 @@ typedef int size_t;
 
 then SWIG already knows that the `int` typemaps apply.  You don't have to do anything.
 
-### <a name="Typemaps_nn7"></a> 16.1.5 What can be done with typemaps?
+<h3 id="Typemaps_nn7">16.1.5 What can be done with typemaps?</h3>
 
 The primary use of typemaps is for defining wrapper generation behavior at the level
 of individual C/C++ datatypes.  There are currently six general categories of problems that
@@ -418,7 +418,7 @@ Details of each of these typemaps will be covered shortly.  Also, certain langua
 typemaps that expand upon this list.  For example, the Java module defines a variety of typemaps for controlling additional
 aspects of the Java bindings.  Consult language specific documentation for further details.
 
-### <a name="Typemaps_nn8"></a> 16.1.6 What can't be done with typemaps?
+<h3 id="Typemaps_nn8">16.1.6 What can't be done with typemaps?</h3>
 
 Typemaps can't be used to define properties that apply to C/C++ declarations as a whole.  For example,
 suppose you had a declaration like this,
@@ -469,7 +469,7 @@ void wrap_foo(char *s, int x) {
 
 ```
 
-### <a name="Typemaps_aspects"></a> 16.1.7 Similarities to Aspect Oriented Programming
+<h3 id="Typemaps_aspects">16.1.7 Similarities to Aspect Oriented Programming</h3>
 
 SWIG has parallels to [Aspect Oriented Software Development (AOP)](https://en.wikipedia.org/wiki/Aspect-oriented_programming).
 The [AOP terminology](https://en.wikipedia.org/wiki/Aspect-oriented_programming#Terminology) with respect to SWIG typemaps can be viewed as follows:
@@ -482,7 +482,7 @@ The [AOP terminology](https://en.wikipedia.org/wiki/Aspect-oriented_programming#
 SWIG can also be viewed as has having a second set of aspects based around [%feature](Customization/#Customization).
 Features such as `%exception` are also cross-cutting concerns as they encapsulate code that can be used to add logging or exception handling to any function.
 
-### <a name="Typemaps_nn9"></a> 16.1.8 The rest of this chapter
+<h3 id="Typemaps_nn9">16.1.8 The rest of this chapter</h3>
 
 The rest of this chapter provides detailed information for people who
 want to write new typemaps.  This information is of particular importance to anyone
@@ -497,11 +497,11 @@ management in C/C++.   If not, you would be well-advised to consult a copy
 of "The C Programming Language" by Kernighan and Ritchie or 
 "The C++ Programming Language" by Stroustrup before going any further.
 
-## <a name="Typemaps_nn10"></a> 16.2 Typemap specifications
+<h2 id="Typemaps_nn10">16.2 Typemap specifications</h2>
 
 This section describes the behavior of the `%typemap` directive itself.
 
-### <a name="Typemaps_defining"></a> 16.2.1 Defining a typemap
+<h3 id="Typemaps_defining">16.2.1 Defining a typemap</h3>
 
 New typemaps are defined using the `%typemap` declaration.  The general form of
 this declaration is as follows (parts enclosed in [ ... ] are optional):
@@ -598,7 +598,7 @@ Here are some examples of valid typemap specifications:
 Admittedly, it's not the most readable syntax at first glance.  However, the purpose of the
 individual pieces will become clear.
 
-### <a name="Typemaps_nn12"></a> 16.2.2 Typemap scope
+<h3 id="Typemaps_nn12">16.2.2 Typemap scope</h3>
 
 Once defined, a typemap remains in effect for all of the declarations that follow.  A typemap may be redefined for
 different sections of an input file.  For example:
@@ -643,7 +643,7 @@ class Foo {
 
 ```
 
-### <a name="Typemaps_nn13"></a> 16.2.3 Copying a typemap
+<h3 id="Typemaps_nn13">16.2.3 Copying a typemap</h3>
 
 A typemap is copied by using assignment.   For example:
 
@@ -690,7 +690,7 @@ The patterns for `%apply` follow the same rules as for `%typemap`. For example:
 
 ```
 
-### <a name="Typemaps_nn14"></a> 16.2.4 Deleting a typemap
+<h3 id="Typemaps_nn14">16.2.4 Deleting a typemap</h3>
 
 A particular typemap can be deleted / cleared by simply defining no code.  For example:
 
@@ -717,7 +717,7 @@ For example:
 `int` will make that type unusable unless you also define a new family of typemaps immediately
 after the clear operation.
 
-### <a name="Typemaps_nn15"></a> 16.2.5 Placement of typemaps
+<h3 id="Typemaps_nn15">16.2.5 Placement of typemaps</h3>
 
 Typemap declarations can be declared in the global scope, within a C++ namespace, and within a C++ class.  For
 example:
@@ -786,12 +786,12 @@ types (`std::string` and `Foo::string`).
 It should be noted that for scoping to work, SWIG has to know that `string` is a typename defined
 within a particular namespace.  In this example, this is done using the forward class declaration `class string`.
 
-## <a name="Typemaps_pattern_matching"></a> 16.3 Pattern matching rules
+<h2 id="Typemaps_pattern_matching">16.3 Pattern matching rules</h2>
 
 The section describes the pattern matching rules by which C/C++ datatypes are associated with typemaps.
 The matching rules can be observed in practice by using the debugging options also described.
 
-### <a name="Typemaps_nn17"></a> 16.3.1 Basic matching rules
+<h3 id="Typemaps_nn17">16.3.1 Basic matching rules</h3>
 
 Typemaps are matched using both a type and a name (typically the name of an
 argument, but in the case of `out` typemaps, the name of a function,
@@ -876,7 +876,7 @@ void F(int x[1000]);   // int [ANY] rule    (typemap 5)
 **Compatibility note:** SWIG-2.0.0 introduced stripping the qualifiers one step at a time. Prior versions
 stripped all qualifiers in one step.
 
-### <a name="Typemaps_typedef_reductions"></a> 16.3.2 Typedef reductions matching
+<h3 id="Typemaps_typedef_reductions">16.3.2 Typedef reductions matching</h3>
 
 If no match is found using the rules in the previous section, SWIG
 applies a typedef reduction to the type and repeats the typemap search
@@ -1028,7 +1028,7 @@ void go(Struct aStruct);
 
 ```
 
-### <a name="Typemaps_nn19"></a> 16.3.3 Default typemap matching rules
+<h3 id="Typemaps_nn19">16.3.3 Default typemap matching rules</h3>
 
 If the basic pattern matching rules result in no match being made, even after typedef reductions,
 the default typemap matching rules are used to look for a suitable typemap match.
@@ -1141,7 +1141,7 @@ Finally the best way to view the typemap matching rules in action is via the [de
 **Compatibility note:** The default typemap matching rules were modified in SWIG-2.0.0 from a slightly 
 simpler scheme to match the current C++ class template partial specialization matching rules.
 
-### <a name="Typemaps_multi_argument_typemaps_patterns"></a> 16.3.4 Multi-arguments typemaps
+<h3 id="Typemaps_multi_argument_typemaps_patterns">16.3.4 Multi-arguments typemaps</h3>
 
 When multi-argument typemaps are specified, they take precedence over
 any typemaps specified for a single type.  For example:
@@ -1165,7 +1165,7 @@ Multi-argument typemaps are also more restrictive in the way that they are match
 Currently, the first argument follows the matching rules described in the previous section,
 but all subsequent arguments must match exactly.
 
-### <a name="Typemaps_matching_template_comparison"></a> 16.3.5 Matching rules compared to C++ templates
+<h3 id="Typemaps_matching_template_comparison">16.3.5 Matching rules compared to C++ templates</h3>
 
 For those intimately familiar with C++ templates, a comparison of the typemap matching rules and template type deduction is interesting.
 The two areas considered are firstly the default typemaps and their similarities to partial template specialization and secondly, non-default typemaps and their similarities to full template specialization.
@@ -1288,7 +1288,7 @@ int const&        // matches non-default typemap int &
 There are other subtle differences such as typedef handling, but at least it should be clear that the typemap matching rules
 are similar to those for specialized template handling.
 
-### <a name="Typemaps_debugging_search"></a> 16.3.6 Debugging typemap pattern matching
+<h3 id="Typemaps_debugging_search">16.3.6 Debugging typemap pattern matching</h3>
 
 There are two useful debug command line options available for debugging typemaps, `-debug-tmsearch` and `-debug-tmused`.
 
@@ -1466,12 +1466,12 @@ The following observations about what is displayed can be noted (the same applie
 - The exact `%apply` statement might look different to what is in the actual code. For example, the `const char* another_value` is not shown as it is not relevant here.
 Also the types may be displayed slightly differently - `char const *` and not `const char*`.
 
-## <a name="Typemaps_nn21"></a> 16.4 Code generation rules
+<h2 id="Typemaps_nn21">16.4 Code generation rules</h2>
 
 This section describes rules by which typemap code is inserted into
 the generated wrapper code.
 
-### <a name="Typemaps_nn22"></a> 16.4.1 Scope
+<h3 id="Typemaps_nn22">16.4.1 Scope</h3>
 
 When a typemap is defined like this:
 
@@ -1536,7 +1536,7 @@ These three forms are mainly used for cosmetics–the specified code is not encl
 a block scope when it is emitted.   This sometimes results in a less complicated looking wrapper function.
 Note that only the third of the three typemaps have the typemap code passed through the SWIG preprocessor.
 
-### <a name="Typemaps_nn23"></a> 16.4.2 Declaring new local variables
+<h3 id="Typemaps_nn23">16.4.2 Declaring new local variables</h3>
 
 Sometimes it is useful to declare a new local variable that exists
 within the scope of the entire wrapper function.  A good example of this
@@ -1697,11 +1697,11 @@ each type must have its own local variable declaration.
 
 ```
 
-### <a name="Typemaps_special_variables"></a> 16.4.3 Special variables
+<h3 id="Typemaps_special_variables">16.4.3 Special variables</h3>
 
 Special variables are prefixed with a `$` and are expanded by SWIG as part of the code generation process.
 
-#### <a name="Typemaps_type_special_variables"></a> 16.4.3.1 Type related special variables
+<h4 id="Typemaps_type_special_variables">16.4.3.1 Type related special variables</h4>
 
 Within all typemaps, the following special variables are expanded.
 These are related in some way to a typemap's type.
@@ -1850,7 +1850,7 @@ Another approach, which only works for arrays is to use the `$1_basetype` substi
 
 ```
 
-#### <a name="Typemaps_non_type_special_variables"></a> 16.4.3.2 Non-type related special variables
+<h4 id="Typemaps_non_type_special_variables">16.4.3.2 Non-type related special variables</h4>
 
 The following are additional special variables.
 These are not specifically related to a typemap's type.
@@ -1863,7 +1863,7 @@ These are not specifically related to a typemap's type.
 
 **Table:** Non-type related special variables
 
-### <a name="Typemaps_special_variable_macros"></a> 16.4.4 Special variable macros
+<h3 id="Typemaps_special_variable_macros">16.4.4 Special variable macros</h3>
 
 Special variable macros are like macro functions in that they take one or more input arguments 
 which are used for the macro expansion. 
@@ -1872,7 +1872,7 @@ Note that unlike normal macros, the expansion is not done by the preprocessor,
 it is done during the SWIG parsing/compilation stages. 
 The following special variable macros are available across all language modules.
 
-#### <a name="Typemaps_special_macro_descriptor"></a> 16.4.4.1 $descriptor(type)
+<h4 id="Typemaps_special_macro_descriptor">16.4.4.1 $descriptor(type)</h4>
 
 This macro expands into the type descriptor structure for any C/C++ type specified in `type`.
 It behaves like the `$1_descriptor` special variable described above except that the type to expand is 
@@ -1880,7 +1880,7 @@ taken from the macro argument rather than inferred from the typemap type.
 For example, `$descriptor(std::vector<int> *)` will expand into `SWIGTYPE_p_std__vectorT_int_t`.
 This macro is mostly used in the scripting target languages and is demonstrated later in the [Run-time type checker usage](#Typemaps_runtime_type_checker_usage) section.
 
-#### <a name="Typemaps_special_macro_typemap"></a> 16.4.4.2 $typemap(method, typepattern)
+<h4 id="Typemaps_special_macro_typemap">16.4.4.2 $typemap(method, typepattern)</h4>
 
 This macro uses the [pattern matching rules](#Typemaps_pattern_matching) described earlier to lookup and 
 then substitute the special variable macro with the body of the matched typemap.
@@ -1928,7 +1928,7 @@ The result is the following expansion
 
 ```
 
-#### <a name="Typemaps_special_macro_typemap_attribute"></a> 16.4.4.3 $typemap(method:attribute, typepattern)
+<h4 id="Typemaps_special_macro_typemap_attribute">16.4.4.3 $typemap(method:attribute, typepattern)</h4>
 
 An enhanced version of `$typemap` provides access to typemap attributes by
 appending a colon and the attribute name after the method name. In the example below,
@@ -1959,7 +1959,7 @@ which expands to
 **Compatibility note:** Support for typemap attributes in `$typemap`
 was introduced in SWIG-4.1.0.
 
-### <a name="Typemaps_special_variable_attributes"></a> 16.4.5 Special variables and typemap attributes
+<h3 id="Typemaps_special_variable_attributes">16.4.5 Special variables and typemap attributes</h3>
 
 As of SWIG-3.0.7 typemap attributes will also expand special variables and special variable macros.
 
@@ -1979,7 +1979,7 @@ is equivalent to the following as `$*1_ltype` expands to `unsigned int`:
 
 ```
 
-### <a name="Typemaps_special_variables_and_macros"></a> 16.4.6 Special variables combined with special variable macros
+<h3 id="Typemaps_special_variables_and_macros">16.4.6 Special variables combined with special variable macros</h3>
 
 Special variables can also be used within special variable macros.
 The special variables are expanded before they are used in the special variable macros.
@@ -2011,7 +2011,7 @@ which then expands to:
 
 ```
 
-### <a name="Typemaps_copy_special_variable_macro"></a> 16.4.7 Using $typemap for copying typemaps
+<h3 id="Typemaps_copy_special_variable_macro">16.4.7 Using $typemap for copying typemaps</h3>
 
 The `$typemap` special variable macro can be used to copy entire typemaps or parts thereof.
 Consider the existence of the following named typemap:
@@ -2124,12 +2124,12 @@ caused if used as follows:
 
 because `$typemap(in, bool)` is attempting to copy itself.
 
-## <a name="Typemaps_nn25"></a> 16.5 Common typemap methods
+<h2 id="Typemaps_nn25">16.5 Common typemap methods</h2>
 
 The family of typemaps recognized by a language module may vary.  However,
 the following typemap methods are nearly universal:
 
-### <a name="Typemaps_nn26"></a> 16.5.1 "in" typemap
+<h3 id="Typemaps_nn26">16.5.1 "in" typemap</h3>
 
 The "in" typemap is used to convert function arguments from the target language
 to C.  For example:
@@ -2172,7 +2172,7 @@ shows the value used is instead obtained from a locally declared variable called
 Usually `numinputs` is not specified, whereupon the default value is 1, that is, there is a one to one mapping of the number of arguments when used from the target language to the C/C++ call. 
 [Multi-argument typemaps](#Typemaps_multi_argument_typemaps) provide a similar concept where the number of arguments mapped from the target language to C/C++ can be changed for multiple adjacent C/C++ arguments.
 
-### <a name="Typemaps_nn27"></a> 16.5.2 "typecheck" typemap
+<h3 id="Typemaps_nn27">16.5.2 "typecheck" typemap</h3>
 
 The "typecheck" typemap is used to support overloaded functions and methods.  It merely checks an argument
 to see whether or not it matches a specific type.  For example:
@@ -2192,7 +2192,7 @@ Set to 1 if the input argument is the correct type otherwise set to 0.
 If you define new "in" typemaps *and* your program uses overloaded methods, you should also define a collection of
 "typecheck" typemaps.  More details about this follow in the [Typemaps and overloading](#Typemaps_overloading) section.
 
-### <a name="Typemaps_nn28"></a> 16.5.3 "out" typemap
+<h3 id="Typemaps_nn28">16.5.3 "out" typemap</h3>
 
 The "out" typemap is used to convert function/method return values from C
 into the target language.  For example:
@@ -2249,7 +2249,7 @@ wrapped function returns, such as the Python
 suppresses the return value in the generated wrapper as well as leaving the function return type
 out of the type information. Other target languages ignore the attribute.
 
-### <a name="Typemaps_nn29"></a> 16.5.4 "arginit" typemap
+<h3 id="Typemaps_nn29">16.5.4 "arginit" typemap</h3>
 
 The "arginit" typemap is used to set the initial value of a function
 argument–before any conversion has occurred.   This is not normally
@@ -2265,7 +2265,7 @@ For example:
 
 ```
 
-### <a name="Typemaps_nn30"></a> 16.5.5 "default" typemap
+<h3 id="Typemaps_nn30">16.5.5 "default" typemap</h3>
 
 The "default" typemap is used to turn an argument into a default
 argument.   For example:
@@ -2291,7 +2291,7 @@ that follow must have default values.
 See the [Default/optional arguments](SWIG/#SWIG_default_args) section
 for further information on default argument wrapping.
 
-### <a name="Typemaps_nn31"></a> 16.5.6 "check" typemap
+<h3 id="Typemaps_nn31">16.5.6 "check" typemap</h3>
 
 The "check" typemap is used to supply value checking code during argument
 conversion.  The typemap is applied *after* arguments have been
@@ -2307,7 +2307,7 @@ converted.  For example:
 
 ```
 
-### <a name="Typemaps_nn32"></a> 16.5.7 "argout" typemap
+<h3 id="Typemaps_nn32">16.5.7 "argout" typemap</h3>
 
 The "argout" typemap is used to return values from arguments.  This
 is most commonly used to write wrappers for C/C++ functions that need
@@ -2464,7 +2464,7 @@ to a typemap is harmless.
 
 See the `typemaps.i` library file for examples.
 
-### <a name="Typemaps_nn33"></a> 16.5.8 "freearg" typemap
+<h3 id="Typemaps_nn33">16.5.8 "freearg" typemap</h3>
 
 The "freearg" typemap is used to cleanup argument data.  It is only
 used when an argument might have allocated resources that need to be
@@ -2492,7 +2492,7 @@ code is also placed into a special variable `$cleanup` that may
 be used in other typemaps whenever a wrapper function needs to abort
 prematurely.
 
-### <a name="Typemaps_nn34"></a> 16.5.9 "newfree" typemap
+<h3 id="Typemaps_nn34">16.5.9 "newfree" typemap</h3>
 
 The "newfree" typemap is used in conjunction with the `%newobject`
 directive and is used to deallocate memory used by the return result 
@@ -2516,7 +2516,7 @@ string *foo();
 
 See [Object ownership and %newobject](Customization/#Customization_ownership) for further details.
 
-### <a name="Typemaps_ret"></a> 16.5.10 "ret" typemap
+<h3 id="Typemaps_ret">16.5.10 "ret" typemap</h3>
 
 The "ret" typemap is not used very often, but can be useful for anything associated with
 the return type, such as resource management, return value error checking, etc.
@@ -2548,7 +2548,7 @@ to provide custom "out" typemaps (which involve target language specific code) i
 This approach is an alternative to using the "newfree" typemap and `%newobject` as there
 is no need to list all the functions that require the memory cleanup, it is purely done on types.
 
-### <a name="Typemaps_nn35"></a> 16.5.11 "memberin" typemap
+<h3 id="Typemaps_nn35">16.5.11 "memberin" typemap</h3>
 
 The "memberin" typemap is used to copy data from *an already converted input value*
 into a structure member.  It is typically used to handle array members and other special
@@ -2565,17 +2565,17 @@ cases.  For example:
 It is rarely necessary to write "memberin" typemaps—SWIG already provides
 a default implementation for arrays, strings, and other objects.
 
-### <a name="Typemaps_nn36"></a> 16.5.12 "varin" typemap
+<h3 id="Typemaps_nn36">16.5.12 "varin" typemap</h3>
 
 The "varin" typemap is used to convert objects in the target language to C for the
 purposes of assigning to a C/C++ global variable.    This is implementation specific.
 
-### <a name="Typemaps_nn37"></a> 16.5.13 "varout" typemap
+<h3 id="Typemaps_nn37">16.5.13 "varout" typemap</h3>
 
 The "varout" typemap is used to convert a C/C++ object to an object in the target
 language when reading a C/C++ global variable.  This is implementation specific.
 
-### <a name="Typemaps_throws_typemap"></a> 16.5.14 "throws" typemap
+<h3 id="Typemaps_throws_typemap">16.5.14 "throws" typemap</h3>
 
 The "throws" typemap is only used when SWIG parses a C++ method with an exception specification or has the `%catches` feature attached to the method (see [Exception handling with %catches](SWIGPlus/#SWIGPlus_catches)).
 It provides a default mechanism for handling C++ methods that have declared the exceptions they will throw.
@@ -2618,12 +2618,12 @@ try {
 Note that if your methods do not have an exception specification but they do throw exceptions and you are not using `%catches`, SWIG cannot know how to deal with them.
 Please also see the [Exception handling with %exception](Customization/#Customization_exception) section for another way to handle exceptions.
 
-## <a name="Typemaps_nn39"></a> 16.6 Some typemap examples
+<h2 id="Typemaps_nn39">16.6 Some typemap examples</h2>
 
 This section contains a few examples.  Consult language module documentation
 for more examples.
 
-### <a name="Typemaps_nn40"></a> 16.6.1 Typemaps for arrays
+<h3 id="Typemaps_nn40">16.6.1 Typemaps for arrays</h3>
 
 A common use of typemaps is to provide support for C arrays appearing both as
 arguments to functions and as structure members.
@@ -2843,7 +2843,7 @@ Now, you will find that member access is quite nice:
 **Compatibility Note:**  SWIG1.1 used to provide a special "memberout" typemap.  However, it was mostly
 useless and has since been eliminated.   To return structure members, simply use the "out" typemap.
 
-### <a name="Typemaps_nn41"></a> 16.6.2 Implementing constraints with typemaps
+<h3 id="Typemaps_nn41">16.6.2 Implementing constraints with typemaps</h3>
 
 One particularly interesting application of typemaps is the
 implementation of argument constraints. This can be done with the
@@ -2888,7 +2888,7 @@ a NULL pointer. As a result, SWIG can often prevent a potential
 segmentation faults or other run-time problems by raising an exception
 rather than blindly passing values to the underlying C/C++ program.
 
-## <a name="Typemaps_nn43"></a> 16.7 Typemaps for multiple target languages
+<h2 id="Typemaps_nn43">16.7 Typemaps for multiple target languages</h2>
 
 The code within typemaps is usually language dependent,
 however, many target languages support the same typemaps.
@@ -2914,7 +2914,7 @@ The example above also shows a common approach of issuing a warning for an as ye
 
 `%typemap(ruby, in) int "$1 = NUM2INT($input);"`.
 
-## <a name="Typemaps_optimal"></a> 16.8 Optimal code generation when returning by value
+<h2 id="Typemaps_optimal">16.8 Optimal code generation when returning by value</h2>
 
 The "out" typemap is the main typemap for return types.
 This typemap supports an optional attribute flag called "optimal", which is for reducing the number of
@@ -3075,7 +3075,7 @@ example.i:7: Warning 475: optimal attribute usage in the out typemap.
 
 However, it doesn't always get it right, for example when `$1` is within some commented out code.
 
-## <a name="Typemaps_multi_argument_typemaps"></a> 16.9 Multi-argument typemaps
+<h2 id="Typemaps_multi_argument_typemaps">16.9 Multi-argument typemaps</h2>
 
 So far, the typemaps presented have focused on the problem of dealing with
 single values.  For example, converting a single input object to a single argument
@@ -3314,12 +3314,12 @@ ordering (and perform conversions if needed). Note that multi-argument typemaps 
 with non-consecutive C/C++ arguments; a workaround such as a helper function re-ordering
 the arguments to make them consecutive will need to be written.
 
-## <a name="Typemaps_warnings"></a> 16.10 Typemap warnings
+<h2 id="Typemaps_warnings">16.10 Typemap warnings</h2>
 
 Warnings can be added to typemaps so that SWIG generates a warning message whenever the typemap is used.
 See the information in the [issuing warnings](Warnings/#Warnings_nn5) section.
 
-## <a name="Typemaps_fragments"></a> 16.11 Typemap fragments
+<h2 id="Typemaps_fragments">16.11 Typemap fragments</h2>
 
 The primary purpose of fragments is to reduce code bloat that repeated use of typemap code can lead to.
 Fragments are snippets of code that can be thought of as code dependencies of a typemap.
@@ -3591,7 +3591,7 @@ Most readers will probably want to skip the next two sub-sections on advanced
 fragment usage unless a desire to really get to grips
 with some powerful but tricky macro and fragment usage that is used in parts of the SWIG typemap library.
 
-### <a name="Typemaps_fragment_type_specialization"></a> 16.11.1 Fragment type specialization
+<h3 id="Typemaps_fragment_type_specialization">16.11.1 Fragment type specialization</h3>
 
 Fragments can be *type specialized*. The syntax is as follows:
 
@@ -3619,7 +3619,7 @@ struct A {
 
 ```
 
-### <a name="Typemaps_automatic_specialization"></a> 16.11.2 Fragments and automatic typemap specialization
+<h3 id="Typemaps_automatic_specialization">16.11.2 Fragments and automatic typemap specialization</h3>
 
 Since fragments can be type specialized, they can be elegantly used
 to specialize typemaps. For example, if you have something like:
@@ -3657,7 +3657,7 @@ the `float` or `long` types are used as input parameters.
 This feature is used a lot in the typemaps shipped in the SWIG library for some scripting languages.
 The interested (or very brave) reader can take a look at the fragments.swg file shipped with SWIG to see this in action.
 
-## <a name="Typemaps_runtime_type_checker"></a> 16.12 The run-time type checker
+<h2 id="Typemaps_runtime_type_checker">16.12 The run-time type checker</h2>
 
 Most scripting languages need type information at run-time.  This type information
 can include how to construct types, how to garbage collect types, and the inheritance
@@ -3677,7 +3677,7 @@ language modules.
 - Custom, language specific information can be attached to types.
 - Modules can be unloaded from the type system.
 
-### <a name="Typemaps_nn45"></a> 16.12.1 Implementation
+<h3 id="Typemaps_nn45">16.12.1 Implementation</h3>
 
 The run-time type checker is used by many, but not all, of SWIG's supported target languages.
 The run-time type checker features
@@ -3844,7 +3844,7 @@ types are in the first module and have already been loaded, it uses those `swig_
 structures rather than creating new ones.  These `swig_module_info` 
 structures are chained together in a circularly linked list.
 
-### <a name="Typemaps_runtime_type_checker_usage"></a> 16.12.2 Usage
+<h3 id="Typemaps_runtime_type_checker_usage">16.12.2 Usage</h3>
 
 This section covers how to use these functions from typemaps.  To learn how to
 call these functions from external files (not the generated _wrap.c file), see
@@ -3924,7 +3924,7 @@ type-checking.  This code is also included in every generated wrapped file so yo
 probably just look at the output of SWIG to get a better sense for how types are
 managed.
 
-## <a name="Typemaps_overloading"></a> 16.13 Typemaps and overloading
+<h2 id="Typemaps_overloading">16.13 Typemaps and overloading</h2>
 
 This section does not apply to the statically typed languages like Java and C#, where overloading
 of the types is handled much like C++ by generating overloaded methods in the target language.
@@ -4215,7 +4215,7 @@ simply check the type of the first array element and use that to dispatch to the
 Subsequent "in" typemaps would then perform more extensive type-checking.
 - Make sure you read the section on [overloading](SWIGPlus/#SWIGPlus_overloaded_methods) in the SWIG and C++ chapter.
 
-### <a name="Typemaps_typecheck_pointer"></a> 16.13.1 SWIG_TYPECHECK_POINTER precedence level and the typecheck typemap
+<h3 id="Typemaps_typecheck_pointer">16.13.1 SWIG_TYPECHECK_POINTER precedence level and the typecheck typemap</h3>
 
 When it comes to overloading of a particular type passed by value, pointer or reference (const and non-const),
 a C++ compiler can disambiguate which overloaded function to call.
@@ -4298,7 +4298,7 @@ Otherwise both can be wrapped by removing the overloading name ambiguity by rena
 
 The 'equivalent' attribute is used in the implementation for the [shared_ptr smart pointer](Library/#Library_std_shared_ptr) library.
 
-## <a name="Typemaps_nn48"></a> 16.14 More about %apply and %clear
+<h2 id="Typemaps_nn48">16.14 More about %apply and %clear</h2>
 
 In order to implement certain kinds of program behavior, it is sometimes necessary to
 write a family of typemap methods.  For example, to support output arguments, one often writes
@@ -4382,7 +4382,7 @@ will delete the typemaps for all the typemap methods; namely "in", "check" and "
 
 ```
 
-### <a name="Typemaps_apply_typedefs"></a> 16.14.1 Typedefs and %apply
+<h3 id="Typemaps_apply_typedefs">16.14.1 Typedefs and %apply</h3>
 
 Consider a similar example to that shown earlier but this time with a couple of typedefs:
 
@@ -4445,7 +4445,7 @@ introduces a new family of typemaps resulting in the previously matching "check"
 for `int *NEGATIVE`
 no longer being available for applying.
 
-## <a name="Typemaps_nn47"></a> 16.15 Passing data between typemaps
+<h2 id="Typemaps_nn47">16.15 Passing data between typemaps</h2>
 
 It is also important to note that the primary use of local variables
 is to create stack-allocated objects for temporary use inside a
@@ -4476,7 +4476,7 @@ plenty of opportunities to break the universe here and that accessing locals
 in this manner should probably be avoided.  At the very least, you should make
 sure that the typemaps sharing information have exactly the same types and names.
 
-## <a name="Typemaps_nn52"></a> 16.16 C++ "this" pointer
+<h2 id="Typemaps_nn52">16.16 C++ "this" pointer</h2>
 
 All the rules discussed for typemaps apply to C++ as well as C.
 However in addition C++ passes an extra parameter into every
@@ -4527,7 +4527,7 @@ Note that if you have a parameter named `self` then it
 will also match the typemap.  One work around is to create an interface file that wraps
 the method, but gives the argument a name other than `self`.
 
-## <a name="Typemaps_nn51"></a> 16.17 Where to go for more information?
+<h2 id="Typemaps_nn51">16.17 Where to go for more information?</h2>
 
 The
 best place to find out more information about writing typemaps is to

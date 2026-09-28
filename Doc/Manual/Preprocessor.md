@@ -1,6 +1,6 @@
 
 
-# <a name="Preprocessor"></a> 13 Preprocessing
+<h1 id="Preprocessor">13 Preprocessing</h1>
 
 <!-- INDEX -->
 
@@ -11,7 +11,7 @@ supports the standard preprocessor directives and macro expansion rules.
 However, a number of modifications and enhancements have been made.  This
 chapter describes some of these modifications.
 
-## <a name="Preprocessor_nn2"></a> 13.1 File inclusion
+<h2 id="Preprocessor_nn2">13.1 File inclusion</h2>
 
 To include another file into a SWIG interface, use the `%include` directive
 like this:
@@ -31,7 +31,7 @@ By default, the `#include` is ignored unless you run SWIG with the
 is that you often don't want SWIG to try and wrap everything included
 in standard header system headers and auxiliary files.
 
-## <a name="Preprocessor_nn3"></a> 13.2 File imports
+<h2 id="Preprocessor_nn3">13.2 File imports</h2>
 
 SWIG provides another file inclusion directive with the `%import` directive.
 For example:
@@ -54,7 +54,7 @@ The `-importall` directive tells SWIG to follow all `#include` statements
 as imports.    This might be useful if you want to extract type definitions from system 
 header files without generating any wrappers.
 
-## <a name="Preprocessor_condition_compilation"></a> 13.3 Conditional Compilation
+<h2 id="Preprocessor_condition_compilation">13.3 Conditional Compilation</h2>
 
 SWIG fully supports the use of `#if`, `#ifdef`,
 `#ifndef`, `#else`, `#endif` to conditionally
@@ -164,7 +164,7 @@ Interface files can look at these symbols as necessary to change the
 way in which an interface is generated or to mix SWIG directives with
 C code.
 
-## <a name="Preprocessor_nn5"></a> 13.4 Macro Expansion
+<h2 id="Preprocessor_nn5">13.4 Macro Expansion</h2>
 
 Traditional preprocessor macros can be used in SWIG interfaces.  Be aware that the `#define` statement
 is also used to try and detect constants.  Therefore, if you have something like this in your file,
@@ -206,7 +206,7 @@ Concatenates x and y together to form `xy`.
 If `x` is a string surrounded by double quotes, do nothing.  Otherwise, turn into a string
 like `#x`.  This is a non-standard SWIG extension.
 
-## <a name="Preprocessor_nn6"></a> 13.5 SWIG Macros
+<h2 id="Preprocessor_nn6">13.5 SWIG Macros</h2>
 
 SWIG provides an enhanced macro capability with the `%define` and `%enddef` directives. 
 For example:
@@ -245,7 +245,7 @@ The SWIG macro capability is a very quick and easy way to generate large amounts
 many of SWIG's advanced features and libraries are built using this mechanism (such as C++ template
 support).
 
-## <a name="Preprocessor_nn7"></a> 13.6 Variadic Macros
+<h2 id="Preprocessor_nn7">13.6 Variadic Macros</h2>
 
 SWIG-1.3.12 and newer releases support variadic preprocessor macros which were
 standardised by C99 and C++11.  For example:
@@ -307,11 +307,11 @@ SWIG supports `__VA_OPT__()` in combination with GNU-style variadic
 macros (following the lead of GCC and clang which also support this, albeit
 with a warning by default).
 
-## <a name="Preprocessor_delimiters"></a> 13.7 Preprocessing and delimiters
+<h2 id="Preprocessor_delimiters">13.7 Preprocessing and delimiters</h2>
 
 The preprocessor handles { }, " " and %{ %} delimiters differently.
 
-### <a name="Preprocessor_nn8"></a> 13.7.1 Preprocessing and %{ ... %} & " ... " delimiters
+<h3 id="Preprocessor_nn8">13.7.1 Preprocessing and %{ ... %} & " ... " delimiters</h3>
 
 The SWIG preprocessor does not process any text enclosed in a code block `%{` ... `%}` or in double quotes `"` ... `"`.  Therefore,
 if you write code like this,
@@ -331,7 +331,7 @@ int blah() {
 the contents of the `%{ ... %}` block are copied without
 modification to the output (including all preprocessor directives).
 
-### <a name="Preprocessor_nn9"></a> 13.7.2 Preprocessing and { ... } delimiters
+<h3 id="Preprocessor_nn9">13.7.2 Preprocessing and { ... } delimiters</h3>
 
 SWIG always runs the preprocessor on text appearing inside `{ ... }`.  However,
 sometimes it is desirable to make a preprocessor directive pass through to the output
@@ -366,7 +366,7 @@ to actually go into the wrapper file, prefix the preprocessor directives with `%
 
 SWIG will strip the extra `%` and leave the preprocessor directive in the code.
 
-## <a name="Preprocessor_typemap_delimiters"></a> 13.8 Preprocessor and Typemaps
+<h2 id="Preprocessor_typemap_delimiters">13.8 Preprocessor and Typemaps</h2>
 
 [Typemaps](Typemaps/#Typemaps) support a special attribute called `noblock` where the { ... } delimiters can be used,
 but the delimiters are not actually generated into the code.
@@ -423,14 +423,14 @@ would generate
 
 ```
 
-## <a name="Preprocessor_nn10"></a> 13.9 Viewing preprocessor output
+<h2 id="Preprocessor_nn10">13.9 Viewing preprocessor output</h2>
 
 Like many compilers, SWIG supports a `-E` command line option to display the output from the preprocessor.
 When the `-E` option is used, SWIG will not generate any wrappers.
 Instead the results after the preprocessor has run are displayed.
 This might be useful as an aid to debugging and viewing the results of macro expansions.
 
-## <a name="Preprocessor_warning_error"></a> 13.10 The #error and #warning directives
+<h2 id="Preprocessor_warning_error">13.10 The #error and #warning directives</h2>
 
 SWIG supports the standard `#warning` and `#error` preprocessor directives.
 The `#warning` directive will cause SWIG to issue a warning then continue processing.
@@ -458,7 +458,7 @@ commandline option is used. Alternatively, the `#pragma` directive can be used t
 
 ```
 
-## <a name="Preprocessor_trigraphs"></a> 13.11 Trigraphs
+<h2 id="Preprocessor_trigraphs">13.11 Trigraphs</h2>
 
 SWIG's preprocessor does not implement trigraphs (such as `??!` being
 mapped to `|`).  They are very rarely used deliberately but these
@@ -466,7 +466,7 @@ character sequences sometimes occur in code where they aren't intended as
 trigraphs.  Compilers typically don't enable trigraph support by default, and
 they've been removed in C++17 and C23.
 
-## <a name="Preprocessor_digraphs"></a> 13.12 Digraphs
+<h2 id="Preprocessor_digraphs">13.12 Digraphs</h2>
 
 SWIG's preprocessor does not currently implement digraphs (such as
 `<%` being an alternative way to write the token `{`).
