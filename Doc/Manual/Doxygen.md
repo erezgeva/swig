@@ -1,6 +1,6 @@
 
 
-# <a name="Doxygen"></a> 20 SWIG and Doxygen Translation
+<h1 id="Doxygen">20 SWIG and Doxygen Translation</h1>
 
 <!-- INDEX -->
 
@@ -11,7 +11,7 @@ found in interface and header files into a target language's normal
 documentation language.  Currently only Javadoc and Pydoc is
 supported.
 
-## <a name="Doxygen_translation_overview"></a> 20.1 Doxygen translation overview
+<h2 id="Doxygen_translation_overview">20.1 Doxygen translation overview</h2>
 
 The Doxygen Translation module of SWIG adds an extra layer of
 functionality to SWIG, allowing automated translation of [Doxygen](https://www.doxygen.nl/manual/) formatted comments
@@ -22,7 +22,7 @@ Other extensions could be added at a later date.
 The Doxygen Translation module originally started as
 a [Google Summer of Code](https://developers.google.com/open-source/gsoc/2008/) proposal from Summer 2008.
 
-## <a name="Doxygen_file_preparation"></a> 20.2 Preparations
+<h2 id="Doxygen_file_preparation">20.2 Preparations</h2>
 
 To make use of the comment translation system, your documentation
 comments must be in properly formatted [Doxygen.](https://www.doxygen.nl/manual/) Doxygen comments can be
@@ -127,17 +127,17 @@ are supported. Doxygen also supports comments containing structural commands,
 where the comments for a code item are not put directly before or after the code item.
 These structural commands are stripped out by SWIG and are not assigned to anything.
 
-### <a name="Doxygen_running_swig"></a> 20.2.1 Enabling Doxygen translation
+<h3 id="Doxygen_running_swig">20.2.1 Enabling Doxygen translation</h3>
 
 Doxygen comments translation is disabled by default and needs to be explicitly
 enabled using the command line `-doxygen` option for the languages that
 do support it (currently Java and Python).
 
-### <a name="Doxygen_features"></a> 20.2.2 Doxygen-specific %feature directives
+<h3 id="Doxygen_features">20.2.2 Doxygen-specific %feature directives</h3>
 
 Translation of Doxygen comments is influenced by the following [%feature directives](Customization/#Customization_features):
 
-#### <a name="Doxygen_notranslate"></a> 20.2.2.1 doxygen:notranslate
+<h4 id="Doxygen_notranslate">20.2.2.1 doxygen:notranslate</h4>
 
 Turns off translation of Doxygen comments to the target language syntax: the
 original comment will be copied to the output unchanged. This is useful if you
@@ -145,7 +145,7 @@ want to use Doxygen itself to generate documentation for the target language
 instead of the corresponding language tool (`javadoc`, `sphinx`,
 ...).
 
-#### <a name="Doxygen_alias"></a> 20.2.2.2 doxygen:alias:<command-name\>
+<h4 id="Doxygen_alias">20.2.2.2 doxygen:alias:<command-name\></h4>
 
 Specify an alias for a Doxygen command with the given name. This can be useful
 for custom Doxygen commands which can be defined using `ALIASES` option
@@ -186,7 +186,7 @@ you could use `@not_for_java` in the documentation comments of all
 functions which can't, for whatever reason, be currently exposed in Java
 wrappers of the C++ API.
 
-#### <a name="Doxygen_ignore"></a> 20.2.2.3 doxygen:ignore:<command-name\>
+<h4 id="Doxygen_ignore">20.2.2.3 doxygen:ignore:<command-name\></h4>
 
 This feature makes it possible to just ignore an unknown Doxygen command, instead of
 replacing it with the predefined text that `doxygen:alias` does.
@@ -330,28 +330,28 @@ def func():
 
 ```
 
-#### <a name="Doxygen_nolinktranslate"></a> 20.2.2.4 doxygen:nolinktranslate
+<h4 id="Doxygen_nolinktranslate">20.2.2.4 doxygen:nolinktranslate</h4>
 
 Turn off automatic link-objects translation.
 This is only applicable to Java at the moment.
 
-#### <a name="Doxygen_nostripparams"></a> 20.2.2.5 doxygen:nostripparams
+<h4 id="Doxygen_nostripparams">20.2.2.5 doxygen:nostripparams</h4>
 
 Turn off stripping of `@param` and `@tparam`
 Doxygen commands if the parameter is not found in the function signature.
 This is only applicable to Java at the moment.
 
-### <a name="Doxygen_additional_options"></a> 20.2.3 Additional command line options
+<h3 id="Doxygen_additional_options">20.2.3 Additional command line options</h3>
 
 ALSO TO BE ADDED (Javadoc auto brief?)
 
-## <a name="Doxygen_javadoc"></a> 20.3 Doxygen to Javadoc
+<h2 id="Doxygen_javadoc">20.3 Doxygen to Javadoc</h2>
 
 If translation is enabled, Javadoc formatted comments should be
 automatically placed in the correct locations in the resulting module
 and proxy files.
 
-### <a name="Doxygen_javadoc_basic_example"></a> 20.3.1 Basic Javadoc example
+<h3 id="Doxygen_javadoc_basic_example">20.3.1 Basic Javadoc example</h3>
 
 Here is an example segment from an included header file
 
@@ -449,7 +449,7 @@ the function. Use `doxygen:nostripparams` to avoid.
 Javadoc translator features summary
 (see [%feature directives](Customization/#Customization_features)):
 
-### <a name="Doxygen_javadoc_tags"></a> 20.3.2 Javadoc tags
+<h3 id="Doxygen_javadoc_tags">20.3.2 Javadoc tags</h3>
 
 Here is the list of all Doxygen tags and the description of how they are translated to Javadoc
 
@@ -520,7 +520,7 @@ Here is the list of all Doxygen tags and the description of how they are transla
 
 **Table:** Java Doxygen tags
 
-### <a name="Doxygen_javadoc_unsupported_tags"></a> 20.3.3 Unsupported tags for Javadoc
+<h3 id="Doxygen_javadoc_unsupported_tags">20.3.3 Unsupported tags for Javadoc</h3>
 
 Doxygen has a wealth of tags such as `@latexonly` that have no
 equivalent in Javadoc (all supported tags are listed in
@@ -669,7 +669,7 @@ comment, the whole comment block is ignored:
 - \var
 - \weakgroup
 
-## <a name="Doxygen_pydoc"></a> 20.4 Doxygen to Pydoc
+<h2 id="Doxygen_pydoc">20.4 Doxygen to Pydoc</h2>
 
 If translation is enabled, Pydoc formatted comments should be
 automatically placed in the correct locations in the resulting module
@@ -677,7 +677,7 @@ and proxy files.  The problem is that Pydoc has no tag mechanism like
 Doxygen or Javadoc, so most of Doxygen commands are translated by merely
 copying the appropriate command text.
 
-### <a name="Doxygen_pydoc_basic_example"></a> 20.4.1 Basic Pydoc example
+<h3 id="Doxygen_pydoc_basic_example">20.4.1 Basic Pydoc example</h3>
 
 Here is an example segment from an included header file
 
@@ -839,7 +839,7 @@ special commands in Python comments
 ([doxypy](https://pypi.org/project/doxypy/))
 to do the work.
 
-### <a name="Doxygen_pydoc_tags"></a> 20.4.2 Pydoc translator
+<h3 id="Doxygen_pydoc_tags">20.4.2 Pydoc translator</h3>
 
 Here is the list of all Doxygen tags and the description of how they are translated to Pydoc
 
@@ -908,7 +908,7 @@ Here is the list of all Doxygen tags and the description of how they are transla
 
 **Table:** Python Doxygen tags
 
-### <a name="Doxygen_pydoc_unsupported_tags"></a> 20.4.3 Unsupported tags for Pydoc
+<h3 id="Doxygen_pydoc_unsupported_tags">20.4.3 Unsupported tags for Pydoc</h3>
 
 Doxygen has a wealth of tags such as `@latexonly` that have no
 equivalent in Pydoc.  As a result several tags that have no
@@ -1017,13 +1017,13 @@ Here is the list of these tags:
 - \xmlonly
 - \xrefitem
 
-## <a name="Doxygen_csharp"></a> 20.5 Doxygen to XML C# documentation
+<h2 id="Doxygen_csharp">20.5 Doxygen to XML C# documentation</h2>
 
 If translation is enabled, XML formatted comments should be
 automatically placed in the correct locations in the resulting module
 and proxy files.
 
-### <a name="Doxygen_csharp_basic_example"></a> 20.5.1 Basic C# example
+<h3 id="Doxygen_csharp_basic_example">20.5.1 Basic C# example</h3>
 
 Here is an example segment from an included header file
 
@@ -1137,7 +1137,7 @@ the function. Use `doxygen:nostripparams` to avoid.
 C# translator features summary
 (see [%feature directives](Customization/#Customization_features)):
 
-### <a name="Doxygen_csharp_tags"></a> 20.5.2 C# tags
+<h3 id="Doxygen_csharp_tags">20.5.2 C# tags</h3>
 
 Here is the list of all Doxygen tags and the description of how they are translated to C# XML
 
@@ -1208,7 +1208,7 @@ Here is the list of all Doxygen tags and the description of how they are transla
 
 **Table:** CSharp XML Doxygen tags
 
-### <a name="Doxygen_csharp_unsupported_tags"></a> 20.5.3 Unsupported tags for C#
+<h3 id="Doxygen_csharp_unsupported_tags">20.5.3 Unsupported tags for C#</h3>
 
 Doxygen has a wealth of tags such as `@latexonly` that have no
 equivalent in C# XML (all supported tags are listed in
@@ -1357,7 +1357,7 @@ comment, the whole comment block is ignored:
 - \var
 - \weakgroup
 
-## <a name="Doxygen_troubleshooting"></a> 20.6 Troubleshooting
+<h2 id="Doxygen_troubleshooting">20.6 Troubleshooting</h2>
 
 When running SWIG with command line option `-doxygen`, it may happen
 that SWIG will fail to parse the code, which is valid C++ code and
@@ -1372,7 +1372,7 @@ Recommended approach is to first run SWIG without command line
 option `-doxygen`. When it successfully processes the code,
 include the option and fix problems with Doxygen comments.
 
-### <a name="troubleshooting_ifndef"></a> 20.6.1 Problem with conditional compilation
+<h3 id="troubleshooting_ifndef">20.6.1 Problem with conditional compilation</h3>
 
 Inserting a conditional compilation preprocessor directive between a
 Doxygen comment and a commented item may break parsing:
@@ -1409,11 +1409,11 @@ class A {
 
 ```
 
-## <a name="Doxygen_developer_details"></a> 20.7 Developer information
+<h2 id="Doxygen_developer_details">20.7 Developer information</h2>
 
 This section contains information for developers enhancing the Doxygen translator.
 
-### <a name="Doxygen_translator_design"></a> 20.7.1 Doxygen translator design
+<h3 id="Doxygen_translator_design">20.7.1 Doxygen translator design</h3>
 
 If this functionality is turned on, SWIG places all comments found
 into the SWIG parse tree.  Nodes contain an additional attribute
@@ -1437,7 +1437,7 @@ module builds its own private parse tree and hands it to a separate
 class for translation into the target documentation language.  For
 example, `JavaDocConverter` is the Javadoc module class.
 
-### <a name="Doxygen_debugging_commands"></a> 20.7.2 Debugging the Doxygen parser and translator
+<h3 id="Doxygen_debugging_commands">20.7.2 Debugging the Doxygen parser and translator</h3>
 
 There are two handy command line options, that enable lots of
 detailed debug information printing.
@@ -1449,7 +1449,7 @@ detailed debug information printing.
 
 ```
 
-### <a name="Doxygen_tests"></a> 20.7.3 Tests
+<h3 id="Doxygen_tests">20.7.3 Tests</h3>
 
 Doxygen tests have been added to the regular SWIG test-suite.
 There are a number of tests beginning `doxygen_` in the Examples/test-suite sub-directory.
@@ -1493,7 +1493,7 @@ form 'wantedComments.put(...)' with the output of the above command.
 Runtime tests in Python are just plain string comparisons of the __doc__
 properties.
 
-## <a name="Doxygen_language_extension"></a> 20.8 Extending to other languages
+<h2 id="Doxygen_language_extension">20.8 Extending to other languages</h2>
 
 In general, an extension to another language requires a fairly deep understanding of the target language module, such as Modules/python.cxx for Python.
 Searching for "doxygen" in the java.cxx module can give you a good idea of the process for placing documentation comments into the correct areas.

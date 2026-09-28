@@ -1,12 +1,12 @@
 
 
-# <a name="Warnings"></a> 21 Warning Messages
+<h1 id="Warnings">21 Warning Messages</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="Warnings_nn2"></a> 21.1 Introduction
+<h2 id="Warnings_nn2">21.1 Introduction</h2>
 
 During compilation, SWIG may generate a variety of warning messages.  For example:
 
@@ -21,7 +21,7 @@ Typically, warning messages indicate non-fatal problems with the input
 where the generated wrapper code will probably compile, but it may not
 work like you expect.
 
-## <a name="Warnings_suppression"></a> 21.2 Warning message suppression
+<h2 id="Warnings_suppression">21.2 Warning message suppression</h2>
 
 All warning messages have a numeric code that is shown in the warning message itself.
 To suppress the printing of a warning message, a number of techniques can be used.
@@ -99,7 +99,7 @@ There is no option to suppress all SWIG warning messages.  The warning messages 
 for a reason—to tell you that something may be *broken* in
 your interface.  Ignore the warning messages at your own peril.
 
-## <a name="Warnings_nn4"></a> 21.3 Enabling extra warnings
+<h2 id="Warnings_nn4">21.3 Enabling extra warnings</h2>
 
 Some warning messages are disabled by default and are generated only
 to provide additional diagnostics.  These warnings can be turned on using the
@@ -162,7 +162,7 @@ When `-Wall` is used, it also disables all other warning filters,
 that is, any warnings suppressed or added in `%warnfilter`, `#pragma SWIG nowarn` 
 or the `-w` option.
 
-## <a name="Warnings_nn5"></a> 21.4 Issuing a warning message
+<h2 id="Warnings_nn5">21.4 Issuing a warning message</h2>
 
 Warning messages can be issued from an interface file using a number of directives.  The
 `%warn` directive is the most simple:
@@ -205,7 +205,7 @@ example.i:24: Warning 901: You are really going to regret this usage of blah * s
 
 ```
 
-## <a name="Warnings_symbolic_symbols"></a> 21.5 Symbolic symbols
+<h2 id="Warnings_symbolic_symbols">21.5 Symbolic symbols</h2>
 
 The `swigwarn.swg` file that is installed with SWIG contains symbol constants that could also be
 used in `%warnfilter` and `#pragma SWIG nowarn`.
@@ -233,7 +233,7 @@ or
 
 ```
 
-## <a name="Warnings_nn6"></a> 21.6 Commentary
+<h2 id="Warnings_nn6">21.6 Commentary</h2>
 
 The ability to suppress warning messages is really only provided for
 advanced users and is not recommended in normal use.  You are advised
@@ -245,13 +245,13 @@ parsing errors (bad syntax) or semantic problems for which there is
 no obvious recovery.  There is no mechanism for suppressing error
 messages.
 
-## <a name="Warnings_nn7"></a> 21.7 Warnings as errors
+<h2 id="Warnings_nn7">21.7 Warnings as errors</h2>
 
 Warnings can be handled as errors by using the `-Werror` command line
 option. This will cause SWIG to exit with a non successful exit code if a
 warning is encountered.
 
-## <a name="Warnings_nn8"></a> 21.8 Message output format
+<h2 id="Warnings_nn8">21.8 Message output format</h2>
 
 The output format for both warnings and errors can be selected for
 integration with your favourite IDE/editor. Editors and IDEs can usually parse 
@@ -269,13 +269,13 @@ example.i(4) : Syntax error in input(1).
 
 ```
 
-## <a name="Warnings_nn9"></a> 21.9 Warning number reference
+<h2 id="Warnings_nn9">21.9 Warning number reference</h2>
 
-### <a name="Warnings_nn10"></a> 21.9.1 Deprecated features (100-199)
+<h3 id="Warnings_nn10">21.9.1 Deprecated features (100-199)</h3>
 
 None currently.
 
-### <a name="Warnings_nn11"></a> 21.9.2 Preprocessor (200-299)
+<h3 id="Warnings_nn11">21.9.2 Preprocessor (200-299)</h3>
 
 - 201. Unable to find *filename*.
 - 202. Could not evaluate expression *expr*.
@@ -284,7 +284,7 @@ None currently.
 - 205. CPP #error, "*error*".
 - 206. Unexpected tokens after #*directive* directive.
 
-### <a name="Warnings_nn12"></a> 21.9.3 C/C++ Parser (300-399)
+<h3 id="Warnings_nn12">21.9.3 C/C++ Parser (300-399)</h3>
 
 - 301. `class` keyword used, but not in C++ mode.
 - 302. Redefinition of identifier '*name*' as *decl* ignored.
@@ -369,7 +369,7 @@ None currently.
 - 395. operator delete[] ignored.
 - 396. operator*() ignored.
 
-### <a name="Warnings_nn13"></a> 21.9.4 Types and typemaps (400-499) 
+<h3 id="Warnings_nn13">21.9.4 Types and typemaps (400-499)</h3>
 
 - 401. Nothing known about class 'name'. Ignored.
 - 402. Base class 'name' is incomplete.
@@ -404,7 +404,7 @@ None currently.
 - 478. The argout typemaps for '*method*' append into different containers, '*container1*' and '*container2*', so the type of the values returned cannot be worked out and a catch-all type is used for the return type instead.
 - 490. Fragment '*name*' not found.
 
-### <a name="Warnings_nn14"></a> 21.9.5 Code generation (500-559)
+<h3 id="Warnings_nn14">21.9.5 Code generation (500-559)</h3>
 
 - 501. Overloaded declaration ignored. *decl*. Previous declaration is *decl*.
 - 502. Overloaded constructor ignored. *decl*. Previous declaration is *decl*.
@@ -434,7 +434,7 @@ None currently.
 - 526. Using declaration *declaration*, with name '*name*', is not actually using the method from *declaration*, with name '*name*', as the names are different.
 - 527. Deprecated target language. Target language *language* specified by *lang* is a deprecated language. It will be removed in the next release of SWIG unless a new maintainer steps forward to bring it up to at least experimental status. See the 'Target Languages' section in the Introduction chapter of the SWIG documentation.
 
-### <a name="Warnings_doxygen"></a> 21.9.6 Doxygen comments (560-599)
+<h3 id="Warnings_doxygen">21.9.6 Doxygen comments (560-599)</h3>
 
 - 560: Unknown Doxygen command: *command*.
 - 561: Unexpected end of Doxygen comment encountered.
@@ -442,7 +442,7 @@ None currently.
 - 563: Doxygen HTML error for tag *tag*: *error text*.
 - 564: Error parsing Doxygen command *command*: *error text*. Command ignored."
 
-### <a name="Warnings_nn15"></a> 21.9.7 Language module specific (700-899) 
+<h3 id="Warnings_nn15">21.9.7 Language module specific (700-899)</h3>
 
 - 801. Wrong name (corrected to '*name*').  (Ruby).
 
@@ -484,10 +484,10 @@ None currently.
 - 870. Warning for *classname*: Base *baseclass* ignored. Multiple inheritance is not supported in PHP.   (Php).
 - 871. Unrecognized pragma *pragma*.   (Php).
 
-### <a name="Warnings_nn16"></a> 21.9.8 User defined (900-999)
+<h3 id="Warnings_nn16">21.9.8 User defined (900-999)</h3>
 
 These numbers can be used by your own application.
 
-## <a name="Warnings_nn17"></a> 21.10 History
+<h2 id="Warnings_nn17">21.10 History</h2>
 
 The ability to control warning messages was first added to SWIG-1.3.12.

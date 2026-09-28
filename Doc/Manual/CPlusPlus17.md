@@ -1,12 +1,12 @@
 
 
-# <a name="CPlusPlus17"></a> 9 SWIG and C++17
+<h1 id="CPlusPlus17">9 SWIG and C++17</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="CPlusPlus17_introduction"></a> 9.1 Introduction
+<h2 id="CPlusPlus17_introduction">9.1 Introduction</h2>
 
 This chapter gives you a brief overview about the SWIG
 implementation of the C++17 standard.
@@ -15,9 +15,9 @@ C++17 support.
 
 **Compatibility note:** SWIG-4.0.0 is the first version to support any C++17 features.
 
-## <a name="CPlusPlus17_core_language_changes"></a> 9.2 Core language changes
+<h2 id="CPlusPlus17_core_language_changes">9.2 Core language changes</h2>
 
-### <a name="CPlusPlus17_nested_namespaces"></a> 9.2.1 Nested namespace definitions
+<h3 id="CPlusPlus17_nested_namespaces">9.2.1 Nested namespace definitions</h3>
 
 C++17 offers a more concise syntax for defining namespaces.
 SWIG has support for nested namespace definitions such as:
@@ -44,7 +44,7 @@ namespace A {
 
 ```
 
-### <a name="CPlusPlus17_u8_char_literals"></a> 9.2.2 UTF-8 character literals
+<h3 id="CPlusPlus17_u8_char_literals">9.2.2 UTF-8 character literals</h3>
 
 C++17 added UTF-8 (u8) character literals.
 These are of type char.
@@ -56,7 +56,7 @@ char a = u8'a';
 
 ```
 
-### <a name="CPlusPlus17_hexadecimal_floating_literals"></a> 9.2.3 Hexadecimal floating literals
+<h3 id="CPlusPlus17_hexadecimal_floating_literals">9.2.3 Hexadecimal floating literals</h3>
 
 C++17 added hexadecimal floating literals.
 For example:
@@ -67,14 +67,14 @@ double f = 0xF.68p2;
 
 ```
 
-### <a name="CPlusPlus17_fold_expressions"></a> 9.2.4 Fold expressions
+<h3 id="CPlusPlus17_fold_expressions">9.2.4 Fold expressions</h3>
 
 C++17 added template fold expressions.  SWIG 4.3.0 and later support
 parsing these with a few restrictions.  Unary left fold expressions are
 not supported currently.  Also the same restrictions that apply to other
 expressions apply here too.
 
-### <a name="CPlusPlus17_using_pack_expansion"></a> 9.2.5 Pack expansion in using-declaration
+<h3 id="CPlusPlus17_using_pack_expansion">9.2.5 Pack expansion in using-declaration</h3>
 
 C++17 extended the using-declaration so a single statement can bring all the names
 of a template parameter pack into scope.  This generalises the C++11
@@ -153,7 +153,7 @@ proxy has no such method.
 **Compatibility note:** SWIG-4.5.0 is the first version to parse pack expansion in a
 using-declaration and to expand it during `%template` instantiation.
 
-### <a name="CPlusPlus17_class_template_argument_deduction"></a> 9.2.6 Class template argument deduction
+<h3 id="CPlusPlus17_class_template_argument_deduction">9.2.6 Class template argument deduction</h3>
 
 Class template argument deduction (CTAD) lets a variable be declared with a bare class
 template name, the template arguments being deduced from the initializer.  The deduction
@@ -192,7 +192,7 @@ in the C++20 chapter.
 declaration cleanly; earlier versions generated uncompilable wrapper code that named the
 template without arguments.
 
-### <a name="CPlusPlus17_deduction_guides"></a> 9.2.7 User-defined deduction guides
+<h3 id="CPlusPlus17_deduction_guides">9.2.7 User-defined deduction guides</h3>
 
 As well as the deduction guides the compiler synthesises from a class's constructors, a program can
 declare its own user-defined deduction guides to steer class template argument deduction.  A guide
@@ -222,7 +222,7 @@ discards it.  A guide may carry the optional `explicit` specifier, which is also
 **Compatibility note:** SWIG-4.5.0 is the first version to parse user-defined deduction guides;
 earlier versions reported a syntax error.
 
-### <a name="CPlusPlus17_structured_bindings"></a> 9.2.8 Structured bindings
+<h3 id="CPlusPlus17_structured_bindings">9.2.8 Structured bindings</h3>
 
 A structured binding declares a name for each element of the initialiser rather
 than a single variable:
@@ -262,5 +262,5 @@ class scope reaches the parser.
 **Compatibility note:** SWIG-4.6.0 is the first version to parse structured
 bindings; earlier versions reported a syntax error.
 
-## <a name="CPlusPlus17_standard_library_changes"></a> 9.3 Standard library changes
+<h2 id="CPlusPlus17_standard_library_changes">9.3 Standard library changes</h2>
 

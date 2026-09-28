@@ -1,6 +1,6 @@
 
 
-# <a name="Ocaml"></a> 41 SWIG and OCaml
+<h1 id="Ocaml">41 SWIG and OCaml</h1>
 
 <!-- INDEX -->
 
@@ -23,7 +23,7 @@ variants, functions, classes, etc.
 If you're not familiar with the Objective Caml language, you can visit
 [The Ocaml Website](https://ocaml.org/).
 
-## <a name="Ocaml_nn2"></a> 41.1 Preliminaries
+<h2 id="Ocaml_nn2">41.1 Preliminaries</h2>
 
 SWIG is known to be compatible with OCaml 4.13.1 and above - older versions
 are not regularly tested.  Given the choice,
@@ -39,7 +39,7 @@ The ocaml_dynamic and ocaml_dynamic_cpp targets in the
 file Examples/Makefile illustrate how to compile and link SWIG modules that
 will be loaded dynamically.  This has only been tested on Linux so far.
 
-### <a name="Ocaml_nn3"></a> 41.1.1 Running SWIG
+<h3 id="Ocaml_nn3">41.1.1 Running SWIG</h3>
 
 The basics of getting a SWIG Ocaml module up and running
 can be seen from one of SWIG's example Makefiles, but is also described
@@ -59,7 +59,7 @@ you will compile the file `example_wrap.c` with `ocamlc` or
 the resulting .ml and .mli files as well, and do the final link with -custom
 (not needed for native link).
 
-### <a name="Ocaml_nn4"></a> 41.1.2 Compiling the code
+<h3 id="Ocaml_nn4">41.1.2 Compiling the code</h3>
 
 The OCaml SWIG module now requires you to compile a module (`Swig`)
 separately.  In addition to aggregating common SWIG functionality, the Swig
@@ -93,7 +93,7 @@ in C++ mode, you must:
 
 ```
 
-### <a name="Ocaml_nn5"></a> 41.1.3 The camlp4 module
+<h3 id="Ocaml_nn5">41.1.3 The camlp4 module</h3>
 
 The camlp4 module (swigp4.ml -\> swigp4.cmo) contains a simple rewriter which
 makes C++ code blend more seamlessly with objective caml code.  Its use is
@@ -141,7 +141,7 @@ let a = get_int (_atoi (C_string "2"))<br>
 let b = C_string (getenv "PATH")
 </td></tr></table>
 
-### <a name="Ocaml_nn6"></a> 41.1.4 Using your module
+<h3 id="Ocaml_nn6">41.1.4 Using your module</h3>
 
 You can test-drive your module by building a
 toplevel ocaml interpreter.  Consult the ocaml manual for details.
@@ -150,7 +150,7 @@ When linking any ocaml bytecode with your module, use the -custom
 option to build your functions into the primitive list. This
 option is not needed when you build native code.
 
-### <a name="Ocaml_nn7"></a> 41.1.5 Compilation problems and compiling with C++
+<h3 id="Ocaml_nn7">41.1.5 Compilation problems and compiling with C++</h3>
 
 Ocaml's C extension API unfortunately defines a `value` typedef - this
 overly-generic name can collide with the C or C++ API being wrapped if it
@@ -165,7 +165,7 @@ that uses `class` as a non-keyword, and C code that is too
 liberal with pointer types may not compile under the C++ compiler.
 Most code meant to be compiled as C++ will not have problems.
 
-## <a name="Ocaml_nn8"></a> 41.2 The low-level Ocaml/C interface
+<h2 id="Ocaml_nn8">41.2 The low-level Ocaml/C interface</h2>
 
 In order to provide access to overloaded functions, and
 provide sensible outputs from them, all C entities are represented as
@@ -251,7 +251,7 @@ provide everything a typemap needs to produce values.  In addition,
 value items pass through directly, but you must make your own type
 signature for a function that uses value in this way.
 
-### <a name="Ocaml_nn9"></a> 41.2.1 The generated module
+<h3 id="Ocaml_nn9">41.2.1 The generated module</h3>
 
 The SWIG `%module` directive specifies the name of the Ocaml
 module to be generated.  If you specified ``%module example`',
@@ -273,7 +273,7 @@ These are the places you can introduce code:
 
 **Table:** Extra code sections
 
-### <a name="Ocaml_nn10"></a> 41.2.2 Enums
+<h3 id="Ocaml_nn10">41.2.2 Enums</h3>
 
 SWIG will wrap enumerations as polymorphic variants in the output
 Ocaml code, as above in C_enum.  In order to support all
@@ -332,7 +332,7 @@ val x : Enum_test.c_obj = C_enum `a
 
 ```
 
-#### <a name="Ocaml_nn11"></a> 41.2.2.1 Enum typing in Ocaml
+<h4 id="Ocaml_nn11">41.2.2.1 Enum typing in Ocaml</h4>
 
 The ocaml SWIG module now has support for loading and using multiple SWIG
 modules at the same time.  This enhances modularity, but presents problems
@@ -342,9 +342,9 @@ isolated per-module.  The type issue matters when values are shared between
 functions imported from different modules.  You must convert values to master
 values using the swig_val function before sharing them with another module.
 
-### <a name="Ocaml_nn12"></a> 41.2.3 Arrays
+<h3 id="Ocaml_nn12">41.2.3 Arrays</h3>
 
-#### <a name="Ocaml_nn13"></a> 41.2.3.1 Simple types of bounded arrays
+<h4 id="Ocaml_nn13">41.2.3.1 Simple types of bounded arrays</h4>
 
 SWIG has support for array types, but you generally will need to provide
 a typemap to handle them.  You can currently roll your own, or expand
@@ -358,7 +358,7 @@ create typemaps for array types fairly easily.
 arrays of simple types with known bounds in your code, but this only works
 for arrays whose bounds are completely specified.
 
-#### <a name="Ocaml_nn14"></a> 41.2.3.2 Complex and unbounded arrays
+<h4 id="Ocaml_nn14">41.2.3.2 Complex and unbounded arrays</h4>
 
 Unfortunately, unbounded arrays and pointers can't be handled in a
 completely general way by SWIG, because the end-condition of such an
@@ -368,7 +368,7 @@ array can't be predicted.  In some cases, it will be by consent
 SWIG can't predict which of these methods will be used in the array,
 so you have to specify it for yourself in the form of a typemap.
 
-#### <a name="Ocaml_nn15"></a> 41.2.3.3 Using an object
+<h4 id="Ocaml_nn15">41.2.3.3 Using an object</h4>
 
 It's possible to use C++ to your advantage by creating a simple object that
 provides access to your array.  This may be more desirable in some cases,
@@ -377,7 +377,7 @@ since the object can provide bounds checking, etc., that prevents crashes.
 Consider writing an object when the ending condition of your array is complex,
 such as using a required sentinel, etc.
 
-#### <a name="Ocaml_nn16"></a> 41.2.3.4 Example typemap for a function taking float * and int
+<h4 id="Ocaml_nn16">41.2.3.4 Example typemap for a function taking float * and int</h4>
 
 This is a simple example `in` typemap for an array of float, where the
 length of the array is specified as an extra parameter.  Other such typemaps
@@ -419,7 +419,7 @@ void printfloats( float *tab, int len );
 - : Tarray.c_obj = C_void
 </pre></td></tr></table>
 
-### <a name="Ocaml_nn17"></a> 41.2.4 C++ Classes
+<h3 id="Ocaml_nn17">41.2.4 C++ Classes</h3>
 
 C++ classes, along with structs and unions are represented by C_obj
 (string -\> c_obj -\> c_obj) wrapped closures.  These objects
@@ -447,7 +447,7 @@ Note that this string belongs to the wrapper object, and not
 the underlying pointer, so using create_[x]_from_ptr alters the
 returned value for the same object.
 
-#### <a name="Ocaml_nn18"></a> 41.2.4.1 STL vector and string Example
+<h4 id="Ocaml_nn18">41.2.4.1 STL vector and string Example</h4>
 
 Standard typemaps are now provided for STL vector and string.  More are in
 the works.  STL strings are passed just like normal strings, and returned
@@ -516,7 +516,7 @@ baz
 
 ```
 
-#### <a name="Ocaml_nn19"></a> 41.2.4.2 C++ Class Example
+<h4 id="Ocaml_nn19">41.2.4.2 C++ Class Example</h4>
 
 Here's a simple example using Trolltech's Qt Library:
 <table border="1" bgcolor="#dddddd" summary="Qt Library example"><tr><th><center>qt.i</center></th></tr><tr><td><pre>
@@ -539,7 +539,7 @@ public:
 };
 </pre></td></tr></table>
 
-#### <a name="Ocaml_nn20"></a> 41.2.4.3 Compiling the example
+<h4 id="Ocaml_nn20">41.2.4.3 Compiling the example</h4>
 
 ```swig
 
@@ -557,7 +557,7 @@ $ ocamlmktop -custom swig.cmo -I `camlp4 -where` \
 
 ```
 
-#### <a name="Ocaml_nn21"></a> 41.2.4.4 Sample Session
+<h4 id="Ocaml_nn21">41.2.4.4 Sample Session</h4>
 
 ```swig
 
@@ -583,9 +583,9 @@ val hello : Qt.c_obj = C_obj <fun>
 Assuming you have a working installation of QT, you will see a window
 containing the string "hi" in a button.
 
-### <a name="Ocaml_nn22"></a> 41.2.5 Director Classes
+<h3 id="Ocaml_nn22">41.2.5 Director Classes</h3>
 
-#### <a name="Ocaml_nn23"></a> 41.2.5.1 Director Introduction
+<h4 id="Ocaml_nn23">41.2.5.1 Director Introduction</h4>
 
 Director classes are classes which allow Ocaml code to override the public
 methods of a C++ object.  This facility allows the user to use C++ libraries
@@ -609,7 +609,7 @@ class foo {
 
 ```
 
-#### <a name="Ocaml_nn24"></a> 41.2.5.2 Overriding Methods in Ocaml
+<h4 id="Ocaml_nn24">41.2.5.2 Overriding Methods in Ocaml</h4>
 
 Because the Ocaml language module treats C++ method calls as calls to a
 certain function, all you need to do is to define the function that will
@@ -630,7 +630,7 @@ invoked from Ocaml, allowing any method definitions to override the C++ ones.
 In this example, I'll examine the objective caml code involved in providing
 an overloaded class.  This example is contained in Examples/ocaml/shapes.
 
-#### <a name="Ocaml_nn25"></a> 41.2.5.3 Director Usage Example
+<h4 id="Ocaml_nn25">41.2.5.3 Director Usage Example</h4>
 
 <table border="1" bgcolor="#dddddd" summary="Director usage example"><tr><th><center>runme.ml</center></th></tr><tr><td><pre>
 open Swig
@@ -681,7 +681,7 @@ a tricky shape implementation, such as a boolean combination, to be expressed
 in a more effortless style in ocaml, while leaving the "engine" part of the
 program in C++.
 
-#### <a name="Ocaml_nn26"></a> 41.2.5.4 Creating director objects
+<h4 id="Ocaml_nn26">41.2.5.4 Creating director objects</h4>
 
 The definition of the actual object triangle can be described this way:
 
@@ -717,7 +717,7 @@ new_derived_object, and throws NotObject).  This prevents a deleted C++
 object from causing a core dump, as long as the object is destroyed
 properly.
 
-#### <a name="Ocaml_nn27"></a> 41.2.5.5 Typemaps for directors, directorin, directorout, directorargout
+<h4 id="Ocaml_nn27">41.2.5.5 Typemaps for directors, directorin, directorout, directorargout</h4>
 
 Special typemaps exist for use with directors, the `directorin, directorout, directorargout`
 are used in place of `in, out, argout` typemaps, except that their
@@ -725,7 +725,7 @@ direction is reversed.  They provide for you to provide argout values, as
 well as a function return value in the same way you provide function arguments,
 and to receive arguments the same way you normally receive function returns.
 
-#### <a name="Ocaml_nn28"></a> 41.2.5.6 directorin typemap
+<h4 id="Ocaml_nn28">41.2.5.6 directorin typemap</h4>
 
 The `directorin` typemap is used when you will receive arguments from a call
 made by C++ code to you, therefore, values will be translated from C++ to
@@ -733,7 +733,7 @@ ocaml.  You must provide some valid C_obj value.  This is the value your ocaml
 code receives when you are called.  In general, a simple `directorin` typemap
 can use the same body as a simple `out` typemap.
 
-#### <a name="Ocaml_nn29"></a> 41.2.5.7 directorout typemap
+<h4 id="Ocaml_nn29">41.2.5.7 directorout typemap</h4>
 
 The `directorout` typemap is used when you will send an argument from your
 code back to the C++ caller.  That is; directorout specifies a function return
@@ -741,7 +741,7 @@ conversion.  You can usually use the same body as an `in` typemap
 for the same type, except when there are special requirements for object
 ownership, etc.
 
-#### <a name="Ocaml_nn30"></a> 41.2.5.8 directorargout typemap
+<h4 id="Ocaml_nn30">41.2.5.8 directorargout typemap</h4>
 
 C++ allows function arguments which are by pointer (*) and by reference (&)
 to receive a value from the called function, as well as sending one there.
@@ -755,7 +755,7 @@ list and assigned to the values to be returned to C++ through directorargout typ
 In the event that you don't specify all of the necessary values, integral
 values will read zero, and struct or object returns have undefined results.
 
-### <a name="Ocaml_nn31"></a> 41.2.6 Exceptions
+<h3 id="Ocaml_nn31">41.2.6 Exceptions</h3>
 
 If an error occurs in a C or C++ function, you may want to convert that error into an OCaml
 exception.  To do this, you can use the `%exception` directive.  The `%exception`
@@ -828,13 +828,13 @@ class FooClass {
 The language-independent `exception.i` library file can also be used
 to raise exceptions.  See the [SWIG Library](Library/#Library) chapter.
 
-## <a name="Ocaml_nn32"></a> 41.3 Documentation Features
+<h2 id="Ocaml_nn32">41.3 Documentation Features</h2>
 
 The features described in this section can be used to generate documentation
 comments (colloquially referred to as "docstrings") that can be read by
 [OCamldoc](https://caml.inria.fr/pub/docs/manual-ocaml/ocamldoc.html).
 
-### <a name="Ocaml_nn33"></a> 41.3.1 Module docstring
+<h3 id="Ocaml_nn33">41.3.1 Module docstring</h3>
 
 The first documentation comment of an `mli` file is the comment
 associated with the entire module.  SWIG supports this by setting an

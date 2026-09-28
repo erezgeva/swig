@@ -1,6 +1,6 @@
 
 
-# <a name="Arguments"></a> 15 Argument Handling
+<h1 id="Arguments">15 Argument Handling</h1>
 
 <!-- INDEX -->
 
@@ -16,12 +16,12 @@ handling of a specific datatype. For example, you might want to
 return multiple values through the arguments of a function.  This chapter
 describes some of the techniques for doing this.
 
-## <a name="Arguments_nn2"></a> 15.1 The typemaps.i library
+<h2 id="Arguments_nn2">15.1 The typemaps.i library</h2>
 
 This section describes the `typemaps.i` library file–commonly used to
 change certain properties of argument conversion.
 
-### <a name="Arguments_nn3"></a> 15.1.1 Introduction
+<h3 id="Arguments_nn3">15.1.1 Introduction</h3>
 
 Suppose you had a C function like this:
 
@@ -150,7 +150,7 @@ else.   To clear a typemap, the `%clear` directive should be used.  For example:
 
 ```
 
-### <a name="Arguments_nn4"></a> 15.1.2 Input parameters
+<h3 id="Arguments_nn4">15.1.2 Input parameters</h3>
 
 The following typemaps instruct SWIG that a pointer really only holds a single
 input value:
@@ -201,7 +201,7 @@ result = add(3, 4)
 
 ```
 
-### <a name="Arguments_nn5"></a> 15.1.3 Output parameters
+<h3 id="Arguments_nn5">15.1.3 Output parameters</h3>
 
 The following typemap rules tell SWIG that pointer is the output value of a
 function. When used, you do not need to supply the argument when
@@ -264,7 +264,7 @@ iresult, dresult = foo(3.5, 2)
 
 ```
 
-### <a name="Arguments_nn6"></a> 15.1.4 Input/Output parameters
+<h3 id="Arguments_nn6">15.1.4 Input/Output parameters</h3>
 
 When a pointer serves as both an input and output value you can use
 the following typemaps :
@@ -322,7 +322,7 @@ just modify the object's value in place as the underlying C function does in thi
 Therefore, the `INOUT` rule returns the modified value as a new object
 rather than directly overwriting the value of the original input object.
 
-### <a name="Arguments_nn7"></a> 15.1.5 Using different names
+<h3 id="Arguments_nn7">15.1.5 Using different names</h3>
 
 As previously shown, the `%apply` directive can be used to apply the `INPUT`, `OUTPUT`, and
 `INOUT` typemaps to different argument names.  For example:
@@ -352,14 +352,14 @@ To clear a rule, the `%clear` directive is used:
 Typemap declarations are lexically scoped so a typemap takes effect from the point of definition to the end of the
 file or a matching `%clear` declaration.
 
-## <a name="Arguments_nn8"></a> 15.2 Applying constraints to input values
+<h2 id="Arguments_nn8">15.2 Applying constraints to input values</h2>
 
 In addition to changing the handling of various input values, it is
 also possible to use typemaps to apply constraints. For example, maybe you want to
 insure that a value is positive, or that a pointer is non-NULL. This
 can be accomplished including the `constraints.i` library file.
 
-### <a name="Arguments_nn9"></a> 15.2.1 Simple constraint example
+<h3 id="Arguments_nn9">15.2.1 Simple constraint example</h3>
 
 The constraints library is best illustrated by the following interface
 file :
@@ -383,7 +383,7 @@ the arguments violate the constraint condition, a scripting language
 exception will be raised. As a result, it is possible to catch bad
 values, prevent mysterious program crashes and so on.
 
-### <a name="Arguments_nn10"></a> 15.2.2 Constraint methods
+<h3 id="Arguments_nn10">15.2.2 Constraint methods</h3>
 
 The following constraints are currently available
 
@@ -398,7 +398,7 @@ NONNULL                      Non-NULL pointer (pointers only).
 
 ```
 
-### <a name="Arguments_nn11"></a> 15.2.3 Applying constraints to new datatypes
+<h3 id="Arguments_nn11">15.2.3 Applying constraints to new datatypes</h3>
 
 The constraints library only supports the primitive C datatypes, but it
 is easy to apply it to new datatypes using `%apply`. For

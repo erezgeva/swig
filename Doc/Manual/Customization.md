@@ -1,6 +1,6 @@
 
 
-# <a name="Customization"></a> 17 Customization Features
+<h1 id="Customization">17 Customization Features</h1>
 
 <!-- INDEX -->
 
@@ -14,7 +14,7 @@ describes some of these customization techniques.  First, a discussion
 of exception handling is presented.  Then, a more general-purpose
 customization mechanism known as "features" is described.
 
-## <a name="Customization_exception"></a> 17.1 Exception handling with %exception
+<h2 id="Customization_exception">17.1 Exception handling with %exception</h2>
 
 The `%exception` directive allows you to define a general purpose exception
 handler. For example, you can specify the following:
@@ -62,7 +62,7 @@ or `%noexception` with no code. For example:
 
 ```
 
-### <a name="Customization_nn3"></a> 17.1.1 Handling exceptions in C code
+<h3 id="Customization_nn3">17.1.1 Handling exceptions in C code</h3>
 
 C has no formal exception handling mechanism so there are several approaches that might be
 used.  A somewhat common technique is to simply set a special error code.  For example:
@@ -128,7 +128,7 @@ In this case, when an error occurs, it is translated into a Perl error.
 Each target language has its own approach to creating a runtime error/exception in
 and for Perl it is the `croak` method shown above.
 
-### <a name="Customization_nn4"></a> 17.1.2 Exception handling with longjmp()
+<h3 id="Customization_nn4">17.1.2 Exception handling with longjmp()</h3>
 
 Exception handling can also be added to C code using the
 `<setjmp.h>` library.  Here is a minimalistic implementation that
@@ -201,7 +201,7 @@ Finally, to create a SWIG exception handler, write the following :
 Note: This implementation is only intended to illustrate the general idea.  To make it work better, you'll need to
 modify it to handle nested `try` declarations.
 
-### <a name="Customization_nn5"></a> 17.1.3 Handling C++ exceptions
+<h3 id="Customization_nn5">17.1.3 Handling C++ exceptions</h3>
 
 Handling C++ exceptions is also straightforward.  For example:
 
@@ -234,7 +234,7 @@ class OutOfMemory {};
 
 ```
 
-### <a name="Customization_allowexcept"></a> 17.1.4 Exception handlers for variables
+<h3 id="Customization_allowexcept">17.1.4 Exception handlers for variables</h3>
 
 By default all variables will ignore `%exception`, so it is effectively turned off for all variables wrappers.
 This applies to global variables, member variables and static member variables.
@@ -256,7 +256,7 @@ The `%allowexception` feature works like any other feature and so can be used gl
 
 ```
 
-### <a name="Customization_nn6"></a> 17.1.5 Defining different exception handlers
+<h3 id="Customization_nn6">17.1.5 Defining different exception handlers</h3>
 
 By default, the `%exception` directive creates an exception
 handler that is used for all wrapper functions that follow it.  Unless
@@ -370,7 +370,7 @@ to attach exceptions to specific parts of a header file. For example:
 
 ```
 
-### <a name="Customization_exception_special_variables"></a> 17.1.6 Special variables for %exception
+<h3 id="Customization_exception_special_variables">17.1.6 Special variables for %exception</h3>
 
 The %exception directive supports a few special variables which are placeholders for
 code substitution.
@@ -435,7 +435,7 @@ Below shows the expansions for the 1st of the overloaded `something` wrapper met
 
 ```
 
-### <a name="Customization_nn7"></a> 17.1.7 Using The SWIG exception library
+<h3 id="Customization_nn7">17.1.7 Using The SWIG exception library</h3>
 
 The `exception.i` library file provides support for creating
 language independent exceptions in your interfaces.  To use it, simply
@@ -488,7 +488,7 @@ SWIG_NullReferenceError
 
 The `SWIG_exception()` function can also be used in typemaps.
 
-## <a name="Customization_ownership"></a> 17.2 Object ownership and %newobject
+<h2 id="Customization_ownership">17.2 Object ownership and %newobject</h2>
 
 A common problem in some applications is managing proper ownership of objects.  For
 example, consider a function like this:
@@ -595,7 +595,7 @@ properly.
 The use of `%newobject` is also integrated with reference counting and is covered in the
 [C++ reference counted objects](SWIGPlus/#SWIGPlus_ref_unref) section.
 
-## <a name="Customization_features"></a> 17.3 Features and the %feature directive
+<h2 id="Customization_features">17.3 Features and the %feature directive</h2>
 
 Both `%exception` and `%newobject` are examples of a
 more general purpose customization mechanism known as "features."  A
@@ -666,7 +666,7 @@ The following are all equivalent:
 
 The syntax in the first variation will generate the `{ }` delimiters used whereas the other variations will not.
 
-### <a name="Customization_feature_attributes"></a> 17.3.1 Feature attributes
+<h3 id="Customization_feature_attributes">17.3.1 Feature attributes</h3>
 
 The `%feature` directive also accepts XML style attributes in the same way that typemaps do.
 Any number of attributes can be specified.
@@ -700,7 +700,7 @@ In the following example, `MyExceptionClass` is the name of the Java class for a
 
 Further details can be obtained from the [Java exception handling](Java/#Java_exception_handling) section.
 
-### <a name="Customization_feature_flags"></a> 17.3.2 Feature flags
+<h3 id="Customization_feature_flags">17.3.2 Feature flags</h3>
 
 Feature flags are used to enable or disable a particular feature. Feature flags are a common but simple usage of `%feature`
 and the feature value should be either `1` to enable or `0` to disable the feature.
@@ -785,7 +785,7 @@ in the `swig.swg` Library file. The following shows the alternative syntax for t
 
 The concept of clearing features is discussed next.
 
-### <a name="Customization_clearing_features"></a> 17.3.3 Clearing features
+<h3 id="Customization_clearing_features">17.3.3 Clearing features</h3>
 
 A feature stays in effect until it is explicitly cleared.  A feature is cleared by
 supplying a `%feature` directive with no value.  For example `%feature("name", "")`.
@@ -865,7 +865,7 @@ The three macros below show this for the "except" feature:
 
 ```
 
-### <a name="Customization_features_default_args"></a> 17.3.4 Features and default arguments
+<h3 id="Customization_features_default_args">17.3.4 Features and default arguments</h3>
 
 SWIG treats methods with default arguments as separate overloaded methods as detailed
 in the [default arguments](SWIGPlus/#SWIGPlus_default_args) section.
@@ -925,7 +925,7 @@ specifying or not specifying default arguments in a feature is not applicable as
 **Compatibility note:** The different behaviour of features specified with or without default arguments was introduced
 in SWIG-1.3.23 when the approach to wrapping methods with default arguments was changed.
 
-### <a name="Customization_features_example"></a> 17.3.5 Feature example
+<h3 id="Customization_features_example">17.3.5 Feature example</h3>
 
 As has been shown earlier, the intended use for the `%feature` directive is as a highly flexible customization mechanism that can be used to annotate
 declarations with additional information for use by specific target language modules.  Another example is

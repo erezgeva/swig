@@ -1,6 +1,6 @@
 
 
-# <a name="Octave"></a> 32 SWIG and Octave
+<h1 id="Octave">32 SWIG and Octave</h1>
 
 <!-- INDEX -->
 
@@ -12,7 +12,7 @@ More information can be found at [Octave web site](https://octave.org/).
 This chapter is intended to give an introduction to using the module. You should also read the SWIG documentation that is not specific to Octave.
 Also, there are a dozen or so examples in the Examples/octave directory, and hundreds in the test suite (Examples/test-suite and Examples/test-suite/octave).
 
-## <a name="Octave_nn2"></a> 32.1 Preliminaries
+<h2 id="Octave_nn2">32.1 Preliminaries</h2>
 
 SWIG supports Octave 6 and later.  It is regularly tested against the following
 versions of Octave: 6.4, 8.4.
@@ -24,7 +24,7 @@ This cannot be guaranteed however, as in recent times new Octave releases have r
 
 The SWIG runtime exports the function `swig_octave_prereq()` for checking the version of Octave.
 
-## <a name="Octave_nn3"></a> 32.2 Running SWIG
+<h2 id="Octave_nn3">32.2 Running SWIG</h2>
 
 Let's start with a very simple SWIG interface file, example.i:
 
@@ -50,7 +50,7 @@ The `-c++` option is also required when wrapping C++ code:
 $ swig -octave -c++ -o example_wrap.cpp example.i 
 ```
 
-### <a name="Octave_nn4"></a> 32.2.1 Command-line options
+<h3 id="Octave_nn4">32.2.1 Command-line options</h3>
 
 The swig command line has a number of options you can use, like to redirect its output. Use `swig -help` to learn about these.
 Options specific to the Octave module are:
@@ -69,7 +69,7 @@ The *-globals* option sets the name of the variable which is the namespace for C
 The special name "." loads C global variables into the module namespace, i.e. alongside C functions and structs exported by the module.
 The *-opprefix* options sets the prefix of the names of global/friend [operator](#Octave_nn18) functions.
 
-### <a name="Octave_nn5"></a> 32.2.2 Compiling a dynamic module
+<h3 id="Octave_nn5">32.2.2 Compiling a dynamic module</h3>
 
 Octave modules are DLLs/shared objects having the ".oct" suffix.
 Building an oct file is usually done with the mkoctfile command (either within Octave itself, or from the shell). For example,
@@ -91,7 +91,7 @@ mkoctfile will produce "swigexample.oct", which contains the compiled extension 
 octave:1> swigexample
 ```
 
-### <a name="Octave_nn6"></a> 32.2.3 Using your module
+<h3 id="Octave_nn6">32.2.3 Using your module</h3>
 
 Assuming all goes well, you will be able to do this:
 
@@ -107,9 +107,9 @@ octave:5> swigexample.cvar.Foo
 ans =  4 
 ```
 
-## <a name="Octave_nn7"></a> 32.3 A tour of basic C/C++ wrapping
+<h2 id="Octave_nn7">32.3 A tour of basic C/C++ wrapping</h2>
 
-### <a name="Octave_nn8"></a> 32.3.1 Modules
+<h3 id="Octave_nn8">32.3.1 Modules</h3>
 
 The SWIG module directive specifies the name of the Octave module. If you specify "module swigexample", then in Octave everything in the module will be accessible under "swigexample", as in the above example. When choosing a module name, make sure you don't use the same name as a built-in Octave command or standard module name.
 
@@ -149,7 +149,7 @@ ans =  2
 
 ```
 
-### <a name="Octave_nn9"></a> 32.3.2 Functions
+<h3 id="Octave_nn9">32.3.2 Functions</h3>
 
 Global functions are wrapped as new Octave built-in functions. For example,
 
@@ -165,7 +165,7 @@ octave:1> swigexample.fact(4)
 24 
 ```
 
-### <a name="Octave_nn10"></a> 32.3.3 Global variables
+<h3 id="Octave_nn10">32.3.3 Global variables</h3>
 
 Global variables are a little special in Octave. Given a global variable:
 
@@ -217,7 +217,7 @@ octave:3> swigexample.PI
 ans =  3.1420 
 ```
 
-### <a name="Octave_nn11"></a> 32.3.4 Constants and enums
+<h3 id="Octave_nn11">32.3.4 Constants and enums</h3>
 
 Because Octave doesn't really have the concept of constants, C/C++ constants are not really constant in Octave. They are actually just a copy of the value into the Octave interpreter. Therefore they can be changed just as any other value. For example given some constants:
 
@@ -238,7 +238,7 @@ swigexample.SUNDAY=0
 .... 
 ```
 
-### <a name="Octave_nn12"></a> 32.3.5 Pointers
+<h3 id="Octave_nn12">32.3.5 Pointers</h3>
 
 C/C++ pointers are fully supported by SWIG. Furthermore, SWIG has no problem working with incomplete type information. Given a wrapping of the <file.h\> interface:
 C/C++ pointers are fully supported by SWIG. Furthermore, SWIG has no problem working with incomplete type information. Given a wrapping of the <file.h\> interface:
@@ -286,7 +286,7 @@ error: evaluating assignment expression near line 2, column 2
 
 NULL C/C++ pointers are represented by the Octave null matrix, `[]`.
 
-### <a name="Octave_nn13"></a> 32.3.6 Structures and C++ classes
+<h3 id="Octave_nn13">32.3.6 Structures and C++ classes</h3>
 
 SWIG wraps C structures and C++ classes by using a special Octave type called a `swig_ref`. A `swig_ref` contains a reference to one or more instances of C/C++ objects, or just the type information for an object.
 For each wrapped structure and class, a `swig_ref` will be exposed that has the name of the type. When invoked as a function, it creates a new object of its type and returns a `swig_ref` that points to that instance. This provides a very natural interface. For example,
@@ -418,20 +418,20 @@ ans =  1
 
 Depending on the ownership setting of a `swig_ref`, it may call C++ destructors when its reference count goes to zero. See the section on memory management below for details.
 
-### <a name="Octave_nn15"></a> 32.3.7 C++ inheritance
+<h3 id="Octave_nn15">32.3.7 C++ inheritance</h3>
 
 Single and multiple inheritance are fully supported. The `swig_ref` type carries type information along with any C++ object pointer it holds.
 This information contains the full class hierarchy. When an indexing operation (such as a method invocation) occurs, 
 the tree is walked to find a match in the current class as well as any of its bases. The lookup is then cached in the `swig_ref`.
 
-### <a name="Octave_nn17"></a> 32.3.8 C++ overloaded functions
+<h3 id="Octave_nn17">32.3.8 C++ overloaded functions</h3>
 
 Overloaded functions are supported, and handled as in other modules. That is, 
 each overload is wrapped separately (under internal names), and a dispatch function is also emitted under the external/visible name.
 The dispatch function selects which overload to call (if any) based on the passed arguments.
 `typecheck` typemaps are used to analyze each argument, as well as assign precedence. See the chapter on typemaps for details.
 
-### <a name="Octave_nn18"></a> 32.3.9 C++ operators
+<h3 id="Octave_nn18">32.3.9 C++ operators</h3>
 
 C++ operator overloading is supported, in a way similar to other modules.
 The `swig_ref` type supports all unary and binary operators between itself and all other types that exist in the system at module load time. When an operator is used (where one of the operands is a `swig_ref`), the runtime routes the call to either a member function of the given object, or to a global function whose named is derived from the types of the operands (either both or just the lhs or rhs).
@@ -547,7 +547,7 @@ x=[a,b,c];
 
 calls the Octave operator `horzcat` of the class of `a`. Hence, if `a` is of type `swig_ref` you can write an overload for this operator for your wrapped C++ class by placing a file `@swig_ref/horzcat.m` in the Octave load path (like for every Octave class, see [Creating a Class](https://docs.octave.org/latest/Creating-a-Class.html)). This Octave function file is then called whenever the above Octave code is executed for a variable of type `swig_ref`.
 
-### <a name="Octave_nn19"></a> 32.3.10 Class extension with %extend
+<h3 id="Octave_nn19">32.3.10 Class extension with %extend</h3>
 
 The %extend directive works the same as in other modules.
 
@@ -583,7 +583,7 @@ Similarly, Octave can use the `__float__` method to convert an object to a numer
 
 Octave 3.8.0 and later versions will also map unary functions X() to the corresponding `__X__` method, where X includes: abs(), acos(), acosh(), angle(), arg(), asin(), asinh(), atan(), atanh(), cbrt(), ceil(), conj(), cos(), cosh(), dawson(), erf(), erfc(), erfcinv(), erfcx(), erfi(), erfinv(), exp(), expm1(), finite(), fix(), floor(), gamma(), imag(), isalnum(), isalpha(), isascii(), iscntrl(), isdigit(), isgraph(), isinf(), islower(), isna(), isnan(), isprint(), ispunct(), isspace(), isupper(), isxdigit(), lgamma(), log(), log10(), log1p(), log2(), real(), round(), roundb(), signbit(), signum(), sin(), sinh(), sqrt(), tan(), tanh(), toascii(), tolower(), toupper()
 
-### <a name="Octave_nn20"></a> 32.3.11 C++ templates
+<h3 id="Octave_nn20">32.3.11 C++ templates</h3>
 
 C++ class and function templates are fully supported as in other modules, in that the %template directive may used to create explicit instantiations of templated types.
 For example, function templates can be instantiated as follows:
@@ -658,20 +658,20 @@ ans =
 
 ```
 
-### <a name="Octave_nn21"></a> 32.3.12 C++ Smart Pointers
+<h3 id="Octave_nn21">32.3.12 C++ Smart Pointers</h3>
 
-#### <a name="Octave_smart_pointers_shared_ptr"></a> 32.3.12.1 The shared_ptr Smart Pointer
+<h4 id="Octave_smart_pointers_shared_ptr">32.3.12.1 The shared_ptr Smart Pointer</h4>
 
 The C++11 standard provides `std::shared_ptr` which was derived from the Boost
 implementation, `boost::shared_ptr`.
 Both of these are available for Octave in the SWIG library and usage is outlined
 in the [shared_ptr smart pointer](Library/#Library_std_shared_ptr) library section.
 
-#### <a name="Octave_smart_pointers_generic"></a> 32.3.12.2 Generic Smart Pointers
+<h4 id="Octave_smart_pointers_generic">32.3.12.2 Generic Smart Pointers</h4>
 
 C++ smart pointers are fully supported as in other modules.
 
-### <a name="Octave_nn22"></a> 32.3.13 Directors (calling Octave from C++ code)
+<h3 id="Octave_nn22">32.3.13 Directors (calling Octave from C++ code)</h3>
 
 There is full support for SWIG Directors, which permits Octave code to subclass C++ classes, and implement their virtual methods.
 
@@ -758,11 +758,11 @@ octave-side routine called
 
 ```
 
-### <a name="Octave_nn23"></a> 32.3.14 Threads
+<h3 id="Octave_nn23">32.3.14 Threads</h3>
 
 The use of threads in wrapped Director code is not supported; i.e., an Octave-side implementation of a C++ class must be called from the Octave interpreter's thread. Anything fancier (apartment/queue model, whatever) is left to the user. Without anything fancier, this amounts to the limitation that Octave must drive the module... like, for example, an optimization package that calls Octave to evaluate an objective function.
 
-### <a name="Octave_nn24"></a> 32.3.15 Memory management
+<h3 id="Octave_nn24">32.3.15 Memory management</h3>
 
 As noted above, `swig_ref` represents a reference counted pointer to a C/C++-side object. It also contains a flag indicating whether Octave or the C/C++ code owns the object. If Octave owns it, any destructors will be called when the reference count reaches zero. If the C/C++ side owns the object, then destructors will not be called when the reference count goes to zero.
 As noted above, `swig_ref` represents a reference counted pointer to a C/C++-side object. It also contains a flag indicating whether Octave or the C/C++ code owns the object. If Octave owns it, any destructors will be called when the reference count reaches zero. If the C/C++ side owns the object, then destructors will not be called when the reference count goes to zero.
@@ -798,11 +798,11 @@ The %newobject directive may be used to control this behavior for pointers retur
 
 In the case where one wishes for the C++ side to own an object that was created in Octave (especially a Director object), one can use the __disown() method to invert this logic. Then letting the Octave reference count go to zero will not destroy the object, but destroying the object will invalidate the Octave-side object if it still exists (and call destructors of other C++ bases in the case of multiple inheritance/`subclass()`'ing).
 
-### <a name="Octave_nn25"></a> 32.3.16 STL support
+<h3 id="Octave_nn25">32.3.16 STL support</h3>
 
 Various STL library files are provided for wrapping STL containers.
 
-### <a name="Octave_nn26"></a> 32.3.17 Matrix typemaps
+<h3 id="Octave_nn26">32.3.17 Matrix typemaps</h3>
 
 Octave provides a rich set of classes for dealing with matrices. Currently there are no built-in typemaps to deal with those. However, these are relatively straight forward for users to add themselves (see the docs on typemaps). Without much work (a single typemap decl– say, 5 lines of code in the interface file), it would be possible to have a function
 

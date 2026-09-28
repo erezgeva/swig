@@ -1,12 +1,12 @@
 
 
-# <a name="CPlusPlus26"></a> 12 SWIG and C++26
+<h1 id="CPlusPlus26">12 SWIG and C++26</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="CPlusPlus26_introduction"></a> 12.1 Introduction
+<h2 id="CPlusPlus26_introduction">12.1 Introduction</h2>
 
 This chapter gives you a brief overview about the SWIG implementation of
 the C++26 standard.  C++26 is still a draft standard and SWIG does not
@@ -31,9 +31,9 @@ See
 [Conditional Compilation](Preprocessor/#Preprocessor_condition_compilation)
 in the preprocessor chapter for more on the standard macros SWIG defines.
 
-## <a name="CPlusPlus26_core_language_changes"></a> 12.2 Core language changes
+<h2 id="CPlusPlus26_core_language_changes">12.2 Core language changes</h2>
 
-### <a name="CPlusPlus26_deleted_function_reason"></a> 12.2.1 Reason for a deleted function
+<h3 id="CPlusPlus26_deleted_function_reason">12.2.1 Reason for a deleted function</h3>
 
 C++26 allows a deleted function to carry an explanatory message, which a
 compiler quotes in the error message it emits when an attempt is made to use
@@ -57,7 +57,7 @@ A function declared this way behaves exactly like one declared with a plain
 **Compatibility note:** SWIG-4.6.0 is the first version to parse the
 reason on a deleted function.
 
-## <a name="CPlusPlus26_standard_library_changes"></a> 12.3 Standard library changes
+<h2 id="CPlusPlus26_standard_library_changes">12.3 Standard library changes</h2>
 
 The SWIG library does not yet wrap any of the containers and types added
 to the standard library by C++26.

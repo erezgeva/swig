@@ -1,12 +1,12 @@
 
 
-# <a name="CPlusPlus20"></a> 10 SWIG and C++20
+<h1 id="CPlusPlus20">10 SWIG and C++20</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="CPlusPlus20_introduction"></a> 10.1 Introduction
+<h2 id="CPlusPlus20_introduction">10.1 Introduction</h2>
 
 This chapter gives you a brief overview about the SWIG
 implementation of the C++20 standard.
@@ -14,9 +14,9 @@ Work has only just begun on adding C++20 support.
 
 **Compatibility note:** SWIG-4.1.0 is the first version to support any C++20 features.
 
-## <a name="CPlusPlus20_core_language_changes"></a> 10.2 Core language changes
+<h2 id="CPlusPlus20_core_language_changes">10.2 Core language changes</h2>
 
-### <a name="CPlusPlus20_spaceship_operator"></a> 10.2.1 Spaceship operator
+<h3 id="CPlusPlus20_spaceship_operator">10.2.1 Spaceship operator</h3>
 
 The C++20 three-way comparison operator `<=>`, commonly called the
 spaceship operator, is parsed, but not wrapped by default.  As with most
@@ -104,7 +104,7 @@ wrapped:
 **Compatibility note:** SWIG-4.6.0 is the first version to parse a defaulted or deleted function that
 is declared with a cv-qualifier and an `auto` return type.
 
-### <a name="CPlusPlus20_lambda_templates"></a> 10.2.2 Lambda templates
+<h3 id="CPlusPlus20_lambda_templates">10.2.2 Lambda templates</h3>
 
 SWIG parses lambda templates, but like
 [ non-templated lambdas](CPlusPlus11/#CPlusPlus11_lambda_functions_and_expressions), they aren't currently wrapped. For example:
@@ -117,7 +117,7 @@ auto templated_lambda_sum = []<typename T>(std::vector<T> v) {
 
 ```
 
-### <a name="CPlusPlus20_constexpr_destructors"></a> 10.2.3 Constexpr destructors
+<h3 id="CPlusPlus20_constexpr_destructors">10.2.3 Constexpr destructors</h3>
 
 Destructors that are declared `constexpr` are parsed and handled like any other constructor.
 For example:
@@ -131,7 +131,7 @@ public:
 
 ```
 
-### <a name="CPlusPlus20_abbreviated_templates"></a> 10.2.4 Abbreviated function templates
+<h3 id="CPlusPlus20_abbreviated_templates">10.2.4 Abbreviated function templates</h3>
 
 C++20 generalised the C++14
 [Generic lambdas](CPlusPlus14/#CPlusPlus14_generic_lambdas)
@@ -296,7 +296,7 @@ T o(T x, const auto& y);          // decorated auto mixed with explicit head
 
 **Compatibility note:** SWIG-4.5.0 is the first version to parse and support abbreviated function templates with `auto` parameters, including the constrained auto form in both parameter and return type positions, mixing with an explicit template parameter list, and CV-qualifier / reference / pointer decorations on the `auto` placeholder.  SWIG-4.6.0 is the first version to instantiate an `auto` parameter pack, which previously invented a template parameter that was not a pack and so could not be instantiated at all.
 
-### <a name="CPlusPlus20_concepts"></a> 10.2.5 Concepts and requires-clauses
+<h3 id="CPlusPlus20_concepts">10.2.5 Concepts and requires-clauses</h3>
 
 SWIG provides support for parsing C++20 `concept` declarations
 and `requires`-clauses, in both the trailing position (after the
@@ -582,7 +582,7 @@ underlying C++ compiler accepts.
 
 **Compatibility note:** SWIG-4.5.0 is the first version to support C++20 concepts.
 
-### <a name="CPlusPlus20_type_constrained_template_parameters"></a> 10.2.6 Type constrained template parameters
+<h3 id="CPlusPlus20_type_constrained_template_parameters">10.2.6 Type constrained template parameters</h3>
 
 A *type-constraint* may also stand in place of `typename` /
 `class` in a template parameter list.
@@ -690,7 +690,7 @@ int first_int(T x) { return (int)x; }
 **Compatibility note:** SWIG-4.5.0 is the first version to parse template parameters
 carrying a type-constraint, including the template-id form above.
 
-### <a name="CPlusPlus20_constrained_alias_templates"></a> 10.2.7 Constrained alias templates
+<h3 id="CPlusPlus20_constrained_alias_templates">10.2.7 Constrained alias templates</h3>
 
 A C++11 alias template
 (see [Alias templates](CPlusPlus11/#CPlusPlus11_alias_templates)
@@ -741,7 +741,7 @@ best effort policy for partial type information.
 **Compatibility note:** SWIG-4.5.0 is the first version to parse the
 `requires`-clause form on alias templates.
 
-### <a name="CPlusPlus20_variable_templates"></a> 10.2.8 Variable templates initialised from a requires-expression
+<h3 id="CPlusPlus20_variable_templates">10.2.8 Variable templates initialised from a requires-expression</h3>
 
 C++14 already permitted a variable template
 (see [Variable templates](CPlusPlus14/#CPlusPlus14_variable_templates) in the C++14 chapter).  C++20 adds the
@@ -779,7 +779,7 @@ not idiomatic.
 **Compatibility note:** SWIG-4.5.0 is the first version to parse a
 `requires`-expression in expression position.
 
-### <a name="CPlusPlus20_class_template_argument_deduction"></a> 10.2.9 Class template argument deduction
+<h3 id="CPlusPlus20_class_template_argument_deduction">10.2.9 Class template argument deduction</h3>
 
 C++20 (P1816) extended
 [class template argument deduction (CTAD)](CPlusPlus17/#CPlusPlus17_class_template_argument_deduction)
@@ -798,11 +798,11 @@ template argument deduction, so it issues Warning 347 and skips the variable.  S
 [Class template argument deduction](CPlusPlus17/#CPlusPlus17_class_template_argument_deduction)
 in the C++17 chapter for details.
 
-## <a name="CPlusPlus20_preprocessor_changes"></a> 10.3 Preprocessor changes
+<h2 id="CPlusPlus20_preprocessor_changes">10.3 Preprocessor changes</h2>
 
-### <a name="CPlusPlus20_va_opt"></a> 10.3.1 __VA_OPT__()
+<h3 id="CPlusPlus20_va_opt">10.3.1 __VA_OPT__()</h3>
 
 Support for `__VA_OPT__()` was added in SWIG 4.3.0.
 
-## <a name="CPlusPlus20_standard_library_changes"></a> 10.4 Standard library changes
+<h2 id="CPlusPlus20_standard_library_changes">10.4 Standard library changes</h2>
 

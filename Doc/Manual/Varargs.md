@@ -1,6 +1,6 @@
 
 
-# <a name="Varargs"></a> 19 Variable Length Arguments
+<h1 id="Varargs">19 Variable Length Arguments</h1>
 
 <!-- INDEX -->
 
@@ -17,7 +17,7 @@ fact, support for varargs is an often requested feature that was first
 added in SWIG-1.3.12.  Most other wrapper generation tools have
 wisely chosen to avoid this issue.
 
-## <a name="Varargs_nn2"></a> 19.1 Introduction
+<h2 id="Varargs_nn2">19.1 Introduction</h2>
 
 Some C and C++ programs may include functions that accept a variable
 number of arguments.  For example, most programmers are
@@ -101,7 +101,7 @@ List make_list(const char *s, ...) {
 
 ```
 
-## <a name="Varargs_nn3"></a> 19.2 The Problem
+<h2 id="Varargs_nn3">19.2 The Problem</h2>
 
 Generating wrappers for a variable length argument function presents a
 number of special challenges.  Although C provides support for
@@ -175,7 +175,7 @@ varargs support without having to resort to assembly language.   However, SWIG
 can also support real varargs wrapping (with stack-frame manipulation) if you
 are willing to get hands dirty.  Keep reading.
 
-## <a name="Varargs_nn4"></a> 19.3 Default varargs support
+<h2 id="Varargs_nn4">19.3 Default varargs support</h2>
 
 When variable length arguments appear in an interface, the default
 behavior is to drop the variable argument list entirely, replacing
@@ -228,7 +228,7 @@ behaviour:
 
 Read on for further solutions.
 
-## <a name="Varargs_nn5"></a> 19.4 Argument replacement using %varargs
+<h2 id="Varargs_nn5">19.4 Argument replacement using %varargs</h2>
 
 Instead of dropping the variable length arguments, an alternative approach is to replace
 `(...)` with a set of suitable arguments.   SWIG provides a special `%varargs` directive 
@@ -320,7 +320,7 @@ Argument replacement is not as useful when working with functions that accept
 mixed argument types such as `printf()`.  Providing general purpose
 wrappers to such functions presents special problems (covered shortly).
 
-## <a name="Varargs_nn6"></a> 19.5 Varargs and typemaps
+<h2 id="Varargs_nn6">19.5 Varargs and typemaps</h2>
 
 Variable length arguments may be used in typemap specifications.  For example:
 
@@ -475,7 +475,7 @@ you know for certain that they've had several cups of coffee.  If you
 really want to elevate your guru status and increase your job
 security, continue to the next section.
 
-## <a name="Varargs_nn7"></a> 19.6 Varargs wrapping with libffi
+<h2 id="Varargs_nn7">19.6 Varargs wrapping with libffi</h2>
 
 All of the previous examples have relied on features of SWIG that are
 portable and which don't rely upon any low-level machine-level
@@ -706,7 +706,7 @@ module, we used the special `varargs` variable to get these arguments.  Modules 
 provide an argument number for the first extra argument.  This can be used to index into an array of passed arguments to get
 values.   Please consult the chapter on each language module for more details.
 
-## <a name="Varargs_nn8"></a> 19.7 Wrapping of va_list
+<h2 id="Varargs_nn8">19.7 Wrapping of va_list</h2>
 
 Closely related to variable length argument wrapping, you may encounter functions that accept a parameter
 of type `va_list`.  For example:
@@ -753,7 +753,7 @@ int my_vprintf(const char *fmt, ...) {
 
 ```
 
-## <a name="Varargs_nn9"></a> 19.8 C++ Issues
+<h2 id="Varargs_nn9">19.8 C++ Issues</h2>
 
 Wrapping of C++ member functions that accept a variable number of
 arguments presents a number of challenges.   By far, the easiest way to
@@ -811,7 +811,7 @@ Given the potential to shoot yourself in the foot, it is probably easier to reco
 design or to provide an alternative interface using a helper function than it is to create a
 fully general wrapper to a varargs C++ member function.
 
-## <a name="Varargs_nn10"></a> 19.9 Discussion
+<h2 id="Varargs_nn10">19.9 Discussion</h2>
 
 This chapter has provided a number of techniques that can be used to address the problem of variable length
 argument wrapping.  If you care about portability and ease of use, the `%varargs` directive is

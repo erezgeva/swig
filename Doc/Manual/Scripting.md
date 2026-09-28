@@ -1,6 +1,6 @@
 
 
-# <a name="Scripting"></a> 4 Scripting Languages
+<h1 id="Scripting">4 Scripting Languages</h1>
 
 <!-- INDEX -->
 
@@ -10,7 +10,7 @@ This chapter provides a brief overview of scripting language extension
 programming and the mechanisms by which scripting language interpreters
 access C and C++ code.
 
-## <a name="Scripting_nn2"></a> 4.1 The two language view of the world
+<h2 id="Scripting_nn2">4.1 The two language view of the world</h2>
 
 When a scripting language is used to control a C program, the
 resulting system tends to look as follows:
@@ -35,7 +35,7 @@ languages can be used for rapid prototyping, interactive debugging,
 scripting, and access to high-level data structures such associative
 arrays.
 
-## <a name="Scripting_nn3"></a> 4.2 How does a scripting language talk to C?
+<h2 id="Scripting_nn3">4.2 How does a scripting language talk to C?</h2>
 
 Scripting languages are built around a parser that knows how
 to execute commands and scripts.  Within this parser, there is a
@@ -55,7 +55,7 @@ information about the wrapper by providing details about the name of the
 function, arguments, and so forth.  The next few sections illustrate
 the process.
 
-### <a name="Scripting_nn4"></a> 4.2.1 Wrapper functions
+<h3 id="Scripting_nn4">4.2.1 Wrapper functions</h3>
 
 Suppose you have an ordinary C function like this :
 
@@ -124,7 +124,7 @@ Python. Both require special wrappers to be written and both need
 additional initialization code. Only the specific details are
 different.
 
-### <a name="Scripting_nn5"></a> 4.2.2 Variable linking
+<h3 id="Scripting_nn5">4.2.2 Variable linking</h3>
 
 Variable linking refers to the problem of mapping a 
 C/C++ global variable to a variable in the scripting
@@ -157,7 +157,7 @@ such as `$Foo` might implicitly call the get function.  Similarly,
 typing `$Foo = 4` would call the underlying set function to change
 the value.
 
-### <a name="Scripting_nn6"></a> 4.2.3 Constants
+<h3 id="Scripting_nn6">4.2.3 Constants</h3>
 
 In many cases, a C program or library may define a large collection of
 constants.  For example:
@@ -176,7 +176,7 @@ language variables such as `$RED`, `$BLUE`, and
 functions for creating variables so installing constants is usually
 a trivial exercise.
 
-### <a name="Scripting_nn7"></a> 4.2.4 Structures and classes
+<h3 id="Scripting_nn7">4.2.4 Structures and classes</h3>
 
 Although scripting languages have no trouble accessing simple
 functions and variables, accessing C/C++ structures and classes
@@ -231,7 +231,7 @@ Since accessor functions provide a mechanism for accessing the
 internals of an object, the interpreter does not need to know anything
 about the actual representation of a `Vector`.
 
-### <a name="Scripting_nn8"></a> 4.2.5 Proxy classes
+<h3 id="Scripting_nn8">4.2.5 Proxy classes</h3>
 
 In certain cases, it is possible to use the low-level accessor functions
 to create a proxy class, also known as a shadow class.
@@ -290,7 +290,7 @@ the scripting language, and an underlying C/C++ object. Operations
 affect both objects equally and for all practical purposes, it appears
 as if you are simply manipulating a C/C++ object.
 
-## <a name="Scripting_nn9"></a> 4.3 Building scripting language extensions
+<h2 id="Scripting_nn9">4.3 Building scripting language extensions</h2>
 
 The final step in using a scripting language with your C/C++
 application is adding your extensions to the scripting language
@@ -300,7 +300,7 @@ extension in the form of a shared library.  Alternatively, you can
 recompile the scripting language interpreter with your extensions
 added to it.
 
-### <a name="Scripting_nn10"></a> 4.3.1 Shared libraries and dynamic loading
+<h3 id="Scripting_nn10">4.3.1 Shared libraries and dynamic loading</h3>
 
 To create a shared library or DLL, you often need to look at the
 manual pages for your compiler and linker.  However, the procedure
@@ -343,7 +343,7 @@ c++ -shared example.o example_wrap.o -o example.so
 
 ```
 
-### <a name="Scripting_nn11"></a> 4.3.2 Linking with shared libraries
+<h3 id="Scripting_nn11">4.3.2 Linking with shared libraries</h3>
 
 When building extensions as shared libraries, it is not uncommon for
 your extension to rely upon other shared libraries on your machine. In
@@ -382,7 +382,7 @@ directory where shared libraries are located before running Python.
 Although this is an easy solution, it is not recommended.  Consider setting
 the path using linker options instead.
 
-### <a name="Scripting_nn12"></a> 4.3.3 Static linking
+<h3 id="Scripting_nn12">4.3.3 Static linking</h3>
 
 With static linking, you rebuild the scripting language interpreter
 with extensions. The process usually involves compiling a short main

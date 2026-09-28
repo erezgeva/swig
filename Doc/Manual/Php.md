@@ -1,6 +1,6 @@
 
 
-# <a name="Php"></a> 34 SWIG and PHP
+<h1 id="Php">34 SWIG and PHP</h1>
 
 <!-- INDEX -->
 
@@ -30,7 +30,7 @@ will need either the php binary or the Apache php module. If you want to build
 your extension into php directly, you will need the complete PHP source tree
 available.
 
-## <a name="Php_nn1"></a> 34.1 Generating PHP Extensions
+<h2 id="Php_nn1">34.1 Generating PHP Extensions</h2>
 
 To build a PHP extension, run swig using the `-php` option
 (you can also use `-php7` - PHP7 and PHP8 have a largely compatible C
@@ -74,7 +74,7 @@ work, and also requires a full rebuild of PHP to update your module,
 and it doesn't play nicely with package system.  We don't recommend
 this approach, or provide explicit support for it.
 
-### <a name="Php_nn1_1"></a> 34.1.1 Building a loadable extension
+<h3 id="Php_nn1_1">34.1.1 Building a loadable extension</h3>
 
 To build your module as a dynamically loadable extension, use compilation
 commands like these (if you aren't using GCC, the commands will be different,
@@ -88,7 +88,7 @@ $ gcc -shared example_wrap.o example.o -o example.so
 
 ```
 
-### <a name="Php_nn1_3"></a> 34.1.2 Using PHP Extensions
+<h3 id="Php_nn1_3">34.1.2 Using PHP Extensions</h3>
 
 To test the extension from a PHP script, you first need to tell PHP to
 load it.  The recommended (and simplest!) way to do this is to copy it to
@@ -136,7 +136,7 @@ need to specify the path and deal with that varying by platform.
 For security reasons PHP no longer supports `dl()` when running PHP
 through a webserver, so this isn't an option there.
 
-## <a name="Php_nn2"></a> 34.2 Basic PHP interface
+<h2 id="Php_nn2">34.2 Basic PHP interface</h2>
 
 It is important to understand that PHP uses a single global namespace
 into which all symbols from extension modules are loaded.  It is quite
@@ -145,7 +145,7 @@ other symbols unless care is taken to `%rename` them.  At present
 SWIG doesn't have support for generating wrappers which make use of PHP's
 namespace feature.
 
-### <a name="Php_nn2_1"></a> 34.2.1 Constants
+<h3 id="Php_nn2_1">34.2.1 Constants</h3>
 
 These work in much the same way as in C/C++.  Constants can be defined
 by using either the normal C pre-processor declarations, or the
@@ -172,7 +172,7 @@ echo "E = " . E . "\n";
 
 ```
 
-### <a name="Php_nn2_2"></a> 34.2.2 Global Variables
+<h3 id="Php_nn2_2">34.2.2 Global Variables</h3>
 
 Because PHP does not provide a mechanism to intercept access and
 assignment of global variables, global variables are supported through
@@ -214,7 +214,7 @@ access to the variable from the PHP script.
 
 At this time SWIG does not support custom accessor methods.
 
-### <a name="Php_nn2_3"></a> 34.2.3 Functions
+<h3 id="Php_nn2_3">34.2.3 Functions</h3>
 
 C functions are converted into PHP functions. Default/optional arguments are
 also allowed. An interface file like this :
@@ -311,7 +311,7 @@ print $s;      # The value of $s was not changed.
 </pre></div>
 -->
 
-### <a name="Php_nn2_4"></a> 34.2.4 Overloading
+<h3 id="Php_nn2_4">34.2.4 Overloading</h3>
 
 Although PHP does not support overloading functions natively, swig
 will generate dispatch functions which will use `%typecheck`
@@ -361,7 +361,7 @@ taking the integer argument.
 </p>
 -->
 
-### <a name="Php_nn2_5"></a> 34.2.5 Pointers and References
+<h3 id="Php_nn2_5">34.2.5 Pointers and References</h3>
 
 Since SWIG 4.1.0, SWIG wraps C/C++ classes directly with PHP objects.
 Pointers to other types are also wrapped as PHP objects - mostly this is an
@@ -481,7 +481,7 @@ sometimes required in C libraries.  A NULL pointer can be created in
 PHP in a number of ways: by using `unset` on an existing
 variable, or assigning `NULL` to a variable.
 
-### <a name="Php_nn2_6"></a> 34.2.6 Structures and C++ classes
+<h3 id="Php_nn2_6">34.2.6 Structures and C++ classes</h3>
 
 SWIG wraps C++ structs and classes with PHP classes.
 Since SWIG 4.1.0, this is done entirely via PHP's C API - earlier SWIG
@@ -533,13 +533,13 @@ Would be used in the following way from PHP:
 
 Member variables and methods are accessed using the `->` operator.
 
-#### <a name="Php_nn2_6_1"></a> 34.2.6.1 Using -noproxy
+<h4 id="Php_nn2_6_1">34.2.6.1 Using -noproxy</h4>
 
 SWIG/PHP used to support a `-noproxy` option to flatten the class
 structure and generate collections of named flat functions.  This is no
 longer supported as of SWIG 4.1.0.
 
-#### <a name="Php_nn2_6_2"></a> 34.2.6.2 Constructors and Destructors
+<h4 id="Php_nn2_6_2">34.2.6.2 Constructors and Destructors</h4>
 
 The constructor is called when `new Object()` is used to create an
 instance of the object. If multiple constructors are defined for an
@@ -573,7 +573,7 @@ available to be called manually.  To force a destructor to be called
 the programmer can either reassign the variable or call
 `unset($v)`
 
-#### <a name="Php_nn2_6_3"></a> 34.2.6.3 Static Member Variables
+<h4 id="Php_nn2_6_3">34.2.6.3 Static Member Variables</h4>
 
 Static member variables in C++ are not wrapped as such in PHP
 as it does not appear to be possible to intercept accesses to such variables.
@@ -610,7 +610,7 @@ echo "There have now been " . Ko::threats() . " threats\n";
 
 ```
 
-#### <a name="Php_nn2_6_4"></a> 34.2.6.4 Static Member Functions
+<h4 id="Php_nn2_6_4">34.2.6.4 Static Member Functions</h4>
 
 Static member functions are supported in PHP using the
 `class::function()` syntax.  For example
@@ -632,7 +632,7 @@ Ko::threats();
 
 ```
 
-#### <a name="Php_nn2_6_5"></a> 34.2.6.5 Specifying Implemented Interfaces
+<h4 id="Php_nn2_6_5">34.2.6.5 Specifying Implemented Interfaces</h4>
 
 PHP supports the concept of abstract interfaces which a class can implement.
 Since SWIG 3.0.3, you can tell SWIG that a wrapped class (for example
@@ -647,7 +647,7 @@ so:
 
 If there are multiple interfaces, just list them separated by commas.
 
-#### <a name="Php_nn2_6_6"></a> 34.2.6.6 Dynamic Properties
+<h4 id="Php_nn2_6_6">34.2.6.6 Dynamic Properties</h4>
 
 Historically PHP has supported dynamic class properties and SWIG
 has implemented them too (because we implement the magic `__get()`,
@@ -686,7 +686,7 @@ it - SWIG 4.2.0 fixed this and you can now set it to 0 to turn it off (for
 example, you might want to enabled it for everything and then selectively turn
 it off for specific classes).
 
-### <a name="Php_nn2_7"></a> 34.2.7 PHP Pragmas, Startup and Shutdown code
+<h3 id="Php_nn2_7">34.2.7 PHP Pragmas, Startup and Shutdown code</h3>
 
 You can get SWIG to generate an "example.php" file by specifying
 the code to put in it using the **code** pragma.
@@ -779,7 +779,7 @@ either `%shutdown` or `%mshutdown`.
 The `%rinit` and `%rshutdown` statements are very similar but insert code
 into the request init (PHP_RINIT_FUNCTION) and request shutdown (PHP_RSHUTDOWN_FUNCTION) code respectively.
 
-## <a name="Php_nn3"></a> 34.3 Cross language polymorphism
+<h2 id="Php_nn3">34.3 Cross language polymorphism</h2>
 
 Proxy classes provide a more natural, object-oriented way to access
 extension classes. As described above, each proxy instance has an
@@ -807,7 +807,7 @@ implemented: the combination of proxy classes, director classes, and C
 wrapper functions takes care of all the cross-language method routing
 transparently.
 
-### <a name="Php_nn3_1"></a> 34.3.1 Enabling directors
+<h3 id="Php_nn3_1">34.3.1 Enabling directors</h3>
 
 The director feature is disabled by default.  To use directors you
 must make two changes to the interface file.  First, add the "directors"
@@ -880,7 +880,7 @@ class MyFoo extends Foo {
 
 ```
 
-### <a name="Php_nn3_2"></a> 34.3.2 Director classes
+<h3 id="Php_nn3_2">34.3.2 Director classes</h3>
 
 For each class that has directors enabled, SWIG generates a new class
 that derives from both the class in question and a special
@@ -947,7 +947,7 @@ unmodified proxy classes, all methods are ultimately implemented in C++
 so there is no need for the extra overhead involved with routing the
 calls through PHP.
 
-### <a name="Php_nn3_3"></a> 34.3.3 Ownership and object destruction
+<h3 id="Php_nn3_3">34.3.3 Ownership and object destruction</h3>
 
 Memory management issues are slightly more complicated with directors
 than for proxy classes alone. PHP instances hold a pointer to the
@@ -992,7 +992,7 @@ $c->addFoo($a);
 In this example, we are assuming that FooContainer will take care of
 deleting all the Foo pointers it contains at some point.
 
-### <a name="Php_nn3_4"></a> 34.3.4 Exception unrolling
+<h3 id="Php_nn3_4">34.3.4 Exception unrolling</h3>
 
 With directors routing method calls to PHP, and proxies routing them
 to C++, the handling of exceptions is an important concern. By default, an
@@ -1063,7 +1063,7 @@ exception. Because the PHP error state is still set when
 Swig::DirectorMethodException is thrown, PHP will register the exception
 as soon as the C wrapper function returns.
 
-### <a name="Php_nn3_5"></a> 34.3.5 Overhead and code bloat
+<h3 id="Php_nn3_5">34.3.5 Overhead and code bloat</h3>
 
 Enabling directors for a class will generate a new director method for
 every virtual method in the class' inheritance chain. This alone can
@@ -1089,7 +1089,7 @@ will be much slower than calls to C++ objects. This situation can be
 optimized by selectively enabling director methods (using the %feature
 directive) for only those methods that are likely to be extended in PHP.
 
-### <a name="Php_nn3_6"></a> 34.3.6 Typemaps
+<h3 id="Php_nn3_6">34.3.6 Typemaps</h3>
 
 Typemaps for input and output of most of the basic types from director
 classes have been written. These are roughly the reverse of the usual
@@ -1099,7 +1099,7 @@ The director code does not currently use any of the other kinds of
 typemaps.  It is not clear at this point which kinds are appropriate and
 need to be supported.
 
-### <a name="Php_nn3_7"></a> 34.3.7 Miscellaneous
+<h3 id="Php_nn3_7">34.3.7 Miscellaneous</h3>
 
 Director typemaps for STL classes are mostly in place, and hence you
 should be able to use std::string, etc., as you would any other type.

@@ -1,6 +1,6 @@
 
 
-# <a name="SWIGPlus"></a> 6 SWIG and C++
+<h1 id="SWIGPlus">6 SWIG and C++</h1>
 
 <!-- INDEX -->
 
@@ -18,7 +18,7 @@ you should first read the chapter [SWIG Basics](SWIG/#SWIG) to see
 how SWIG wraps ISO C.  Support for C++ builds upon ISO C
 wrapping and that material will be useful in understanding this chapter.
 
-## <a name="SWIGPlus_nn2"></a> 6.1 Comments on C++ Wrapping
+<h2 id="SWIGPlus_nn2">6.1 Comments on C++ Wrapping</h2>
 
 Because of its complexity and the fact that C++ can be
 difficult to integrate with itself let alone other languages, SWIG 
@@ -53,7 +53,7 @@ problems in a C++-only universe, it greatly complicates the problem of
 crossing language boundaries and provides many opportunities to shoot
 yourself in the foot.  You will just have to be careful.
 
-## <a name="SWIGPlus_nn3"></a> 6.2 Approach
+<h2 id="SWIGPlus_nn3">6.2 Approach</h2>
 
 To wrap C++, SWIG uses a layered approach to code generation.  
 At the lowest level, SWIG generates a collection of procedural ISO C style
@@ -99,7 +99,7 @@ mind that the target languages also provide the high-level OO interface via
 proxy classes.  More detailed coverage can be found in the documentation
 for each target language.
 
-## <a name="SWIGPlus_nn4"></a> 6.3 Supported C++ features
+<h2 id="SWIGPlus_nn4">6.3 Supported C++ features</h2>
 
 SWIG currently supports most C++ features including the following:
 
@@ -127,7 +127,7 @@ SWIG's C++ support is an ongoing project so some of these limitations may be lif
 in future releases.  However, we make no promises.  Also, submitting a bug report is a very
 good way to get problems fixed (wink).
 
-## <a name="SWIGPlus_nn5"></a> 6.4 Command line options and compilation
+<h2 id="SWIGPlus_nn5">6.4 Command line options and compilation</h2>
 
 When wrapping C++ code, it is critical that SWIG be called with the
 ``-c++`' option. This changes the way a number of critical
@@ -154,7 +154,7 @@ details.  The SWIG Wiki also has further details.
 The `-noproxy` commandline option is recognised by some target languages and will generate just this
 interface as in earlier versions.
 
-## <a name="SWIGPlus_nn38"></a> 6.5 Proxy classes
+<h2 id="SWIGPlus_nn38">6.5 Proxy classes</h2>
 
 In order to provide a natural mapping from C++ classes to the target language classes, SWIG's target
 languages mostly wrap C++ classes with special proxy classes.  These
@@ -163,7 +163,7 @@ For example, if you're building a Python module, each C++ class is
 wrapped by a Python proxy class.  Or if you're building a Java module, each
 C++ class is wrapped by a Java proxy class.
 
-### <a name="SWIGPlus_nn39"></a> 6.5.1 Construction of proxy classes
+<h3 id="SWIGPlus_nn39">6.5.1 Construction of proxy classes</h3>
 
 Proxy classes are always constructed as an extra layer of wrapping that uses low-level
 accessor functions.  To illustrate, suppose you had a
@@ -236,7 +236,7 @@ proxy classes.
 Whenever possible, proxies try to take advantage of language features that are similar to C++.  This
 might include operator overloading,  exception handling, and other features.
 
-### <a name="SWIGPlus_nn40"></a> 6.5.2 Resource management in proxies
+<h3 id="SWIGPlus_nn40">6.5.2 Resource management in proxies</h3>
 
 A major issue with proxies concerns the memory management of wrapped objects.   Consider the following
 C++ code:
@@ -364,12 +364,12 @@ Given the tricky nature of C++ memory management, it is impossible for proxy cla
 every possible memory management problem.  However, proxies do provide a mechanism for manual control that
 can be used (if necessary) to address some of the more tricky memory management problems.
 
-### <a name="SWIGPlus_nn41"></a> 6.5.3 Language specific details
+<h3 id="SWIGPlus_nn41">6.5.3 Language specific details</h3>
 
 Language specific details on proxy classes are contained in the chapters describing each target language.  This
 chapter has merely introduced the topic in a very general way.
 
-## <a name="SWIGPlus_nn6"></a> 6.6 Simple C++ wrapping
+<h2 id="SWIGPlus_nn6">6.6 Simple C++ wrapping</h2>
 
 The following code shows a SWIG interface file for a simple C++
 class.
@@ -400,7 +400,7 @@ static void print(List *l);
 To generate wrappers for this class, SWIG first reduces the class to a collection of low-level C-style
 accessor functions which are then used by the proxy classes.
 
-### <a name="SWIGPlus_nn7"></a> 6.6.1 Constructors and destructors
+<h3 id="SWIGPlus_nn7">6.6.1 Constructors and destructors</h3>
 
 C++ constructors and destructors are translated into accessor
 functions such as the following :
@@ -416,7 +416,7 @@ void delete_List(List *l) {
 
 ```
 
-### <a name="SWIGPlus_nn8"></a> 6.6.2 Default constructors, copy constructors and implicit destructors
+<h3 id="SWIGPlus_nn8">6.6.2 Default constructors, copy constructors and implicit destructors</h3>
 
 Following the C++ rules for implicit constructor and destructors, SWIG
 will automatically assume there is one even when they are not
@@ -521,7 +521,7 @@ directive described above, which disables both the default
 constructor and the implicit destructors, could lead to memory
 leaks, and so it is strongly recommended to not use it.
 
-### <a name="SWIGPlus_nn9"></a> 6.6.3 When constructor wrappers aren't created
+<h3 id="SWIGPlus_nn9">6.6.3 When constructor wrappers aren't created</h3>
 
 If a class defines a constructor, SWIG normally tries to generate a wrapper for it.  However, SWIG will 
 not generate a constructor wrapper if it thinks that it will result in illegal wrapper code.  There are really
@@ -585,7 +585,7 @@ public:
 
 More information about `%feature` can be found in the [Customization features](Customization/#Customization) chapter.
 
-### <a name="SWIGPlus_nn10"></a> 6.6.4 Copy constructors
+<h3 id="SWIGPlus_nn10">6.6.4 Copy constructors</h3>
 
 If a class defines more than one constructor, its behavior depends on the capabilities of the
 target language.  If overloading is supported, the copy constructor is accessible using
@@ -672,7 +672,7 @@ renamed.  For instance, in the above example, the name of the
 constructor is set to `new_CopyFoo()`.   This is the same as in 
 older versions.
 
-### <a name="SWIGPlus_nn11"></a> 6.6.5 Member functions
+<h3 id="SWIGPlus_nn11">6.6.5 Member functions</h3>
 
 All member functions are roughly translated into accessor functions like this :
 
@@ -693,14 +693,14 @@ function in the code it generates.  Instead, member access such as
 wrapper functions.  However, the name and calling convention of the
 low-level procedural wrappers match the accessor function prototype described above.
 
-### <a name="SWIGPlus_nn12"></a> 6.6.6 Static members
+<h3 id="SWIGPlus_nn12">6.6.6 Static members</h3>
 
 Static member functions are called directly without making any special
 transformations. For example, the static member function
 `print(List *l)` directly invokes `List::print(List *l)`
 in the generated wrapper code.
 
-### <a name="SWIGPlus_member_data"></a> 6.6.7 Member data
+<h3 id="SWIGPlus_member_data">6.6.7 Member data</h3>
 
 Member data is handled in exactly the same manner as for C
 structures. A pair of accessor functions are effectively created. For example
@@ -881,7 +881,7 @@ involving `size_t`.  This change is subtle, but it smooths over
 a few problems related to structure wrapping and some of SWIG's
 customization features.
 
-## <a name="SWIGPlus_nn15"></a> 6.7 Protection
+<h2 id="SWIGPlus_nn15">6.7 Protection</h2>
 
 SWIG wraps class members that are public following the C++
 conventions, i.e., by explicit public declaration or by the use of
@@ -896,7 +896,7 @@ By default, members of a class definition are assumed to be private
 until you explicitly give a ``public:`' declaration (This is
 the same convention used by C++).
 
-## <a name="SWIGPlus_nn16"></a> 6.8 Enums and constants
+<h2 id="SWIGPlus_nn16">6.8 Enums and constants</h2>
 
 Enumerations and constants are handled differently by the different language modules and are described in detail in the appropriate language chapter.
 However, many languages map enums and constants in a class definition 
@@ -924,9 +924,9 @@ Swig_STOUT = Swig::STOUT
 
 Members declared as `const` are wrapped as read-only members and do not create constants.
 
-## <a name="SWIGPlus_nn17"></a> 6.9 Friends
+<h2 id="SWIGPlus_nn17">6.9 Friends</h2>
 
-### <a name="SWIGPlus_friend_classes"></a> 6.9.1 Friend classes
+<h3 id="SWIGPlus_friend_classes">6.9.1 Friend classes</h3>
 
 Friend classes are a C++ feature that do not affect SWIG wrappers.
 SWIG simply parses the friend class declarations, but they are effectively ignored
@@ -946,7 +946,7 @@ class C {
 
 ```
 
-### <a name="SWIGPlus_friend_function_definitions"></a> 6.9.2 Friend function definitions
+<h3 id="SWIGPlus_friend_function_definitions">6.9.2 Friend function definitions</h3>
 
 A friend function definition in a C++ class defines a non-member function of the class
 and simultaneously makes it a friend of the class.
@@ -1003,7 +1003,7 @@ namespace bar {
 
 and a wrapper for `blah` will not be generated.
 
-### <a name="SWIGPlus_friend_function_declarations"></a> 6.9.3 Friend function declarations
+<h3 id="SWIGPlus_friend_function_declarations">6.9.3 Friend function declarations</h3>
 
 A C++ class can specify friends via friend function declarations.
 These functions are allowed access to the private and protected members of a class.
@@ -1038,7 +1038,7 @@ public:
 In the example above, if SWIG parses the struct `B` and global function `g()`,
 then they are of course wrapped as normal.
 
-### <a name="SWIGPlus_friends_unqualified"></a> 6.9.4 Unqualified friend functions
+<h3 id="SWIGPlus_friends_unqualified">6.9.4 Unqualified friend functions</h3>
 
 Further clarification is required regarding both friend function definitions and declarations.
 In C++, friend function definitions can only be unqualified, whereas, friend function declarations can be either unqualified or qualified. Qualified friend function declarations are silently ignored by SWIG as covered in the previous section. SWIG does generate wrappers for any unqualified friend functions that it parses. This section goes through some of the complexities of wrapping unqualified friend functions.
@@ -1104,7 +1104,7 @@ int blah() { Mate m; m.private_function(); return m.val; }
 
 ```
 
-## <a name="SWIGPlus_nn18"></a> 6.10 References and pointers
+<h2 id="SWIGPlus_nn18">6.10 References and pointers</h2>
 
 C++ references are supported, but SWIG transforms them back into pointers. For example,
 a declaration like this :
@@ -1187,7 +1187,7 @@ cause your program to crash.
 more seamless integration with more advanced C++ wrapping applications—especially related to 
 templates and the STL.  This was first added in SWIG-1.3.12.
 
-## <a name="SWIGPlus_nn19"></a> 6.11 Pass and return by value
+<h2 id="SWIGPlus_nn19">6.11 Pass and return by value</h2>
 
 Occasionally, a C++ program will pass and return class objects by value.  For example, a function
 like this might appear:
@@ -1278,7 +1278,7 @@ classes that don't define a default constructor.
 **Note:** The use of this template only occurs when objects are passed or returned by value.
 It is not used for C++ pointers or references.
 
-## <a name="SWIGPlus_nn20"></a> 6.12 Inheritance
+<h2 id="SWIGPlus_nn20">6.12 Inheritance</h2>
 
 SWIG supports C++ inheritance of classes and allows both single and
 multiple inheritance, as limited or allowed by the target
@@ -1443,7 +1443,7 @@ when advanced features like proxy classes are used.
 functions for virtual members that are already defined in a base
 class.
 
-## <a name="SWIGPlus_nn21"></a> 6.13 A brief discussion of multiple inheritance, pointers,  and type checking
+<h2 id="SWIGPlus_nn21">6.13 A brief discussion of multiple inheritance, pointers,  and type checking</h2>
 
 When a target scripting language refers to a C++ object, it normally
 uses a tagged pointer object that contains both the value of the
@@ -1554,7 +1554,7 @@ int y = B_function((B *) pB);
 
 In practice, the pointer is held as an integral number in the target language proxy class.
 
-## <a name="SWIGPlus_default_args"></a> 6.14 Default arguments
+<h2 id="SWIGPlus_default_args">6.14 Default arguments</h2>
 
 SWIG will wrap all types of functions that have default arguments. For example member functions:
 
@@ -1645,7 +1645,7 @@ the `compactdefaultargs` feature is also automatically turned on.
 Keyword arguments are a language feature of some scripting languages, for example Ruby and Python.
 SWIG is unable to support kwargs when wrapping overloaded methods, so the default approach cannot be used.
 
-## <a name="SWIGPlus_overloaded_methods"></a> 6.15 Overloaded functions and methods
+<h2 id="SWIGPlus_overloaded_methods">6.15 Overloaded functions and methods</h2>
 
 In many language modules, SWIG provides partial support for overloaded functions, methods, and
 constructors.  For example, if you supply SWIG with overloaded functions like this:
@@ -1696,7 +1696,7 @@ it might be used like this
 
 ```
 
-### <a name="SWIGPlus_nn24"></a> 6.15.1 Dispatch function generation
+<h3 id="SWIGPlus_nn24">6.15.1 Dispatch function generation</h3>
 
 The implementation of overloaded functions and methods is somewhat
 complicated due to the dynamic nature of scripting languages.  Unlike
@@ -1798,7 +1798,7 @@ checked in the same order as they appear in this ranking.
 
 If you're still confused, don't worry about it—SWIG is probably doing the right thing.
 
-### <a name="SWIGPlus_nn25"></a> 6.15.2 Ambiguity in overloading
+<h3 id="SWIGPlus_nn25">6.15.2 Ambiguity in overloading</h3>
 
 Regrettably, SWIG is not able to support every possible use of valid C++ overloading.  Consider
 the following example:
@@ -1879,7 +1879,7 @@ foo.i:5. Previous declaration is Spam::foo(int )
 it means that the target language module has not yet implemented support for overloaded
 functions and methods.  The only way to fix the problem is to read the next section.
 
-### <a name="SWIGPlus_ambiguity_resolution_renaming"></a> 6.15.3 Renaming and ambiguity resolution
+<h3 id="SWIGPlus_ambiguity_resolution_renaming">6.15.3 Renaming and ambiguity resolution</h3>
 
 If an ambiguity in overload resolution occurs or if a module doesn't
 allow overloading, there are a few strategies for dealing with the
@@ -2325,7 +2325,7 @@ Similarly, the extra overloaded methods can be selectively ignored using `%ignor
 **Compatibility note:**  The `%rename` directive introduced the default argument matching rules in SWIG-1.3.23 at the same time as the changes
 to wrapping methods with default arguments was introduced.
 
-### <a name="SWIGPlus_nn27"></a> 6.15.4 Comments on overloading
+<h3 id="SWIGPlus_nn27">6.15.4 Comments on overloading</h3>
 
 Support for overloaded methods was first added in SWIG-1.3.14.   The implementation
 is somewhat unusual when compared to similar tools.  For instance, the order in which
@@ -2337,7 +2337,7 @@ module.  Therefore, the degree of overloading support may vary from language to 
 As a general rule, statically typed languages like Java are able to provide more support
 than dynamically typed languages like Perl, Python, Ruby, and Tcl.
 
-## <a name="SWIGPlus_nn28"></a> 6.16 Overloaded operators
+<h2 id="SWIGPlus_nn28">6.16 Overloaded operators</h2>
 
 C++ overloaded operator declarations can be wrapped. 
 For example, consider a class like this:
@@ -2503,7 +2503,7 @@ In the absence of any hard and fast rules and the fact that there may be multipl
 it is up to the user to choose the getter and setter to use by using %rename as shown earlier.
 - The semantics of certain C++ operators may not match those in the target language.
 
-## <a name="SWIGPlus_class_extension"></a> 6.17 Class extension
+<h2 id="SWIGPlus_class_extension">6.17 Class extension</h2>
 
 New methods can be added to a class using the `%extend`
 directive. This directive is primarily used in conjunction with proxy
@@ -2586,7 +2586,7 @@ The `%extend` directive follows all of the same conventions
 as its use with C structures. Please refer to the [Adding member functions to C structures](SWIG/#SWIG_adding_member_functions)
 section for further details.
 
-### <a name="SWIGPlus_replacing_methods"></a> 6.17.1 Replacing class methods
+<h3 id="SWIGPlus_replacing_methods">6.17.1 Replacing class methods</h3>
 
 Suppose there is a method in a class that you need to replace and keep the method name the same.
 This can be achieved combining the `%extend` and `%ignore` directives covered earlier.
@@ -2629,7 +2629,7 @@ Note that you can call the class method from the method
 in `%extend`, just use `self->mymethod()` and it will call
 the class method, not the one in `%extend`.
 
-## <a name="SWIGPlus_nn30"></a> 6.18 Templates
+<h2 id="SWIGPlus_nn30">6.18 Templates</h2>
 
 Template type names may appear anywhere a type
 is expected in an interface file.  For example:
@@ -2670,7 +2670,7 @@ In this case, `vector<Integer>` is exactly the same type
 as `vector<int>`.  The wrapper for `foo()` will
 accept either variant.
 
-### <a name="SWIGPlus_template_directive"></a> 6.18.1 The %template directive
+<h3 id="SWIGPlus_template_directive">6.18.1 The %template directive</h3>
 
 There are a couple of important points about template wrapping.
 First, a bare C++ template
@@ -2840,7 +2840,7 @@ typedef List<int> ListOfInt;
 
 ```
 
-### <a name="SWIGPlus_template_functions"></a> 6.18.2 Function templates
+<h3 id="SWIGPlus_template_functions">6.18.2 Function templates</h3>
 
 SWIG can also generate wrappers for function templates using a similar technique
 to that shown above for class templates.
@@ -2875,7 +2875,7 @@ template<class T> void foo(T x, T y) { };
 This will generate two overloaded wrapper methods, the first will take a single integer as an argument
 and the second will take two integer arguments.
 
-### <a name="SWIGPlus_template_classes"></a> 6.18.3 Default template arguments
+<h3 id="SWIGPlus_template_classes">6.18.3 Default template arguments</h3>
 
 The number of arguments supplied to `%template` should match that in the
 original template definition.  Template default arguments are supported.  For example:
@@ -2918,7 +2918,7 @@ An identical instantiation is only wrapped once in order to reduce code bloat.
 **Compatibility Note**:  Versions prior to SWIG-4.2.0 would sometimes not detect and prevent duplicate
 instantiations, such as when the wrapped name was different.
 
-### <a name="SWIGPlus_template_class_inheritance"></a> 6.18.4 Template base classes
+<h3 id="SWIGPlus_template_class_inheritance">6.18.4 Template base classes</h3>
 
 When a template is instantiated using `%template`, information
 about that class is saved by SWIG and used elsewhere in the program.
@@ -2996,7 +2996,7 @@ TEMPLATE_WRAP(PairStringInt, std::pair<string, int>)
 
 Note the use of a vararg macro for the type T. If this wasn't used, the comma in the templated type in the last example would not be possible.
 
-### <a name="SWIGPlus_template_empty"></a> 6.18.5 Empty template instantiation
+<h3 id="SWIGPlus_template_empty">6.18.5 Empty template instantiation</h3>
 
 Occasionally, you may need to tell SWIG about classes that are defined by templates,
 but which aren't supposed to be wrapped.  Since SWIG is not able to automatically
@@ -3044,7 +3044,7 @@ example.i:9: Warning 519: %template() contains no name. Template method ignored:
 
 ```
 
-### <a name="SWIGPlus_template_specialization"></a> 6.18.6 Template specialization
+<h3 id="SWIGPlus_template_specialization">6.18.6 Template specialization</h3>
 
 The SWIG template mechanism *does* support specialization. For instance, if you define
 a class like this,
@@ -3119,7 +3119,7 @@ SWIG implements template argument deduction so that the following partial specia
 
 ```
 
-### <a name="SWIGPlus_template_member"></a> 6.18.7 Member templates
+<h3 id="SWIGPlus_template_member">6.18.7 Member templates</h3>
 
 Member templates are supported.  The underlying principle is the same
 as for normal templates–SWIG can't create a wrapper unless you provide
@@ -3298,7 +3298,7 @@ name. Hence, SWIG will overload them and define an unique visible
 constructor, that will dispatch the proper call depending on the argument
 type.
 
-### <a name="SWIGPlus_template_scoping"></a> 6.18.8 Scoping and templates
+<h3 id="SWIGPlus_template_scoping">6.18.8 Scoping and templates</h3>
 
 The `%template` directive for a class template is the equivalent to an explicit instantiation
 of a C++ class template. The scope for a valid `%template` instantiation is the same
@@ -3387,7 +3387,7 @@ template class C<int>;
 **Compatibility Note**:  Versions prior to SWIG-4.0.0 did not error out with incorrectly scoped
 `%template` declarations, but this led to numerous subtle template scope problems.
 
-### <a name="SWIGPlus_template_renaming"></a> 6.18.9 Template renaming
+<h3 id="SWIGPlus_template_renaming">6.18.9 Template renaming</h3>
 
 The primary purpose of the `%template` directive is to instantiate a template and make it available in the target language.
 The identifier name for use from the target language is determined by the name provided to `%template`.
@@ -3447,7 +3447,7 @@ public static void FUNKY() { ... }
 
 ```
 
-### <a name="SWIGPlus_template_more"></a> 6.18.10 More on templates
+<h3 id="SWIGPlus_template_more">6.18.10 More on templates</h3>
 
 If all of this isn't quite enough and you really want to make
 someone's head explode, SWIG directives such as
@@ -3627,7 +3627,7 @@ as the class name.  For example:
 
 Similar changes apply to typemaps and other customization features.
 
-## <a name="SWIGPlus_namespaces"></a> 6.19 Namespaces
+<h2 id="SWIGPlus_namespaces">6.19 Namespaces</h2>
 
 Support for C++ namespaces is comprehensive, but by default simple, however, 
 some target languages can turn on more advanced namespace support via the 
@@ -4014,7 +4014,7 @@ namespace foo {
 a basic namespace implementation.  
 More advanced handling of namespaces is discussed next.
 
-### <a name="SWIGPlus_nspace"></a> 6.19.1 The nspace feature for namespaces
+<h3 id="SWIGPlus_nspace">6.19.1 The nspace feature for namespaces</h3>
 
 The `nspace` feature operates in two modes.
 Firstly, in a simple enable/disable mode to mirror the C++ namespaces into the target language specific concept of a C++ namespace.
@@ -4027,7 +4027,7 @@ such as a Java package or C# namespace.
 Only some target languages provide support for the `nspace` feature.
 Please see the target language specific sections to see if the language you are interested in supports the nspace feature.
 
-#### <a name="SWIGPlus_nspace_feature_flag"></a> 6.19.1.1 %nspace for mirroring namespace hierarchies
+<h4 id="SWIGPlus_nspace_feature_flag">6.19.1.1 %nspace for mirroring namespace hierarchies</h4>
 
 In this simple mode the `nspace` feature works as a [feature flag](Customization/#Customization_feature_flags) to enable or disable the feature for a given C++ symbol.
 As described earlier, all namespace are flattened by default, hence the `nspace` feature is disabled by default.
@@ -4102,7 +4102,7 @@ namespace MyWorld {
 
 **Compatibility Note:** The simple `%nspace` feature flag was first introduced in SWIG-2.0.0.
 
-#### <a name="SWIGPlus_nspacemove"></a> 6.19.1.2 %nspacemove for modifying namespace hierarchies
+<h4 id="SWIGPlus_nspacemove">6.19.1.2 %nspacemove for modifying namespace hierarchies</h4>
 
 The more complex mode for `nspace` provides the ability to move a type into a differently named target language equivalent of a namespace.
 This allows a fully flexible approach to mapping C++ namespaces into a target language equivalent of a namespace, such as:
@@ -4184,7 +4184,7 @@ var s5 = new Somewhere.Else.Struct5();
 
 ```
 
-#### <a name="SWIGPlus_nspace_more"></a> 6.19.1.3 More about the nspace feature
+<h4 id="SWIGPlus_nspace_more">6.19.1.3 More about the nspace feature</h4>
 
 When the `nspace` feature is attached to a class or enum, all contained symbols (members) are also automatically moved into the target language namespace.
 Contained symbols include all enum values, static and non-static class members as well as nested classes.
@@ -4251,7 +4251,7 @@ Warning 406: as it conflicts with the nspace setting (A::Different::Space) for o
 
 **Compatibility Note:** Modifying namespace hierarchies via `%nspacemove` was first introduced in SWIG-4.3.0.
 
-## <a name="SWIGPlus_renaming_templated_types_namespaces"></a> 6.20 Renaming templated types in namespaces
+<h2 id="SWIGPlus_renaming_templated_types_namespaces">6.20 Renaming templated types in namespaces</h2>
 
 As has been mentioned, when %rename includes parameters, the parameter types must match exactly (no typedef or namespace resolution is performed).
 SWIG treats templated types slightly differently and has an additional matching rule so unlike non-templated types, an exact match is not always required.
@@ -4321,7 +4321,7 @@ namespace Space {
 
 ```
 
-## <a name="SWIGPlus_exception_specifications"></a> 6.21 Exception specifications
+<h2 id="SWIGPlus_exception_specifications">6.21 Exception specifications</h2>
 
 When C++ programs utilize exceptions, exceptional behavior is sometimes specified as
 part of a function or method declaration.  For example:
@@ -4363,7 +4363,7 @@ properly handle C++ exceptions. To do that, a different set of special SWIG dire
 Consult the "[Exception handling with %exception](Customization/#Customization_exception)" section for details.
 The next section details a way of simulating an exception specification or replacing an existing one.
 
-## <a name="SWIGPlus_catches"></a> 6.22 Exception handling with %catches
+<h2 id="SWIGPlus_catches">6.22 Exception handling with %catches</h2>
 
 Exceptions are automatically handled for methods with an exception specification.
 Similar handling can be achieved for methods without exception specifications through the `%catches` feature.
@@ -4405,7 +4405,7 @@ SWIG will generate catch handlers for all of the types in the exception specific
 However, with the `%catches` feature above,
 just a single catch handler for the base class, `EBase` will be generated to convert the C++ exception into a target language error/exception.
 
-## <a name="SWIGPlus_nn33"></a> 6.23 Pointers to Members
+<h2 id="SWIGPlus_nn33">6.23 Pointers to Members</h2>
 
 Starting with SWIG-1.3.7, there is limited parsing support for pointers to C++ class members.
 For example:
@@ -4442,7 +4442,7 @@ member pointers.  Normally SWIG tries to keep track of inheritance
 when checking types.  However, no such support is currently provided
 for member pointers.
 
-## <a name="SWIGPlus_smart_pointers"></a> 6.24 Smart pointers and operator-\>()
+<h2 id="SWIGPlus_smart_pointers">6.24 Smart pointers and operator-\>()</h2>
 
 In some C++ programs, objects are often encapsulated by smart-pointers
 or proxy classes.   This is sometimes done to implement automatic memory management (reference counting) or
@@ -4620,7 +4620,7 @@ p = f.__deref__()       # Raw pointer from operator->
 
 **Note:** Smart pointer support was first added in SWIG-1.3.14.
 
-## <a name="SWIGPlus_ref_unref"></a> 6.25 C++ reference counted objects - ref/unref feature
+<h2 id="SWIGPlus_ref_unref">6.25 C++ reference counted objects - ref/unref feature</h2>
 
 Another similar idiom in C++ is the use of reference counted objects. Consider for example:
 
@@ -4769,7 +4769,7 @@ exit              # 'a' is released, SWIG unref 'a' called in the destructor wra
 
 ```
 
-## <a name="SWIGPlus_nn35"></a> 6.26 Using declarations and inheritance
+<h2 id="SWIGPlus_nn35">6.26 Using declarations and inheritance</h2>
 
 C++ `using` declarations are sometimes used to introduce members of
 base classes.  For example:
@@ -4955,7 +4955,7 @@ Prior versions also effectively ignored the using declaration for the same reaso
 
 If methods really need different names, please use of combinations of `%rename`, `%ignore` and `%extend` to achieve the desired outcome.
 
-## <a name="SWIGPlus_nested_classes"></a> 6.27 Nested classes
+<h2 id="SWIGPlus_nested_classes">6.27 Nested classes</h2>
 
 If the target language supports the nested classes concept (like Java), the nested C++ classes
 are wrapped as nested target language proxy classes. (In case of Java - "static" nested classes.)
@@ -5006,7 +5006,7 @@ SWIG-1.3.40 and earlier versions did not have the `nestedworkaround` feature
 and the generated code resulting from parsing nested classes did not always compile.
 Nested class warnings could also not be suppressed using %warnfilter.
 
-## <a name="SWIGPlus_const"></a> 6.28 A brief rant about const-correctness
+<h2 id="SWIGPlus_const">6.28 A brief rant about const-correctness</h2>
 
 A common issue when working with C++ programs is dealing with all
 possible ways in which the `const` qualifier (or lack thereof)
@@ -5051,7 +5051,7 @@ for most SWIG projects.    Of course, you might want to consider
 using another tool if maintaining constness is the most important part
 of your project.
 
-## <a name="SWIGPlus_target_language_callbacks"></a> 6.29 Callbacks to the target language
+<h2 id="SWIGPlus_target_language_callbacks">6.29 Callbacks to the target language</h2>
 
 C/C++ function pointers are often used for callbacks and this is discussed in the
 [Pointers to functions and callbacks](SWIG/#SWIG_nn30) section.
@@ -5066,7 +5066,7 @@ solves a related but different problem - it lets C++ pass a C++ callable
 [std::function](Library/#Library_std_function)
 in the SWIG library chapter.
 
-### <a name="SWIGPlus_director_classes_introduction"></a> 6.29.1 Introduction to director classes
+<h3 id="SWIGPlus_director_classes_introduction">6.29.1 Introduction to director classes</h3>
 
 The director feature enables the ability for a target language class to derive from a wrapped C++ class.
 The target language can override virtual methods of a wrapped C++ class, thereby supporting cross-language polymorphism.
@@ -5074,7 +5074,7 @@ Code can 'call up' from C++ into the target language by simply calling a virtual
 The wrapped C++ classes that have this ability are termed 'director' classes.
 The director feature is documented individually in each target language and the reader should locate and read this to obtain a full understanding of directors.
 
-### <a name="SWIGPlus_directors_for_function_pointers"></a> 6.29.2 Using directors and target language callbacks
+<h3 id="SWIGPlus_directors_for_function_pointers">6.29.2 Using directors and target language callbacks</h3>
 
 SWIG's primary goal is to make it possible to call C/C++ code from a target language, however, the director feature enables the reverse.
 While there isn't simple direct support for calling target language code from C, the director feature makes this possible.
@@ -5189,7 +5189,7 @@ original `binary_op` name from the target language instead of `binary_op_wrapper
 A C++ functor base class and Python functor class
 could also be used instead, but these are left as exercises for the reader.
 
-## <a name="SWIGPlus_nn42"></a> 6.30 Where to go for more information
+<h2 id="SWIGPlus_nn42">6.30 Where to go for more information</h2>
 
 If you're wrapping serious C++ code, you might want to pick up a copy
 of "The Annotated C++ Reference Manual" by Ellis and Stroustrup.  This

@@ -1,12 +1,12 @@
 
 
-# <a name="D"></a> 26 SWIG and D
+<h1 id="D">26 SWIG and D</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="D_introduction"></a> 26.1 Introduction
+<h2 id="D_introduction">26.1 Introduction</h2>
 
 From the [D Programming Language](https://www.digitalmars.com/d/) web site: *D is a systems programming language. Its focus is on combining the power and high performance of C and C++ with the programmer productivity of modern languages like Ruby and Python. [...] The D language is statically typed and compiles directly to machine code.* As such, it is not very surprising that D is able to directly [interface with C libraries](https://www.digitalmars.com/d/1.0/interfaceToC.html). Why would a SWIG module for D be needed then in the first place?
 
@@ -16,7 +16,7 @@ While these issues can be worked around relatively easy by hand-coding a thin wr
 
 To help addressing these issues, the SWIG C# module has been forked to support D. Is has evolved quite a lot since then, but there are still many similarities, so if you do not find what you are looking for on this page, it might be worth having a look at the chapter on [C#](CSharp/#CSharp) (and also on [Java](Java/#Java), since the C# module was in turn forked from it).
 
-## <a name="D_command_line_invocation"></a> 26.2 Command line invocation
+<h2 id="D_command_line_invocation">26.2 Command line invocation</h2>
 
 To activate the D module, pass the `-d` option to SWIG at the command line. The same standard command line options as with any other language module are available, plus the following D specific ones:
 
@@ -40,9 +40,9 @@ To activate the D module, pass the `-d` option to SWIG at the command line. The 
 
     This might especially be useful if you want to invoke SWIG several times on separate modules, but compile the resulting code into a single shared library.
 
-## <a name="D_typemaps"></a> 26.3 Typemaps
+<h2 id="D_typemaps">26.3 Typemaps</h2>
 
-### <a name="D_typemap_name_comparison"></a> 26.3.1 C# <-\> D name comparison
+<h3 id="D_typemap_name_comparison">26.3.1 C# <-\> D name comparison</h3>
 
 If you already know the SWIG C# module, you might find the following name comparison table useful:
 
@@ -68,13 +68,13 @@ If you already know the SWIG C# module, you might find the following name compar
 
 ```
 
-### <a name="D_ctype_imtype_dtype"></a> 26.3.2 ctype, imtype, dtype
+<h3 id="D_ctype_imtype_dtype">26.3.2 ctype, imtype, dtype</h3>
 
 Mapping of types between the C/C++ library, the C/C++ library wrapper exposing the C functions, the D wrapper module importing these functions and the D proxy code.
 
 The `ctype` typemap is used to determine the types to use in the C wrapper functions. The types from the `imtype` typemap are used in the extern(C) declarations of these functions in the intermediary D module. The `dtype` typemap contains the D types used in the D proxy module/class.
 
-### <a name="D_in_out_directorin_direcetorout"></a> 26.3.3 in, out, directorin, directorout
+<h3 id="D_in_out_directorin_direcetorout">26.3.3 in, out, directorin, directorout</h3>
 
 Used for converting between the types for C/C++ and D when generating the code for the wrapper functions (on the C++ side).
 
@@ -82,7 +82,7 @@ The code from the `in` typemap is used to convert arguments to the C wrapper fun
 
 The `directorin` typemap is used to convert parameters to the type used in the D director callback function, its return value is processed by `directorout` (see below).
 
-### <a name="D_din_dout_ddirectorin_ddirectorout"></a> 26.3.4 din, dout, ddirectorin, ddirectorout
+<h3 id="D_din_dout_ddirectorin_ddirectorout">26.3.4 din, dout, ddirectorin, ddirectorout</h3>
 
 Typemaps for code generation in D proxy and type wrapper classes.
 
@@ -105,11 +105,11 @@ The full chain of type conversions when a director callback is invoked looks lik
       dtype             DClass.method(dtype a)
 ```
 
-### <a name="D_typecheck_typemaps"></a> 26.3.5 typecheck typemaps
+<h3 id="D_typecheck_typemaps">26.3.5 typecheck typemaps</h3>
 
 Because, unlike many scripting languages supported by SWIG, D does not need any dynamic dispatch helper to access an overloaded function, the purpose of these is merely to issue a warning for overloaded C++ functions that cannot be overloaded in D (as more than one C++ type maps to a single D type).
 
-### <a name="D_code_injection_typemaps"></a> 26.3.6 Code injection typemaps
+<h3 id="D_code_injection_typemaps">26.3.6 Code injection typemaps</h3>
 
 These typemaps are used for generating the skeleton of proxy classes for C++ types.
 
@@ -121,7 +121,7 @@ Using `dcode` and `dimports`, you can specify additional D code which will be em
 
 Code can also be injected into the D proxy class using `%proxycode`.
 
-### <a name="D_special_variables"></a> 26.3.7 Special variable macros
+<h3 id="D_special_variables">26.3.7 Special variable macros</h3>
 
 The standard SWIG special variables are available for use within typemaps as described in the [Typemaps documentation](Typemaps/#Typemaps), for example `$1`, `$input`, `$result` etc.
 
@@ -282,9 +282,9 @@ When generating D wrappers, a few additional macros are available:
 
     Contains the fully qualified name of the intermediary D module.
 
-## <a name="D_other_code_control"></a> 26.4 Other D code control features
+<h2 id="D_other_code_control">26.4 Other D code control features</h2>
 
-### <a name="D_module"></a> 26.4.1 D begin
+<h3 id="D_module">26.4.1 D begin</h3>
 
 It is possible to add a common comment at the start of every generated D file.
 The `%module` directive supports the `dbegin` option for this.
@@ -298,7 +298,7 @@ a common comment into all generated D files. For example, copyright text for eac
 
 ```
 
-### <a name="D_features"></a> 26.4.2 D and %feature
+<h3 id="D_features">26.4.2 D and %feature</h3>
 
 The D module defines a number of directives which modify the [SWIG features](Customization/#Customization_features) set globally or for a specific declaration:
 
@@ -326,7 +326,7 @@ The D module defines a number of directives which modify the [SWIG features](Cus
 
     ```
 
-## <a name="D_pragmas"></a> 26.5 Pragmas
+<h2 id="D_pragmas">26.5 Pragmas</h2>
 
 There are a few SWIG pragmas specific to the D module, which you can use to influence the D code SWIG generates:
 
@@ -367,7 +367,7 @@ There are a few SWIG pragmas specific to the D module, which you can use to infl
 
     Each time this pragma is specified, the previous value is overwritten.
 
-## <a name="D_exceptions"></a> 26.6 D Exceptions
+<h2 id="D_exceptions">26.6 D Exceptions</h2>
 
 Out of the box, C++ exceptions are fundamentally incompatible to their equivalent in the D world and cannot simply be propagated to a calling D method. There is, however, an easy way to solve this problem: Just catch the exception in the C/C++ wrapper layer, pass the contents to D, and make the wrapper code rethrow the exception in the D world.
 
@@ -375,15 +375,15 @@ The implementation details of this are a bit crude, but the SWIG D module automa
 
 As this feature is implemented in exactly the same way it is for C#, please see the [C# documentation](CSharp/#CSharp_exceptions) for a more detailed explanation.
 
-## <a name="D_directors"></a> 26.7 D Directors
+<h2 id="D_directors">26.7 D Directors</h2>
 
 When the directors feature is activated, SWIG generates extra code on both the C++ and the D side to enable cross-language polymorphism. Essentially, this means that if you subclass a proxy class in D, C++ code can access any overridden virtual methods just as if you created a derived class in C++.
 
 There is no D specific documentation yet, but the way the feature is implemented is very similar to how it is done in [Java](Java/#Java_directors) and [C#](CSharp/#CSharp_directors).
 
-## <a name="D_other_features"></a> 26.8 Other features
+<h2 id="D_other_features">26.8 Other features</h2>
 
-### <a name="D_nspace"></a> 26.8.1 Extended namespace support (nspace)
+<h3 id="D_nspace">26.8.1 Extended namespace support (nspace)</h3>
 
 By default, SWIG flattens all C++ namespaces into a flattened D module hierarchy, but as for Java and C#, the [`nspace`](SWIGPlus/#SWIGPlus_nspace) feature is supported for D.
 If the feature is active, C++ namespaces are mapped to D packages/modules.
@@ -391,7 +391,7 @@ This includes the `nspace` feature flag for mirroring the C++ namespaces into D 
 It also includes `%nspacemove` for transforming a C++ namespace into a completely different scoped D module/package name.
 Note, however, that like for the other languages, *free* variables and functions are not supported yet; currently, they are all available in the main proxy D module.
 
-### <a name="D_native_pointer_support"></a> 26.8.2 Native pointer support
+<h3 id="D_native_pointer_support">26.8.2 Native pointer support</h3>
 
 Contrary to many of the scripting languages supported by SWIG, D fully supports C-style pointers. The D module thus includes a custom mechanism to wrap C pointers directly as D pointers where applicable, that is, if the type that is pointed to is represented the same in C and D (on the bit-level), dubbed a *primitive type* below.
 
@@ -401,7 +401,7 @@ First, the matching typemap is determined by the usual typemap lookup rules. The
 
 To determine if a type should be considered primitive, the `cprimitive` attribute on its `dtype` attribute is used. For example, the `dtype` typemap for `float` has `cprimitive="1"`, so the code from the `nativepointer` attribute is taken into account e.g. for `float **` or the function pointer `float (*)(float *)`.
 
-### <a name="D_operator_overloading"></a> 26.8.3 Operator overloading
+<h3 id="D_operator_overloading">26.8.3 Operator overloading</h3>
 
 The D module comes with basic operator overloading support. There are, however, a few limitations arising from conceptual differences between C++ and D:
 
@@ -411,17 +411,17 @@ Another set of differences between C++ and D concerns individual operators. For 
 
 There are also some cases where the operators can be translated to D, but the differences in the implementation details are big enough that a rather involved scheme would be required for automatic wrapping them, which has not been implemented yet. This affects, for example, the array subscript operator, `[]`, in combination with assignments - while `operator []` in C++ simply returns a reference which is then written to, D resorts to a separate `opIndexAssign` method -, or implicit casting (which was introduced in D2 via `alias this`). Despite the lack of automatic support, manually handling these cases should be perfectly possible.
 
-### <a name="D_test_suite"></a> 26.8.4 Running the test-suite
+<h3 id="D_test_suite">26.8.4 Running the test-suite</h3>
 
 As with any other language, the SWIG test-suite can be built for D using the `*-d-test-suite` targets of the top-level Makefile.
 
 Note: If you want to use GDC on Linux or another platform which requires you to link `libdl` for dynamically loading the shared library, you might have to add `-ldl` manually to the `d_compile` target in `Examples/Makefile`, because GDC does not currently honor the `pragma(lib, ...)` statement.
 
-## <a name="D_typemap_examples"></a> 26.9 D Typemap examples
+<h2 id="D_typemap_examples">26.9 D Typemap examples</h2>
 
 There are no D-specific typemap examples yet. However, with the above [name comparison table](D/#D_typemap_name_comparison), you should be able to get an idea what can be done by looking at the [corresponding C# section](CSharp/#CSharp_typemap_examples).
 
-## <a name="D_planned_features"></a> 26.10 Work in progress and planned features
+<h2 id="D_planned_features">26.10 Work in progress and planned features</h2>
 
 There are a couple of features which are not implemented yet, but would be very useful and might be added in the near future:
 

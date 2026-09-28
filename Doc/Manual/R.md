@@ -1,6 +1,6 @@
 
 
-# <a name="R"></a> 36 SWIG and R
+<h1 id="R">36 SWIG and R</h1>
 
 <!-- INDEX -->
 
@@ -17,7 +17,7 @@ interfaces
 to [SimpleITK](https://www.simpleitk.org/).  The R
 bindings also work on Microsoft Windows using Visual C++.
 
-## <a name="R_nn2"></a> 36.1 Bugs
+<h2 id="R_nn2">36.1 Bugs</h2>
 
 Currently the following features are not implemented or broken:
 
@@ -26,7 +26,7 @@ Currently the following features are not implemented or broken:
   garbage collection system.
 - C Array wrappings
 
-## <a name="R_nn3"></a> 36.2 Using R and SWIG
+<h2 id="R_nn3">36.2 Using R and SWIG</h2>
 
 To use R and SWIG in C mode, execute the following commands where
 example.c is the name of the file with the functions in them
@@ -99,7 +99,7 @@ Error in .Call("R_swig_fact", s_arg1, as.logical(.copy), PACKAGE = "example") :
 ```
 - Make sure the architecture of the shared library(x64 for instance), matches the architecture of the R program you want to load your shared library into
 
-## <a name="R_nn4"></a> 36.3 Precompiling large R files
+<h2 id="R_nn4">36.3 Precompiling large R files</h2>
 
 In cases where the R file is large, one make save a lot of loading
 time by precompiling the R wrapper.  This can be done by creating the
@@ -119,19 +119,19 @@ will save a large amount of loading time.
 There is no need to precompile large R files if the SWIG-generated code is being included
 in an R package. The package infrastructure provides this service during package installation.
 
-## <a name="R_nn5"></a> 36.4 General policy
+<h2 id="R_nn5">36.4 General policy</h2>
 
 The general policy of the module is to treat the C/C++ as a basic
 wrapping over the underlying functions and rely on the R type system
 to provide R syntax.
 
-## <a name="R_language_conventions"></a> 36.5 Language conventions
+<h2 id="R_language_conventions">36.5 Language conventions</h2>
 
 getitem and setitem use C++ conventions (i.e. zero based indices). [<-
 and [ are overloaded to allow for R syntax (one based indices and
 slices)
 
-## <a name="R_nn6"></a> 36.6 C++ classes
+<h2 id="R_nn6">36.6 C++ classes</h2>
 
 Wrapping of C++ classes for R works quite well. R has a special
 type, known as an external reference, that can be used as a pointer
@@ -150,7 +150,7 @@ The R interface has the following capabilities:
 - The $ operator is used for method access.
 - Variable accessors are automatically generated and called via the $, [, [[, $<-,  [<-, [[<- operators.
 
-### <a name="R_class_examples"></a> 36.6.1 Examples
+<h3 id="R_class_examples">36.6.1 Examples</h3>
 
 Consider the following simple example:
 
@@ -235,7 +235,7 @@ defined "_p_Vehicle"
 The names in the `accessorFuns` list correspond to class methods while names in the `vaccessors` section
 correspond to variables that may be modified.
 
-## <a name="R_nn7"></a> 36.7 Enumerations
+<h2 id="R_nn7">36.7 Enumerations</h2>
 
 R doesn't have a native enumeration type. Enumerations are represented
 as character strings in R, with calls to R functions that convert back
