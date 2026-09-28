@@ -1,12 +1,12 @@
 
 
-# <a name="CPlusPlus14"></a> 8 SWIG and C++14
+<h1 id="CPlusPlus14">8 SWIG and C++14</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="CPlusPlus14_introduction"></a> 8.1 Introduction
+<h2 id="CPlusPlus14_introduction">8.1 Introduction</h2>
 
 This chapter gives you a brief overview about the SWIG
 implementation of the C++14 standard.
@@ -15,9 +15,9 @@ C++14 support.
 
 **Compatibility note:** SWIG-4.0.0 is the first version to support any C++14 features.
 
-## <a name="CPlusPlus14_core_language_changes"></a> 8.2 Core language changes
+<h2 id="CPlusPlus14_core_language_changes">8.2 Core language changes</h2>
 
-### <a name="CPlusPlus14_binary_literals"></a> 8.2.1 Binary integer literals
+<h3 id="CPlusPlus14_binary_literals">8.2.1 Binary integer literals</h3>
 
 C++14 added binary integer literals and SWIG supports these.
 Example:
@@ -28,7 +28,7 @@ int b = 0b101011;
 
 ```
 
-### <a name="CPlusPlus14_return_type_deduction"></a> 8.2.2 Return type deduction
+<h3 id="CPlusPlus14_return_type_deduction">8.2.2 Return type deduction</h3>
 
 C++14 added the ability to specify `auto` for the return type of a function
 and have the compiler deduce it from the body of the function (in C++11 you had
@@ -108,7 +108,7 @@ so this needs no workaround and no warning is issued.
 SWIG 4.4.0 added support for forward declarations of such functions.
 SWIG-4.6.0 added support for a conversion function with a deduced return type.
 
-### <a name="CPlusPlus14_decltype_auto"></a> 8.2.3 decltype(auto)
+<h3 id="CPlusPlus14_decltype_auto">8.2.3 decltype(auto)</h3>
 
 C++14 added a second placeholder type, `decltype(auto)`, which can be used
 anywhere `auto` can.  The two deduce differently: `auto` deduces as a
@@ -152,7 +152,7 @@ decltype(auto) deduced_from_body() { return global_int; }  // ignored, warning 3
 Earlier versions reported a syntax error which could not be recovered from, so the
 rest of the file was not parsed.
 
-### <a name="CPlusPlus14_generic_lambdas"></a> 8.2.4 Generic lambdas
+<h3 id="CPlusPlus14_generic_lambdas">8.2.4 Generic lambdas</h3>
 
 C++14 lifted the restriction that lambda parameters be explicit types and
 allowed `auto` as a parameter type, making the lambda a templated
@@ -194,7 +194,7 @@ auto address_of_thing = [](int) -> auto* { return &thing; };
 **Compatibility note:** SWIG-4.5.0 is the first version to parse generic lambdas with `auto` parameters.
 SWIG-4.6.0 is the first version to parse a lambda whose explicit trailing return type is the `auto` placeholder.
 
-### <a name="CPlusPlus14_variable_templates"></a> 8.2.5 Variable templates
+<h3 id="CPlusPlus14_variable_templates">8.2.5 Variable templates</h3>
 
 C++14 added variable templates - templated `constexpr` (or
 `const`) variables whose value depends on the template arguments.
@@ -240,5 +240,5 @@ constexpr int factorial = compute_factorial(N);
 variable templates and wrap a `%template` instantiation of one as a
 read only variable.
 
-## <a name="CPlusPlus14_standard_library_changes"></a> 8.3 Standard library changes
+<h2 id="CPlusPlus14_standard_library_changes">8.3 Standard library changes</h2>
 

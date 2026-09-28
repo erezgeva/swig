@@ -1,6 +1,6 @@
 
 
-# <a name="Contract"></a> 18 Contracts
+<h1 id="Contract">18 Contracts</h1>
 
 <!-- INDEX -->
 
@@ -20,7 +20,7 @@ check the output values of a function and more.
 When one of the rules is violated by a script, a runtime exception is 
 generated rather than having the program continue to execute.
 
-## <a name="Contract_nn2"></a> 18.1 The %contract directive
+<h2 id="Contract_nn2">18.1 The %contract directive</h2>
 
 Contracts are added to a declaration using the %contract directive.  Here
 is a simple example:
@@ -65,7 +65,7 @@ RuntimeError: Contract violation: require: (arg1>=0)
 >>>
 ```
 
-## <a name="Contract_nn3"></a> 18.2 %contract and classes
+<h2 id="Contract_nn3">18.2 %contract and classes</h2>
 
 The `%contract` directive can also be applied to class methods and constructors.  For example:
 
@@ -135,7 +135,7 @@ In other words conditions specified for the base class and conditions
 specified for the derived class all must hold.  In the above example,
 this means that both the arguments to `Spam::bar` must be positive.
 
-## <a name="Contract_nn4"></a> 18.3 Constant aggregation and %aggregate_check
+<h2 id="Contract_nn4">18.3 Constant aggregation and %aggregate_check</h2>
 
 Consider an interface file that contains the following code:
 
@@ -211,7 +211,7 @@ void move(SomeObject *, int direction, int distance);
 Regrettably, there is no automatic way to perform similar checks with enums values.  Maybe in a future
 release.
 
-## <a name="Contract_nn5"></a> 18.4 Notes
+<h2 id="Contract_nn5">18.4 Notes</h2>
 
 Contract support was implemented by Songyan (Tiger) Feng and first appeared
 in SWIG-1.3.20.

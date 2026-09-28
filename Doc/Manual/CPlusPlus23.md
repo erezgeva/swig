@@ -1,12 +1,12 @@
 
 
-# <a name="CPlusPlus23"></a> 11 SWIG and C++23
+<h1 id="CPlusPlus23">11 SWIG and C++23</h1>
 
 <!-- INDEX -->
 
 <!-- INDEX -->
 
-## <a name="CPlusPlus23_introduction"></a> 11.1 Introduction
+<h2 id="CPlusPlus23_introduction">11.1 Introduction</h2>
 
 This chapter gives you a brief overview about the SWIG implementation of
 the C++23 standard.  Support for the core language features introduced by
@@ -21,9 +21,9 @@ change what SWIG parses.  See
 [Conditional Compilation](Preprocessor/#Preprocessor_condition_compilation)
 in the preprocessor chapter for the full list of standard macros SWIG defines.
 
-## <a name="CPlusPlus23_core_language_changes"></a> 11.2 Core language changes
+<h2 id="CPlusPlus23_core_language_changes">11.2 Core language changes</h2>
 
-### <a name="CPlusPlus23_explicit_object_parameters"></a> 11.2.1 Explicit object parameters
+<h3 id="CPlusPlus23_explicit_object_parameters">11.2.1 Explicit object parameters</h3>
 
 C++23 lets a member function declare its first parameter with the
 `this` specifier, so that the object the function is called on is an
@@ -138,7 +138,7 @@ object parameters.  Earlier versions rejected the non-deduced spelling with a
 syntax error, and wrapped the deduced `this auto&& self` spelling as
 a method taking one argument.
 
-## <a name="CPlusPlus23_standard_library_changes"></a> 11.3 Standard library changes
+<h2 id="CPlusPlus23_standard_library_changes">11.3 Standard library changes</h2>
 
 The SWIG library does not yet wrap any of the containers and types added
 to the standard library by C++23.

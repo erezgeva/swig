@@ -1,6 +1,6 @@
 
 
-# <a name="Javascript"></a> 30 SWIG and Javascript
+<h1 id="Javascript">30 SWIG and Javascript</h1>
 
 <!-- INDEX -->
 
@@ -8,7 +8,7 @@
 
 This chapter describes SWIG's support of Javascript. It does not cover SWIG basics, but only information that is specific to this module.
 
-## <a name="Javascript_overview"></a> 30.1 Overview
+<h2 id="Javascript_overview">30.1 Overview</h2>
 
 Javascript is a prototype-based scripting language that is dynamic, weakly typed and has first-class functions. Its arguably the most popular language for web development.
 Javascript has gone beyond being a browser-based scripting language and can be used as a backend development language with [node.js](https://nodejs.org).
@@ -24,9 +24,9 @@ SWIG/Javascript currently supports:
 [WebKit](https://webkit.org/) is a modern browser implementation available as open-source which can be embedded into an application.
 [NW.jst](https://github.com/nwjs/nw.js) provides an app runtime which uses Google's Chromium as Web-Browser widget and node.js for javascript extensions.
 
-## <a name="Javascript_preliminaries"></a> 30.2 Preliminaries
+<h2 id="Javascript_preliminaries">30.2 Preliminaries</h2>
 
-### <a name="Javascript_running_swig"></a> 30.2.1 Running SWIG
+<h3 id="Javascript_running_swig">30.2.1 Running SWIG</h3>
 
 Suppose that you defined a SWIG module such as the following:
 
@@ -79,7 +79,7 @@ void example_initialize(v8::Handle<v8::Object> exports)
 
 **Note**: be aware that `v8` has a C++ API, and thus, the generated modules must be compiled as C++.
 
-### <a name="Javascript_running_tests_examples"></a> 30.2.2 Running Tests and Examples
+<h3 id="Javascript_running_tests_examples">30.2.2 Running Tests and Examples</h3>
 
 The configuration for tests and examples currently supports Linux and Mac only and not MinGW (Windows) yet.
 
@@ -122,7 +122,7 @@ The test-suite can be run using
 $ make check-javascript-test-suite ENGINE=jsc
 ```
 
-### <a name="Javascript_known_issues"></a> 30.2.3 Known Issues
+<h3 id="Javascript_known_issues">30.2.3 Known Issues</h3>
 
 At the moment, the Javascript generators pass all tests syntactically, i.e., the generated source code compiles. However, there are still remaining runtime issues.
 
@@ -135,11 +135,11 @@ At the moment, the Javascript generators pass all tests syntactically, i.e., the
 
 The primary development environment has been Linux (Ubuntu 22.04). Windows and Mac OS X have been tested sporadically. Therefore, the generators might have more issues on those platforms. Please report back any problem you observe to help us improving this module quickly.
 
-## <a name="Javascript_integration"></a> 30.3 Integration
+<h2 id="Javascript_integration">30.3 Integration</h2>
 
 This chapter gives a short introduction how to use a native Javascript extension: as a `node.js` module, and as an extension for an embedded Webkit.
 
-### <a name="Javascript_node_extensions"></a> 30.3.1 Creating node.js Extensions
+<h3 id="Javascript_node_extensions">30.3.1 Creating node.js Extensions</h3>
 
 To install `node.js` you can download an installer from their [web-site](https://launchpad.net/~chris-lea/+archive/node.js) for Mac OS X and Windows. For Linux you can either build the source yourself and run `sudo checkinstall` or keep to the (probably stone-age) packaged version. For Ubuntu there is a [PPA](https://launchpad.net/~chris-lea/+archive/ubuntu/node.js/) available.
 
@@ -198,7 +198,7 @@ require("./build/Release/example")
 
 A more detailed explanation is given in the [Examples](#Javascript_examples) section.
 
-#### <a name="Javascript_using_yeoman"></a> 30.3.1.1 Using `yeoman` to generate a Node-API skeleton
+<h4 id="Javascript_using_yeoman">30.3.1.1 Using `yeoman` to generate a Node-API skeleton</h4>
 
 If targeting Node-API, the easiest way to bootstrap a project is by using the `yeoman` generator:
 
@@ -219,7 +219,7 @@ $ node-gyp build
 There is also the [`node-magickwand`](https://github.com/mmomtchev/node-magickwand) project that can be used as a tutorial for building and publishing a complex C++ library to
 npm as a ready-to-use real-world binary module.
 
-#### <a name="Javascript_troubleshooting"></a> 30.3.1.2 Troubleshooting
+<h4 id="Javascript_troubleshooting">30.3.1.2 Troubleshooting</h4>
 
 - *'module' object has no attribute 'script_main'*
 
@@ -230,11 +230,11 @@ This error happens when `gyp` is installed as a distribution package. It seems t
 $ sudo apt-get remove gyp
 ```
 
-### <a name="Javascript_embedded_webkit"></a> 30.3.2 Embedded Webkit
+<h3 id="Javascript_embedded_webkit">30.3.2 Embedded Webkit</h3>
 
 Webkit is pre-installed on Mac OS X and available as a library for GTK.
 
-#### <a name="Javascript_osx"></a> 30.3.2.1 Mac OS X
+<h4 id="Javascript_osx">30.3.2.1 Mac OS X</h4>
 
 There is general information about programming with WebKit on [Apple Developer Documentation](https://developer.apple.com/library/mac/documentation/cocoa/conceptual/DisplayWebContent/DisplayWebContent.html). Details about `Cocoa` programming are not covered here.
 
@@ -282,7 +282,7 @@ extern bool example_initialize(JSGlobalContextRef context, JSObjectRef* exports)
 @end
 ```
 
-#### <a name="Javascript_gtk"></a> 30.3.2.2 GTK
+<h4 id="Javascript_gtk">30.3.2.2 GTK</h4>
 
 There is general information about programming GTK at [GTK documentation](https://developer.gnome.org/gtk2/) and in the [GTK tutorial](https://developer.gnome.org/gtk-tutorial/), and for Webkit there is a [Webkit GTK+ API Reference](https://webkitgtk.org/reference/webkitgtk/stable/index.html).
 
@@ -328,7 +328,7 @@ int main(int argc, char* argv[])
 }
 ```
 
-### <a name="Javascript_applications_webkit"></a> 30.3.3 Creating Applications with node-webkit
+<h3 id="Javascript_applications_webkit">30.3.3 Creating Applications with node-webkit</h3>
 
 To get started with `node-webkit` there is a very informative set of [wiki pages](https://github.com/rogerwang/node-webkit/wiki).
 
@@ -398,11 +398,11 @@ window.onload = function() {
 };
 ```
 
-## <a name="Javascript_examples"></a> 30.4 Examples
+<h2 id="Javascript_examples">30.4 Examples</h2>
 
 Some basic examples are shown here in more detail.
 
-### <a name="Javascript_simple_example"></a> 30.4.1 Simple
+<h3 id="Javascript_simple_example">30.4.1 Simple</h3>
 
 The common example `simple` looks like this:
 
@@ -459,7 +459,7 @@ First the module `example` is loaded from the previously built extension. Global
 
 **Note**: ECMAScript 5, the currently implemented Javascript standard, does not have modules. `node.js` and other implementations provide this mechanism defined by the [CommonJS](https://wiki.commonjs.org/wiki/CommonJS) group. For browsers this is provided by [Browserify](https://browserify.org), for instance.
 
-### <a name="Javascript_class_example"></a> 30.4.2 Class
+<h3 id="Javascript_class_example">30.4.2 Class</h3>
 
 The common example `class` defines three classes, `Shape`, `Circle`, and `Square`:
 
@@ -594,11 +594,11 @@ at emitKey (readline.js:1095:12)
 
 **Note**: In ECMAScript 5 there is no concept for classes. Instead each function can be used as a constructor function which is executed by the 'new' operator. Furthermore, during construction the key property `prototype` of the constructor function is used to attach a prototype instance to the created object. A prototype is essentially an object itself that is the first-class delegate of a class used whenever the access to a property of an object fails. The very same prototype instance is shared among all instances of one type. Prototypal inheritance is explained in more detail on in [Inheritance and the prototype chain](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain), for instance.
 
-## <a name="Javascript_implementation"></a> 30.5 Implementation
+<h2 id="Javascript_implementation">30.5 Implementation</h2>
 
 The Javascript Module implementation has taken a very different approach compared to other language modules in order to support different Javascript interpreters.
 
-### <a name="Javascript_source_code"></a> 30.5.1 Source Code
+<h3 id="Javascript_source_code">30.5.1 Source Code</h3>
 
 The Javascript module is implemented in `Source/Modules/javascript.cxx`. It dispatches the code generation to a `JSEmitter` instance, `V8Emitter`, `JSCEmitter` or `NAPIEmitter`. Additionally there are some helpers: `Template`, for templated code generation, and `JSEmitterState`, which is used to manage state information during AST traversal. This rough map shall make it easier to find a way through this huge source file:
 
@@ -699,7 +699,7 @@ Template::Template(const String *code_) { ... }
 ...
 ```
 
-### <a name="Javascript_code_templates"></a> 30.5.2 Code Templates
+<h3 id="Javascript_code_templates">30.5.2 Code Templates</h3>
 
 All generated code is created on the basis of code templates. The templates for *JavascriptCore* can be found in `Lib/javascript/jsc/javascriptcode.swg`, for *v8* in `Lib/javascript/v8/javascriptcode.swg` and for *Node-API* in `Lib/javascript/napi/javascriptcode.swg`.
 
@@ -746,7 +746,7 @@ A code template is registered with the *JSEmitter* via `fragment(name, "template
 
 `Template` creates a copy of that string and `Template::replace` uses Swig's `Replaceall` to replace variables in the template. `Template::trim` can be used to eliminate leading and trailing whitespaces. `Template::print` is used to write the final template string to a Swig `DOH` (based on `Printv`). All methods allow chaining.
 
-### <a name="Javascript_emitter"></a> 30.5.3 Emitter
+<h3 id="Javascript_emitter">30.5.3 Emitter</h3>
 
 The Javascript module delegates code generation to a `JSEmitter` instance. The following extract shows the essential interface:
 
@@ -870,7 +870,7 @@ int JAVASCRIPT::classHandler(Node *n) {
 
 In `enterClass` the emitter stores state information that is necessary when processing class members. In `exitClass` the wrapper code for the whole class is generated.
 
-### <a name="Javascript_emitter_states"></a> 30.5.4 Emitter states
+<h3 id="Javascript_emitter_states">30.5.4 Emitter states</h3>
 
 For storing information during the AST traversal the emitter provides a `JSEmitterState` with different slots to store data representing the scopes global, class, function, and variable.
 
@@ -916,7 +916,7 @@ state.clazz(NAME, Getattr(n, "sym:name"));
 
 State information can be retrieved using `state.clazz(NAME)` or with `Getattr` on `state.clazz()` which actually returns a `Hash` instance.
 
-### <a name="Javascript_jsc_exceptions"></a> 30.5.5 Handling Exceptions in JavascriptCore
+<h3 id="Javascript_jsc_exceptions">30.5.5 Handling Exceptions in JavascriptCore</h3>
 
 Applications with an embedded JavascriptCore should be able to present detailed exception messages that occur in the Javascript engine. Below is an example derived from code provided by Brian Barnes on how these exception details can be extracted.
 
@@ -998,7 +998,7 @@ if(js_exception)
 }
 ```
 
-### <a name="Javascript_napi_exceptions"></a> 30.5.6 Handling Exceptions in Node-API
+<h3 id="Javascript_napi_exceptions">30.5.6 Handling Exceptions in Node-API</h3>
 
 Node-API is the only generator that provides fully automatic conversion of C++ exceptions to JavaScript exceptions when building with C++ exceptions enabled in `binding.gyp`:
 

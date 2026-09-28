@@ -1,6 +1,6 @@
 
 
-# <a name="Ruby"></a> 37 SWIG and Ruby
+<h1 id="Ruby">37 SWIG and Ruby</h1>
 
 <!-- INDEX -->
 
@@ -8,7 +8,7 @@
 
 This chapter describes SWIG's support of Ruby.
 
-## <a name="Ruby_nn2"></a> 37.1 Preliminaries
+<h2 id="Ruby_nn2">37.1 Preliminaries</h2>
 
 SWIG 4.2 is known to work with Ruby versions 2.0 and later.
 Given the choice, you should use the latest stable version of Ruby. You
@@ -22,7 +22,7 @@ read the "[SWIG Basics](SWIG/#SWIG)"
 chapter. It is also assumed that the reader has a basic understanding
 of Ruby.
 
-### <a name="Ruby_nn3"></a> 37.1.1 Running SWIG
+<h3 id="Ruby_nn3">37.1.1 Running SWIG</h3>
 
 To build a Ruby module, run SWIG using the `-ruby`
 option:
@@ -45,7 +45,7 @@ if compiling a C++ extension) that contains all of the code needed to
 build a Ruby extension module. To finish building the module, you need
 to compile this file and link it with the rest of your program.
 
-### <a name="Ruby_nn4"></a> 37.1.2 Getting the right header files
+<h3 id="Ruby_nn4">37.1.2 Getting the right header files</h3>
 
 In order to compile the wrapper code, the compiler needs the `ruby.h`
 header file and its dependencies, notably `ruby/config.h` which is
@@ -58,7 +58,7 @@ $ ruby -rrbconfig -e 'puts "-I#{RbConfig::CONFIG[%q{rubyhdrdir}]} -I#{RbConfig::
 
 ```
 
-### <a name="Ruby_nn5"></a> 37.1.3 Compiling a dynamic module
+<h3 id="Ruby_nn5">37.1.3 Compiling a dynamic module</h3>
 
 Ruby extension modules are typically compiled into shared
 libraries that the interpreter loads dynamically at runtime. Since the
@@ -123,7 +123,7 @@ manual pages for your compiler and linker to determine the correct set
 of options. You might also check the [SWIG Wiki](https://github.com/swig/swig/wiki)
 for additional information.
 
-### <a name="Ruby_nn6"></a> 37.1.4 Using your module
+<h3 id="Ruby_nn6">37.1.4 Using your module</h3>
 
 Ruby *module* names must be capitalized,
 but the convention for Ruby *feature* names is to use
@@ -152,7 +152,7 @@ begins with:
 will result in an extension module using the feature name
 "example" and Ruby module name "Example".
 
-### <a name="Ruby_nn7"></a> 37.1.5 Static linking
+<h3 id="Ruby_nn7">37.1.5 Static linking</h3>
 
 An alternative approach to dynamic linking is to rebuild the
 Ruby interpreter with your extension module added to it. In the past,
@@ -166,7 +166,7 @@ finding the Ruby source, adding an entry to the `ext/Setup`
 file, adding your directory to the list of extensions in the file, and
 finally rebuilding Ruby.
 
-### <a name="Ruby_nn8"></a> 37.1.6 Compilation of C++ extensions
+<h3 id="Ruby_nn8">37.1.6 Compilation of C++ extensions</h3>
 
 On most machines, C++ extension modules should be linked
 using the C++ compiler. For example:
@@ -197,7 +197,7 @@ $libs = append_library($libs, "supc++")
 create_makefile('example')
 ```
 
-## <a name="Ruby_nn9"></a> 37.2 Building Ruby Extensions under Windows 95/NT
+<h2 id="Ruby_nn9">37.2 Building Ruby Extensions under Windows 95/NT</h2>
 
 Building a SWIG extension to Ruby under Windows 95/NT is
 roughly similar to the process used with Unix. Normally, you will want
@@ -221,7 +221,7 @@ order to build extensions, you may need to download the source
 distribution to the Ruby package, as you will need the Ruby header
 files.
 
-### <a name="Ruby_nn10"></a> 37.2.1 Running SWIG from Developer Studio
+<h3 id="Ruby_nn10">37.2.1 Running SWIG from Developer Studio</h3>
 
 If you are developing your application within Microsoft
 developer studio, SWIG can be invoked as a custom build option. The
@@ -285,12 +285,12 @@ Foo = 3.0
 
 ```
 
-## <a name="Ruby_nn11"></a> 37.3 The Ruby-to-C/C++ Mapping
+<h2 id="Ruby_nn11">37.3 The Ruby-to-C/C++ Mapping</h2>
 
 This section describes the basics of how SWIG maps C or C++
 declarations in your SWIG interface files to Ruby constructs.
 
-### <a name="Ruby_nn12"></a> 37.3.1 Modules
+<h3 id="Ruby_nn12">37.3.1 Modules</h3>
 
 The SWIG `%module` directive specifies
 the name of the Ruby module. If you specify:
@@ -358,7 +358,7 @@ option to wrap everything into the global module, take care that the
 names of your constants, classes and methods don't conflict with any of
 Ruby's built-in names.
 
-### <a name="Ruby_nn13"></a> 37.3.2 Functions
+<h3 id="Ruby_nn13">37.3.2 Functions</h3>
 
 Global functions are wrapped as Ruby module methods. For
 example, given the SWIG interface file `example.i`:
@@ -390,7 +390,7 @@ irb(main):002:0>Example.fact(4)
 24
 ```
 
-### <a name="Ruby_nn14"></a> 37.3.3 Variable Linking
+<h3 id="Ruby_nn14">37.3.3 Variable Linking</h3>
 
 C/C++ global variables are wrapped as a pair of singleton
 methods for the module: one to get the value of the global variable and
@@ -468,7 +468,7 @@ irb(main):004:0>$Variable2
 41.2
 ```
 
-### <a name="Ruby_nn15"></a> 37.3.4 Constants
+<h3 id="Ruby_nn15">37.3.4 Constants</h3>
 
 C/C++ constants are wrapped as module constants initialized
 to the appropriate value. To create a constant, use `#define`
@@ -495,7 +495,7 @@ irb(main):002:0>Example::PI
 3.14159
 ```
 
-### <a name="Ruby_nn16"></a> 37.3.5 Pointers
+<h3 id="Ruby_nn16">37.3.5 Pointers</h3>
 
 "Opaque" pointers to arbitrary C/C++ types (i.e. types that
 aren't explicitly declared in your SWIG interface file) are wrapped as
@@ -518,7 +518,7 @@ irb(main):001:0>foo = Example::get_foo()
 A `NULL` pointer is always represented by
 the Ruby `nil` object.
 
-### <a name="Ruby_nn17"></a> 37.3.6 Structures
+<h3 id="Ruby_nn17">37.3.6 Structures</h3>
 
 C/C++ structs are wrapped as Ruby classes, with accessor
 methods (i.e. "getters" and "setters") for all of the struct members.
@@ -622,7 +622,7 @@ void Bar_f_set(Bar *b, Foo *val) {
 }
 ```
 
-### <a name="Ruby_nn18"></a> 37.3.7 C++ classes
+<h3 id="Ruby_nn18">37.3.7 C++ classes</h3>
 
 Like structs, C++ classes are wrapped by creating a new Ruby
 class of the same name with accessor methods for the public class
@@ -674,7 +674,7 @@ Ale
 3
 ```
 
-### <a name="Ruby_nn19"></a> 37.3.8 C++ Inheritance
+<h3 id="Ruby_nn19">37.3.8 C++ Inheritance</h3>
 
 The SWIG type-checker is fully aware of C++ inheritance.
 Therefore, if you have classes like this:
@@ -825,7 +825,7 @@ type `Derived` will otherwise behave as though they
 inherit from both `Base1` and `Base2`
 (i.e. they exhibit ["Duck Typing"](http://c2.com/cgi/wiki?DuckTyping)).
 
-### <a name="Ruby_nn20"></a> 37.3.9 C++ Overloaded Functions
+<h3 id="Ruby_nn20">37.3.9 C++ Overloaded Functions</h3>
 
 C++ overloaded functions, methods, and constructors are
 mostly supported by SWIG. For example, if you have two functions like
@@ -913,7 +913,7 @@ arises–in this case, the first declaration takes precedence.
 
 Please refer to the ["SWIG and C++"](SWIGPlus/#SWIGPlus) chapter for more information about overloading.
 
-### <a name="Ruby_nn21"></a> 37.3.10 C++ Operators
+<h3 id="Ruby_nn21">37.3.10 C++ Operators</h3>
 
 For the most part, overloaded operators are handled
 automatically by SWIG and do not require any special treatment on your
@@ -953,7 +953,7 @@ c = Example.add_complex(a, b)
 More details about wrapping C++ operators into Ruby operators
 is discussed in the [section on operator overloading](#Ruby_operator_overloading).
 
-### <a name="Ruby_nn22"></a> 37.3.11 C++ namespaces
+<h3 id="Ruby_nn22">37.3.11 C++ namespaces</h3>
 
 SWIG is aware of C++ namespaces, but namespace names do not
 appear in the module nor do namespaces result in a module that is
@@ -1009,7 +1009,7 @@ and create extension modules for each namespace separately. If your
 program utilizes thousands of small deeply nested namespaces each with
 identical symbol names, well, then you get what you deserve.
 
-### <a name="Ruby_nn23"></a> 37.3.12 C++ templates
+<h3 id="Ruby_nn23">37.3.12 C++ templates</h3>
 
 C++ templates don't present a huge problem for SWIG. However,
 in order to create wrappers, you have to tell SWIG to create wrappers
@@ -1050,7 +1050,7 @@ irb(main):004:0>p.second
 4
 ```
 
-### <a name="Ruby_nn23_1"></a> 37.3.13 C++ Standard Template Library (STL)
+<h3 id="Ruby_nn23_1">37.3.13 C++ Standard Template Library (STL)</h3>
 
 On a related note, the standard SWIG library contains a
 number of modules that provide typemaps for standard C++ library
@@ -1143,7 +1143,7 @@ Obviously, there is a lot more to template wrapping than
 shown in these examples. More details can be found in the [SWIG and C++](SWIGPlus/#SWIGPlus)
 chapter.
 
-### <a name="Ruby_C_STL_Functors"></a> 37.3.14 C++ STL Functors
+<h3 id="Ruby_C_STL_Functors">37.3.14 C++ STL Functors</h3>
 
 Some containers in the STL allow you to modify their default
 behavior by using so called functors or function objects.
@@ -1205,7 +1205,7 @@ b
 =\>  [3, 2, 1]
 ```
 
-### <a name="Ruby_C_Iterators"></a> 37.3.15 C++ STL Iterators
+<h3 id="Ruby_C_Iterators">37.3.15 C++ STL Iterators</h3>
 
 The STL is well known for the use of iterators. There
 are a number of iterators possible with different properties, but in
@@ -1288,16 +1288,16 @@ i
 
 If you'd rather have STL classes without any iterators, you should define `-DSWIG_NO_EXPORT_ITERATOR_METHODS` when running swig.
 
-### <a name="Ruby_nn24"></a> 37.3.16 C++ Smart Pointers
+<h3 id="Ruby_nn24">37.3.16 C++ Smart Pointers</h3>
 
-#### <a name="Ruby_smart_pointers_shared_ptr"></a> 37.3.16.1 The shared_ptr Smart Pointer
+<h4 id="Ruby_smart_pointers_shared_ptr">37.3.16.1 The shared_ptr Smart Pointer</h4>
 
 The C++11 standard provides `std::shared_ptr` which was derived from the Boost
 implementation, `boost::shared_ptr`.
 Both of these are available for Ruby in the SWIG library and usage is outlined
 in the [shared_ptr smart pointer](Library/#Library_std_shared_ptr) library section.
 
-#### <a name="Ruby_smart_pointers_generic"></a> 37.3.16.2 Generic Smart Pointers
+<h4 id="Ruby_smart_pointers_generic">37.3.16.2 Generic Smart Pointers</h4>
 
 In certain C++ programs, it is common to use classes that
 have been wrapped by so-called "smart pointers." Generally, this
@@ -1361,7 +1361,7 @@ method. For example:
 irb(main):004:0>f = p.__deref__() # Returns underlying Foo *
 ```
 
-### <a name="Ruby_nn25"></a> 37.3.17 Cross-Language Polymorphism
+<h3 id="Ruby_nn25">37.3.17 Cross-Language Polymorphism</h3>
 
 SWIG's Ruby module supports cross-language polymorphism
 (a.k.a. the "directors" feature) similar to that for SWIG's Python
@@ -1369,7 +1369,7 @@ module. Rather than duplicate the information presented in the [Python](Python/#
 section just notes the differences that you need to be aware of when
 using this feature with Ruby.
 
-#### <a name="Ruby_nn26"></a> 37.3.17.1 Exception Unrolling
+<h4 id="Ruby_nn26">37.3.17.1 Exception Unrolling</h4>
 
 Whenever a C++ director class routes one of its virtual
 member function calls to a Ruby instance method, there's always the
@@ -1391,7 +1391,7 @@ method is "wrapped" using the `rb_rescue2()`
 function from Ruby's C API. If any Ruby exception is raised, it will be
 caught here and a C++ exception is raised in its place.
 
-## <a name="Ruby_nn27"></a> 37.4 Naming
+<h2 id="Ruby_nn27">37.4 Naming</h2>
 
 Ruby has several common naming conventions. Constants are
 generally
@@ -1424,7 +1424,7 @@ generated
 by SWIG, it is turned off by default in SWIG 1.3.28. However, it is
 planned to become the default option in future releases.
 
-### <a name="Ruby_nn28"></a> 37.4.1 Defining Aliases
+<h3 id="Ruby_nn28">37.4.1 Defining Aliases</h3>
 
 It's a fairly common practice in the Ruby built-ins and
 standard library to provide aliases for method names. For example, *Array#size*
@@ -1492,7 +1492,7 @@ implemented using SWIG's "features" mechanism and so the same name
 matching rules used for other kinds of features apply (see the chapter
 on ["Customization Features"](Customization/#Customization)) for more details).
 
-### <a name="Ruby_nn29"></a> 37.4.2 Predicate Methods
+<h3 id="Ruby_nn29">37.4.2 Predicate Methods</h3>
 
 Ruby methods that return a boolean value and end in a
 question mark
@@ -1539,7 +1539,7 @@ The `%predicate` directive is implemented
 using SWIG's "features" mechanism and so the same name matching rules
 used for other kinds of features apply (see the chapter on ["Customization Features"](Customization/#Customization)) for more details).
 
-### <a name="Ruby_nn30"></a> 37.4.3 Bang Methods
+<h3 id="Ruby_nn30">37.4.3 Bang Methods</h3>
 
 Ruby methods that modify an object in-place and end in an
 exclamation mark are known as bang methods. An example of a bang method
@@ -1569,7 +1569,7 @@ The `%bang` directive is implemented
 using SWIG's "features" mechanism and so the same name matching rules
 used for other kinds of features apply (see the chapter on ["Customization Features"](Customization/#Customization)) for more details).
 
-### <a name="Ruby_nn31"></a> 37.4.4 Getters and Setters
+<h3 id="Ruby_nn31">37.4.4 Getters and Setters</h3>
 
 Often times a C++ library will expose properties through
 getter and setter methods. For example:
@@ -1604,7 +1604,7 @@ This can be done by using the %rename directive:
 %rename("value=") Foo::setValue(int value);
 ```
 
-## <a name="Ruby_nn32"></a> 37.5 Input and output parameters
+<h2 id="Ruby_nn32">37.5 Input and output parameters</h2>
 
 A common problem in some C programs is handling parameters
 passed as simple pointers. For example:
@@ -1740,9 +1740,9 @@ In Ruby:
 r, c = Example.get_dimensions(m)
 ```
 
-## <a name="Ruby_nn33"></a> 37.6 Exception handling 
+<h2 id="Ruby_nn33">37.6 Exception handling</h2>
 
-### <a name="Ruby_nn34"></a> 37.6.1 Using the %exception directive 
+<h3 id="Ruby_nn34">37.6.1 Using the %exception directive</h3>
 
 The SWIG `%exception` directive can be
 used to define a user-definable exception handler that can convert
@@ -1847,7 +1847,7 @@ methods and functions named `getitem` and `setitem`.
 Since SWIG's exception handling is user-definable, you are not
 limited to C++ exception handling. See the chapter on [Customization Features](Customization/#Customization) for more examples.
 
-### <a name="Ruby_nn34_2"></a> 37.6.2 Handling Ruby Blocks 
+<h3 id="Ruby_nn34_2">37.6.2 Handling Ruby Blocks</h3>
 
 One of the highlights of Ruby and most of its standard library
 is
@@ -1914,7 +1914,7 @@ a special in typemap, like:
 
 For more information on typemaps, see [Typemaps](#Ruby_nn37).
 
-### <a name="Ruby_nn35"></a> 37.6.3 Raising exceptions 
+<h3 id="Ruby_nn35">37.6.3 Raising exceptions</h3>
 
 There are three ways to raise exceptions from C++ code to
 Ruby.
@@ -1955,7 +1955,7 @@ function. The first argument passed to `rb_raise()`
 is the exception type. You can raise a custom exception type or one of
 the built-in Ruby exception types.
 
-### <a name="Ruby_nn36"></a> 37.6.4 Exception classes 
+<h3 id="Ruby_nn36">37.6.4 Exception classes</h3>
 
 Starting with SWIG 1.3.28, the Ruby module supports the `%exceptionclass`
 directive, which is used to identify C++ classes that are used as
@@ -1990,7 +1990,7 @@ end
 
 For another example look at swig/Examples/ruby/exception_class.
 
-## <a name="Ruby_nn37"></a> 37.7 Typemaps
+<h2 id="Ruby_nn37">37.7 Typemaps</h2>
 
 This section describes how you can modify SWIG's default
 wrapping behavior for various C/C++ datatypes using the `%typemap`
@@ -2003,7 +2003,7 @@ a required part of using SWIG—the default wrapping behavior is enough
 in most cases. Typemaps are only used if you want to change some aspect
 of the primitive C-Ruby interface.
 
-### <a name="Ruby_nn38"></a> 37.7.1 What is a typemap?
+<h3 id="Ruby_nn38">37.7.1 What is a typemap?</h3>
 
 A typemap is nothing more than a code generation rule that is
 attached to a specific C datatype. The general form of this declaration
@@ -2160,7 +2160,7 @@ puts Example.count('o', 'Hello World')
 2
 ```
 
-### <a name="Ruby_Typemap_scope"></a> 37.7.2 Typemap scope
+<h3 id="Ruby_Typemap_scope">37.7.2 Typemap scope</h3>
 
 Once defined, a typemap remains in effect for all of the
 declarations that follow. A typemap may be redefined for different
@@ -2206,7 +2206,7 @@ class Foo {
 };
 ```
 
-### <a name="Ruby_Copying_a_typemap"></a> 37.7.3 Copying a typemap
+<h3 id="Ruby_Copying_a_typemap">37.7.3 Copying a typemap</h3>
 
 A typemap is copied by using assignment. For example:
 
@@ -2248,7 +2248,7 @@ rules as for ```
 %apply (char *buf, int len) { (char *buffer, int size) }; // Multiple arguments
 ```
 
-### <a name="Ruby_Deleting_a_typemap"></a> 37.7.4 Deleting a typemap
+<h3 id="Ruby_Deleting_a_typemap">37.7.4 Deleting a typemap</h3>
 
 A typemap can be deleted by simply defining no code. For
 example:
@@ -2272,7 +2272,7 @@ defined by typemaps, clearing a fundamental type like `int`
 will make that type unusable unless you also define a new set of
 typemaps immediately after the clear operation.
 
-### <a name="Ruby_Placement_of_typemaps"></a> 37.7.5 Placement of typemaps
+<h3 id="Ruby_Placement_of_typemaps">37.7.5 Placement of typemaps</h3>
 
 Typemap declarations can be declared in the global scope,
 within a C++ namespace, and within a C++ class. For example:
@@ -2346,12 +2346,12 @@ string
 ```
 .
 
-### <a name="Ruby_nn39"></a> 37.7.6 Ruby typemaps
+<h3 id="Ruby_nn39">37.7.6 Ruby typemaps</h3>
 
 The following list details all of the typemap methods that
 can be used by the Ruby module:
 
-#### <a name="Ruby_in_typemap"></a> 37.7.6.1 "in" typemap
+<h4 id="Ruby_in_typemap">37.7.6.1 "in" typemap</h4>
 
 Converts Ruby objects to input
 function arguments. For example:
@@ -2389,7 +2389,7 @@ arguments to be specified. For example:
 
 At this time, only zero or one arguments may be converted.
 
-#### <a name="Ruby_typecheck_typemap"></a> 37.7.6.2 "typecheck" typemap
+<h4 id="Ruby_typecheck_typemap">37.7.6.2 "typecheck" typemap</h4>
 
 The "typecheck" typemap is used to support overloaded
 functions and methods. It merely checks an argument to see whether or
@@ -2410,7 +2410,7 @@ program uses overloaded methods, you should also define a collection of
 "typecheck" typemaps. More details about this follow in a later section
 on "Typemaps and Overloading."
 
-#### <a name="Ruby_out_typemap"></a> 37.7.6.3 "out" typemap
+<h4 id="Ruby_out_typemap">37.7.6.3 "out" typemap</h4>
 
 Converts return value of a C function
 to a Ruby object.
@@ -2434,7 +2434,7 @@ The following special variables are available.
 
 **Table:** Special variables - out typemap
 
-#### <a name="Ruby_arginit_typemap"></a> 37.7.6.4 "arginit" typemap
+<h4 id="Ruby_arginit_typemap">37.7.6.4 "arginit" typemap</h4>
 
 The "arginit" typemap is used to set the initial value of a
 function argument–before any conversion has occurred. This is not
@@ -2448,7 +2448,7 @@ applications. For example:
 }
 ```
 
-#### <a name="Ruby_default_typemap"></a> 37.7.6.5 "default" typemap
+<h4 id="Ruby_default_typemap">37.7.6.5 "default" typemap</h4>
 
 The "default" typemap is used to turn an argument into a
 default argument. For example:
@@ -2471,7 +2471,7 @@ Once a default typemap has been applied to an argument, all
 arguments that follow must have default values. See the [ Default/optional arguments](SWIG/#SWIG_default_args) section for further information on
 default argument wrapping.
 
-#### <a name="Ruby_check_typemap"></a> 37.7.6.6 "check" typemap
+<h4 id="Ruby_check_typemap">37.7.6.6 "check" typemap</h4>
 
 The "check" typemap is used to supply value checking code
 during argument conversion. The typemap is applied*after*
@@ -2485,7 +2485,7 @@ arguments have been converted. For example:
 }
 ```
 
-#### <a name="Ruby_argout_typemap_"></a> 37.7.6.7 "argout" typemap
+<h4 id="Ruby_argout_typemap_">37.7.6.7 "argout" typemap</h4>
 
 The "argout" typemap is used to return values from arguments.
 This is most commonly used to write wrappers for C/C++ functions that
@@ -2523,7 +2523,7 @@ some function like SWIG_Ruby_AppendOutput.
 
 See the `typemaps.i` library for examples.
 
-#### <a name="Ruby_freearg_typemap_"></a> 37.7.6.8 "freearg" typemap
+<h4 id="Ruby_freearg_typemap_">37.7.6.8 "freearg" typemap</h4>
 
 The "freearg" typemap is used to cleanup argument data. It is
 only used when an argument might have allocated resources that need to
@@ -2549,7 +2549,7 @@ This code is also placed into a special variable `$cleanup`
 that may be used in other typemaps whenever a wrapper function needs to
 abort prematurely.
 
-#### <a name="Ruby_newfree_typemap"></a> 37.7.6.9 "newfree" typemap
+<h4 id="Ruby_newfree_typemap">37.7.6.9 "newfree" typemap</h4>
 
 The "newfree" typemap is used in conjunction with the `%newobject`
 directive and is used to deallocate memory used by the return result of
@@ -2571,7 +2571,7 @@ string *foo();
 
 See [Object ownership and %newobject](Customization/#Customization_ownership) for further details.
 
-#### <a name="Ruby_memberin_typemap"></a> 37.7.6.10 "memberin" typemap
+<h4 id="Ruby_memberin_typemap">37.7.6.10 "memberin" typemap</h4>
 
 The "memberin" typemap is used to copy data from*an
 already converted input value* into a structure member. It is
@@ -2588,19 +2588,19 @@ It is rarely necessary to write "memberin" typemaps—SWIG
 already provides a default implementation for arrays, strings, and
 other objects.
 
-#### <a name="Ruby_varin_typemap"></a> 37.7.6.11 "varin" typemap
+<h4 id="Ruby_varin_typemap">37.7.6.11 "varin" typemap</h4>
 
 The "varin" typemap is used to convert objects in the target
 language to C for the purposes of assigning to a C/C++ global variable.
 This is implementation specific.
 
-#### <a name="Ruby_varout_typemap_"></a> 37.7.6.12 "varout" typemap
+<h4 id="Ruby_varout_typemap_">37.7.6.12 "varout" typemap</h4>
 
 The "varout" typemap is used to convert a C/C++ object to an
 object in the target language when reading a C/C++ global variable.
 This is implementation specific.
 
-#### <a name="Ruby_throws_typemap"></a> 37.7.6.13 "throws" typemap
+<h4 id="Ruby_throws_typemap">37.7.6.13 "throws" typemap</h4>
 
 The "throws" typemap is only used when SWIG parses a C++
 method with an exception specification or has the `%catches`
@@ -2639,7 +2639,7 @@ Note that if your methods do not have an exception
 specification yet they do throw exceptions, SWIG cannot know how to
 deal with them. For a neat way to handle these, see the [Exception handling with %exception](Customization/#Customization_exception) section.
 
-#### <a name="Ruby_directorin_typemap"></a> 37.7.6.14 directorin typemap
+<h4 id="Ruby_directorin_typemap">37.7.6.14 directorin typemap</h4>
 
 Converts C++ objects in director
 member functions to ruby objects. It is roughly the opposite
@@ -2667,7 +2667,7 @@ The following special variables are available.
 
 **Table:** Special variables - directorin typemap
 
-#### <a name="Ruby_directorout_typemap"></a> 37.7.6.15 directorout typemap
+<h4 id="Ruby_directorout_typemap">37.7.6.15 directorout typemap</h4>
 
 Converts Ruby objects in director
 member functions to C++ objects. It is roughly the opposite
@@ -2711,7 +2711,7 @@ This feature can be useful if a function returns a status
 code, which you want to discard but still use the typemap to raise an
 exception.
 
-#### <a name="Ruby_directorargout_typemap"></a> 37.7.6.16 directorargout typemap
+<h4 id="Ruby_directorargout_typemap">37.7.6.16 directorargout typemap</h4>
 
 Output argument processing in director
 member functions.
@@ -2738,15 +2738,15 @@ The following special variables are available:
 
 **Table:** Special variables - directorargout typemap
 
-#### <a name="Ruby_ret_typemap"></a> 37.7.6.17 ret typemap
+<h4 id="Ruby_ret_typemap">37.7.6.17 ret typemap</h4>
 
 Cleanup of function return values
 
-#### <a name="Ruby_globalin_typemap"></a> 37.7.6.18 globalin typemap
+<h4 id="Ruby_globalin_typemap">37.7.6.18 globalin typemap</h4>
 
 Setting of C global variables
 
-### <a name="Ruby_nn40"></a> 37.7.7 Typemap variables
+<h3 id="Ruby_nn40">37.7.7 Typemap variables</h3>
 
 Within a typemap, a number of special variables prefaced with a `$`
 may appear. A full list of variables can be found in the "[Typemaps](Typemaps/#Typemaps)" chapter.
@@ -2793,7 +2793,7 @@ so that their values can be properly assigned.
 The Ruby name of the wrapper function
 being created. 
 
-### <a name="Ruby_nn41"></a> 37.7.8 Useful Functions
+<h3 id="Ruby_nn41">37.7.8 Useful Functions</h3>
 
 When you write a typemap, you usually have to work directly
 with Ruby objects. The following functions may prove to be useful.
@@ -2808,7 +2808,7 @@ stick to the swig functions instead of the native Ruby functions.
 That should help you avoid having to rewrite a lot of typemaps
 across multiple languages.
 
-#### <a name="Ruby_nn42"></a> 37.7.8.1 C Datatypes to Ruby Objects
+<h4 id="Ruby_nn42">37.7.8.1 C Datatypes to Ruby Objects</h4>
 
 | **RUBY** | **SWIG** |  | 
 |---|---|---|
@@ -2820,7 +2820,7 @@ across multiple languages.
 
 **Table:** Datatypes
 
-#### <a name="Ruby_nn43"></a> 37.7.8.2 Ruby Objects to C Datatypes
+<h4 id="Ruby_nn43">37.7.8.2 Ruby Objects to C Datatypes</h4>
 
 Here, while the Ruby versions return the value directly, the SWIG
 versions do not, but return a status value to indicate success (`SWIG_OK`). While more awkward to use, this allows you to write typemaps that report more helpful error messages, like:
@@ -2851,7 +2851,7 @@ versions do not, but return a status value to indicate success (`SWIG_OK`). Whil
 
 **Table:** Ruby objects
 
-#### <a name="Ruby_nn44"></a> 37.7.8.3 Macros for VALUE
+<h4 id="Ruby_nn44">37.7.8.3 Macros for VALUE</h4>
 
 `RSTRING_LEN(str)`
 
@@ -2873,7 +2873,7 @@ capacity of the Ruby array
 
 pointer to array storage
 
-#### <a name="Ruby_nn45"></a> 37.7.8.4 Exceptions
+<h4 id="Ruby_nn45">37.7.8.4 Exceptions</h4>
 
 ```
 void rb_raise(VALUE exception, const char *fmt,
@@ -2957,7 +2957,7 @@ message to standard error if Ruby was invoked with the `-w`
 flag. The given format string *fmt* and remaining
 arguments are interpreted as with `printf()`. 
 
-#### <a name="Ruby_nn46"></a> 37.7.8.5 Iterators
+<h4 id="Ruby_nn46">37.7.8.5 Iterators</h4>
 
 `void rb_iter_break()`
 
@@ -3004,13 +3004,13 @@ VALUE), VALUE value)
 
  Equivalent to Ruby's `throw`.
 
-### <a name="Ruby_nn47"></a> 37.7.9 Typemap Examples
+<h3 id="Ruby_nn47">37.7.9 Typemap Examples</h3>
 
 This section includes a few examples of typemaps. For more
 examples, you might look at the examples in the `Example/ruby`
 directory.
 
-### <a name="Ruby_nn48"></a> 37.7.10 Converting a Ruby array to a char **
+<h3 id="Ruby_nn48">37.7.10 Converting a Ruby array to a char **</h3>
 
 A common problem in many C programs is the processing of
 command line arguments, which are usually passed in an array of `NULL`
@@ -3074,7 +3074,7 @@ array. Since dynamic memory allocation is used to allocate memory for
 the array, the "freearg" typemap is used to later release this memory
 after the execution of the C function.
 
-### <a name="Ruby_nn49"></a> 37.7.11 Collecting arguments in a hash
+<h3 id="Ruby_nn49">37.7.11 Collecting arguments in a hash</h3>
 
 Ruby's solution to the "keyword arguments" capability of some
 other languages is to allow the programmer to pass in one or more
@@ -3287,7 +3287,7 @@ All of the code for this example, as well as a sample Ruby
 program that uses the extension, can be found in the `Examples/ruby/hashargs`
 directory of the SWIG distribution.
 
-### <a name="Ruby_nn50"></a> 37.7.12 Pointer handling
+<h3 id="Ruby_nn50">37.7.12 Pointer handling</h3>
 
 Occasionally, it might be necessary to convert pointer values
 that have been stored using the SWIG typed-pointer representation.
@@ -3349,7 +3349,7 @@ For example:
 }
 ```
 
-#### <a name="Ruby_nn51"></a> 37.7.12.1 Ruby Datatype Wrapping
+<h4 id="Ruby_nn51">37.7.12.1 Ruby Datatype Wrapping</h4>
 
 ```
 VALUE Data_Wrap_Struct(VALUE class, void
@@ -3409,7 +3409,7 @@ the internal wrapper struct on Ruby versions before 3.3.
 
 See `Examples/test-suite/ruby_manual_proxy.i` for a complete example.
 
-### <a name="Ruby_nn52"></a> 37.7.13 Example: STL Vector to Ruby Array
+<h3 id="Ruby_nn52">37.7.13 Example: STL Vector to Ruby Array</h3>
 
 Another use for macros and type maps is to create a Ruby array
 from a STL vector of pointers. In essence, copy of all the pointers in
@@ -3500,7 +3500,7 @@ STL with ruby, you are advised to use the standard swig STL library,
 which does much more than this. Refer to the section called
 the[ C++ Standard Template Library](#Ruby_nn23_1).
 
-## <a name="Ruby_nn65"></a> 37.8 Docstring Features
+<h2 id="Ruby_nn65">37.8 Docstring Features</h2>
 
 Using ri and rdoc web pages in Ruby libraries is a common practice.
 Given the way that SWIG generates the extensions by default, your users
@@ -3535,7 +3535,7 @@ $ rdoc -r file_wrap.c
 
 ```
 
-### <a name="Ruby_nn66"></a> 37.8.1 Module docstring
+<h3 id="Ruby_nn66">37.8.1 Module docstring</h3>
 
 Ruby allows a docstring at the beginning of the file
 before any other statements, and it is typically used to give a
@@ -3560,7 +3560,7 @@ layout of controls on a panel, etc. to be loaded from an XML file."
 %module(docstring=DOCSTRING) xrc
 ```
 
-### <a name="Ruby_nn67"></a> 37.8.2 %feature("autodoc")
+<h3 id="Ruby_nn67">37.8.2 %feature("autodoc")</h3>
 
 Since SWIG does know everything about the function it wraps,
 it is possible to generate an rdoc containing the parameter types,
@@ -3578,7 +3578,7 @@ names, default values if any, and return type if any. There are also
 several options for autodoc controlled by the value given to the
 feature, described below.
 
-#### <a name="Ruby_nn68"></a> 37.8.2.1 %feature("autodoc", "0")
+<h4 id="Ruby_nn68">37.8.2.1 %feature("autodoc", "0")</h4>
 
 When the "0" option is given then the types of the parameters will
 *not* be included in the autodoc string. For
@@ -3597,7 +3597,7 @@ function_name(x, y, foo=nil, bar=nil) -> bool
   ...
 ```
 
-#### <a name="Ruby_autodoc1"></a> 37.8.2.2 %feature("autodoc", "1")
+<h4 id="Ruby_autodoc1">37.8.2.2 %feature("autodoc", "1")</h4>
 
 When the "1" option is used then the parameter types *will*
 be used in the rdoc string. In addition, an attempt is made to
@@ -3614,7 +3614,7 @@ function_name(int x, int y, Foo foo=nil, Bar bar=nil) -> bool
   ...
 ```
 
-#### <a name="Ruby_autodoc2"></a> 37.8.2.3 %feature("autodoc", "2")
+<h4 id="Ruby_autodoc2">37.8.2.3 %feature("autodoc", "2")</h4>
 
 When the "2" option is used then the parameter types will not
 be
@@ -3623,7 +3623,7 @@ function. Given the example above, then turning on the
 parameter types with the "2" option will result in Ruby code like
 this:
 
-#### <a name="Ruby_feature_autodoc3"></a> 37.8.2.4 %feature("autodoc", "3")
+<h4 id="Ruby_feature_autodoc3">37.8.2.4 %feature("autodoc", "3")</h4>
 
 When the "3" option is used then the function will be documented using
 a combination of "1" and "2" above. Given the example above,
@@ -3641,7 +3641,7 @@ Parameters:
         bar - Bar
 ```
 
-#### <a name="Ruby_nn70"></a> 37.8.2.5 %feature("autodoc", "docstring")
+<h4 id="Ruby_nn70">37.8.2.5 %feature("autodoc", "docstring")</h4>
 
 Finally, there are times when the automatically generated autodoc
 string will make no sense for a Ruby programmer, particularly when a
@@ -3654,7 +3654,7 @@ generated string. For example:
 void GetPosition(int* OUTPUT, int* OUTPUT);
 ```
 
-### <a name="Ruby_nn71"></a> 37.8.3 %feature("docstring")
+<h3 id="Ruby_nn71">37.8.3 %feature("docstring")</h3>
 
 In addition to the autodoc strings described above, you can also
 attach any arbitrary descriptive text to a node in the parse tree with
@@ -3663,9 +3663,9 @@ docstring associated with classes, function or methods are output.
 If an item already has an autodoc string then it is combined with the
 docstring and they are output together.
 
-## <a name="Ruby_nn53"></a> 37.9 Advanced Topics
+<h2 id="Ruby_nn53">37.9 Advanced Topics</h2>
 
-### <a name="Ruby_operator_overloading"></a> 37.9.1 Operator overloading
+<h3 id="Ruby_operator_overloading">37.9.1 Operator overloading</h3>
 
 SWIG allows operator overloading with, by using the `%extend`
 or `%rename` commands in SWIG and the following
@@ -3722,7 +3722,7 @@ magic method name for defining an equivalence operator, there is no
 separate method for handling *inequality* since Ruby
 parses the expression *a != b* as *!(a == b)*.
 
-### <a name="Ruby_nn55"></a> 37.9.2 Creating Multi-Module Packages
+<h3 id="Ruby_nn55">37.9.2 Creating Multi-Module Packages</h3>
 
 The chapter on [Working with Modules](Modules/#Modules) discusses the basics of creating multi-module
 extensions with SWIG, and in particular the considerations for sharing
@@ -3842,7 +3842,7 @@ irb(main):005:0>c.getX()
 5.0
 ```
 
-### <a name="Ruby_nn56"></a> 37.9.3 Specifying Mixin Modules
+<h3 id="Ruby_nn56">37.9.3 Specifying Mixin Modules</h3>
 
 The Ruby language doesn't support multiple inheritance, but
 it does allow you to mix one or more modules into a class using Ruby's `include`
@@ -3907,7 +3907,7 @@ implemented using SWIG's "features" mechanism and so the same name
 matching rules used for other kinds of features apply (see the chapter
 on ["Customization Features"](Customization/#Customization)) for more details).
 
-## <a name="Ruby_nn57"></a> 37.10 Memory Management
+<h2 id="Ruby_nn57">37.10 Memory Management</h2>
 
 One of the most common issues in generating SWIG bindings for
 Ruby is proper memory management. The key to proper memory management
@@ -3924,7 +3924,7 @@ to C++ (or vice versa) depending on what function or methods are
 invoked. Clearly, developing a SWIG wrapper requires a thorough
 understanding of how the underlying library manages memory.
 
-### <a name="Ruby_nn58"></a> 37.10.1 Mark and Sweep Garbage Collector 
+<h3 id="Ruby_nn58">37.10.1 Mark and Sweep Garbage Collector</h3>
 
 Ruby uses a mark and sweep garbage collector. When the garbage
 collector runs, it finds all the "root" objects, including local
@@ -3954,7 +3954,7 @@ any memory has been allocated in creating the underlying C struct or
 C++ struct, then a "free" function must be defined that deallocates
 this memory.
 
-### <a name="Ruby_nn59"></a> 37.10.2 Object Ownership
+<h3 id="Ruby_nn59">37.10.2 Object Ownership</h3>
 
 As described above, memory management depends on clearly
 defining who is responsible for freeing the underlying C struct or C++
@@ -4092,7 +4092,7 @@ public:
 
 This code can be seen in swig/examples/ruby/tracking.
 
-### <a name="Ruby_nn60"></a> 37.10.3 Object Tracking
+<h3 id="Ruby_nn60">37.10.3 Object Tracking</h3>
 
 The remaining parts of this section will use the class library
 shown below to illustrate different memory management techniques. The
@@ -4306,7 +4306,7 @@ However, if you implement your own free functions (see below) you may
 also have to call the `SWIG_RubyRemoveTracking` and `RubyUnlinkObjects`
 methods.
 
-### <a name="Ruby_nn61"></a> 37.10.4 Mark Functions
+<h3 id="Ruby_nn61">37.10.4 Mark Functions</h3>
 
 With a bit more testing, we see that our class library still
 has problems. For example:
@@ -4431,7 +4431,7 @@ irb(main):016:0>
 
 This code can be seen in swig/examples/ruby/mark_function.
 
-### <a name="Ruby_nn62"></a> 37.10.5 Free Functions
+<h3 id="Ruby_nn62">37.10.5 Free Functions</h3>
 
 By default, SWIG creates a "free" function that is called when
 a Ruby object is garbage collected. The free function simply calls the
@@ -4596,7 +4596,7 @@ been freed, and thus raises a runtime exception.
 
 This code can be seen in swig/examples/ruby/free_function.
 
-### <a name="Ruby_nn63"></a> 37.10.6 Embedded Ruby and the C++ Stack
+<h3 id="Ruby_nn63">37.10.6 Embedded Ruby and the C++ Stack</h3>
 
 As has been said, the Ruby GC runs and marks objects before
 its
