@@ -112,3 +112,13 @@ linkchecker3:
 	@echo "The following list should just contain $(SWIG_HTML) and $(SWIG_PDF),"
 	@echo "as all links should have an anchor (with a #) or be a full url beginning http."
 	grep 'href="' *.html | sed -e 's/.*href="\(.*\)">.*$$/\1/' | grep -v "#" | grep -v "^http" | grep -v "^$(SWIG_CSS)"
+
+%.html: %.md
+	echo '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">' > $@
+	echo '<html><head>' >> $@
+	echo "<title>`sed -n '/<h1 id=/ {s/.*">[0-9.]*\s*//;s/\s*<.*//;p}' $^`</title>" >> $@
+	echo '<link rel="stylesheet" type="text/css" href="style.css">' >> $@
+	echo '<meta http-equiv="content-type" content="text/html; charset=UTF-8">' >> $@
+	echo '</head><body bgcolor="#FFFFFF">' >> $@
+	cmark-gfm --unsafe -t html $^ >> $@
+	echo "</body></html>" >> $@
