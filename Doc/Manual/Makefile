@@ -17,6 +17,8 @@
 # Additional link checking can be done using the linkchecker1 and linkchecker2 target.
 #
 
+CHAPTERS!=cat chapters
+
 # Note the # and " are escaped
 HTMLDOC_OPTIONS = "--book --toclevels 4 --no-numbered --toctitle \"Table of Contents\" --title --titleimage swig16.png --linkcolor \#0000ff --linkstyle underline --size Universal --left 0.50in --right 0.50in --top 0.50in --bottom 0.50in --header .t. --footer h.1 --nup 1 --tocheader .t. --tocfooter ..i --portrait --color --no-pscommands --no-xrxcomments --compression=1 --jpeg=0 --fontsize 10.0 --fontspacing 1.2 --headingfont Helvetica --bodyfont Times --headfootsize 10.0 --headfootfont Helvetica --charset iso-8859-1 --links --no-embedfonts --pagemode outline --pagelayout single --firstpage c1 --pageeffect none --pageduration 10 --effectduration 1.0 --no-encryption --permissions all  --owner-password \"\"  --user-password \"\" --browserwidth 680"
 
@@ -29,7 +31,7 @@ maketoc:
 
 # Use this to regenerate CCache.html should this ever be needed
 CCache.html: ../../CCache/ccache.yo
-	yodl2html -o CCache.html ../../CCache/ccache.yo
+	yodl2html -o $@ $^
 
 # Tabs in the html files will stop the build as wkhtmltopdf does not expand them correctly - replace them with the appropriate number of tabs
 # Use htmltidy to warn about some HTML errors. Note that it is not used to clean/tidy the HTML,
@@ -64,19 +66,16 @@ generate: check-fonts SWIGDocumentation.html
 	htmldoc -t pdf SWIGDocumentation.html --titleimage swig16.png -f SWIGDocumentation.pdf
 
 SWIGDocumentation.html: swightml.book
-	htmldoc --batch swightml.book || true
-	python3 fixstyle.py SWIGDocumentation.html
+	htmldoc --batch $^ || true
+	python3 fixstyle.py $@
 
 swightml.book: chapters Sections.html
-	echo "#HTMLDOC 1.8.24" > swightml.book
-	echo -t html -f SWIGDocumentation.html $(HTMLDOC_OPTIONS) >> swightml.book
-	echo "Sections.html" >> swightml.book
-	cat chapters >> swightml.book
+	echo "#HTMLDOC 1.8.24" > $@
+	echo -t html -f SWIGDocumentation.html $(HTMLDOC_OPTIONS) >> $@
+	echo "Sections.html $(CHAPTERS)" >> $@
 
 maintainer-clean: clean-baks
-	rm -f swightml.book
-	rm -f SWIGDocumentation.html
-	rm -f SWIGDocumentation.pdf
+	rm -f swightml.book SWIGDocumentation.html SWIGDocumentation.pdf
 	rm -rf linkchecker-tmp
 
 clean-baks:
@@ -112,3 +111,6 @@ linkchecker3:
 	@echo "The following list should just contain SWIGDocumentation.html and SWIGDocumentation.pdf,"
 	@echo "as all links should have an anchor (with a #) or be a full url beginning http."
 	grep 'href="' *.html | sed -e 's/.*href="\(.*\)">.*$$/\1/' | grep -v "#" | grep -v "^http" | grep -v "^style.css"
+
+%.html: %.md
+	cmark-gfm --unsafe -t html $^ > $@
