@@ -21,39 +21,6 @@ FAILING_CPP_TESTS = \
 	cpp11_director_using_constructor \
 	director_protected \
 
-C_TEST_CASES = \
-	java_lib_arrays \
-
-CPP_TEST_CASES = \
-	exception_partial_info \
-	intermediary_classname \
-	java_constants \
-	java_director \
-	java_director_assumeoverride \
-	java_director_exception_feature \
-	java_director_exception_feature_nspace \
-	java_director_ptrclass \
-	java_director_typemaps \
-	java_director_typemaps_ptr \
-	java_enums \
-	java_jnitypes \
-	java_lib_various \
-	java_nspacewithoutpackage \
-	java_pgcpp \
-	java_pragmas \
-	java_prepost \
-	java_typemaps_proxy \
-	java_typemaps_typewrapper \
-	kotlin_enum_companion \
-	kotlin_std_map \
-	li_std_list \
-	li_std_set \
-	nested_scope \
-
-CPP11_TEST_CASES = \
-	cpp11_std_unordered_map \
-	cpp11_std_unordered_set \
-
 include $(srcdir)/../common.mk
 
 # Overridden variables here
