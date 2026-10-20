@@ -308,16 +308,19 @@ void _wrap_SwigPackedData_delete(JSObjectRef obj)
  * ---------------------------------------------------------------------------*/
 SWIGRUNTIME
 unsigned int SWIGJSC_ArrayLength(JSContextRef context, JSObjectRef arr) {
-  static JSStringRef LENGTH = 0;
+  static JSStringRef LENGTH = NULL;
   JSValueRef exception = NULL;
   JSValueRef js_length;
   double length;
 
-  if (LENGTH == 0) {
+  if (LENGTH == NULL) {
     LENGTH = JSStringCreateWithUTF8CString("length");
   }
 
   js_length = JSObjectGetProperty(context, arr, LENGTH, &exception);
+  if (LENGTH != NULL) {
+    JSStringRelease(LENGTH);
+  }
   if (exception == 0 && JSValueIsNumber(context, js_length)) {
     length = JSValueToNumber(context, js_length, 0);
     return (unsigned int) length;
@@ -335,13 +338,21 @@ bool SWIGJSC_ValueIsArray(JSContextRef context, JSValueRef value) {
     JSObjectRef isArray = NULL;
     JSValueRef retval = NULL;
 
-    if (!ArrayString)
+    if (ArrayString == NULL) {
       ArrayString = JSStringCreateWithUTF8CString("Array");
-    if (!isArrayString)
+    }
+    if (isArrayString == NULL) {
       isArrayString = JSStringCreateWithUTF8CString("isArray");
+    }
 
     array = (JSObjectRef)JSObjectGetProperty(context, JSContextGetGlobalObject(context), ArrayString, NULL);
     isArray = (JSObjectRef)JSObjectGetProperty(context, array, isArrayString, NULL);
+    if (ArrayString != NULL) {
+      JSStringRelease(ArrayString);
+    }
+    if (isArrayString != NULL) {
+      JSStringRelease(isArrayString);
+    }
     retval = JSObjectCallAsFunction(context, isArray, NULL, 1, &value, NULL);
 
     if (JSValueIsBoolean(context, retval))
