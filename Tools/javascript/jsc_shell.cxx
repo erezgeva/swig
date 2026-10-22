@@ -15,7 +15,7 @@
 class JSCString {
 private:
   std::string _cppString;
-  JSStringRef _JSString = nullptr;
+  JSStringRef _JSString = NULL;
 public:
   JSCString(const std::string &string) : _cppString(string),
     _JSString(JSStringCreateWithUTF8CString(string.c_str())) { }
@@ -199,8 +199,6 @@ bool JSCShell::RegisterFunction(JSGlobalContextRef context, JSObjectRef object,
 }
 
 void JSCShell::PrintError(JSContextRef ctx, JSValueRef err) {
-  char *buffer;
-  size_t length;
 
   JSCString errMsg(ctx, err);
   JSObjectRef errObj = JSValueToObject(ctx, err, 0);
