@@ -308,19 +308,14 @@ void _wrap_SwigPackedData_delete(JSObjectRef obj)
  * ---------------------------------------------------------------------------*/
 SWIGRUNTIME
 unsigned int SWIGJSC_ArrayLength(JSContextRef context, JSObjectRef arr) {
-  static JSStringRef LENGTH = NULL;
+  static JSStringRef LENGTH;
   JSValueRef exception = NULL;
   JSValueRef js_length;
   double length;
 
-  if (LENGTH == NULL) {
-    LENGTH = JSStringCreateWithUTF8CString("length");
-  }
-
+  LENGTH = JSStringCreateWithUTF8CString("length");
   js_length = JSObjectGetProperty(context, arr, LENGTH, &exception);
-  if (LENGTH != NULL) {
-    JSStringRelease(LENGTH);
-  }
+  JSStringRelease(LENGTH);
   if (exception == 0 && JSValueIsNumber(context, js_length)) {
     length = JSValueToNumber(context, js_length, 0);
     return (unsigned int) length;
@@ -332,27 +327,18 @@ unsigned int SWIGJSC_ArrayLength(JSContextRef context, JSObjectRef arr) {
 SWIGRUNTIME
 bool SWIGJSC_ValueIsArray(JSContextRef context, JSValueRef value) {
   if (JSValueIsObject(context, value)) {
-    static JSStringRef ArrayString = NULL;
-    static JSStringRef isArrayString = NULL;
+    static JSStringRef ArrayString, isArrayString;
     JSObjectRef array = NULL;
     JSObjectRef isArray = NULL;
     JSValueRef retval = NULL;
 
-    if (ArrayString == NULL) {
-      ArrayString = JSStringCreateWithUTF8CString("Array");
-    }
-    if (isArrayString == NULL) {
-      isArrayString = JSStringCreateWithUTF8CString("isArray");
-    }
+    ArrayString = JSStringCreateWithUTF8CString("Array");
+    isArrayString = JSStringCreateWithUTF8CString("isArray");
 
     array = (JSObjectRef)JSObjectGetProperty(context, JSContextGetGlobalObject(context), ArrayString, NULL);
     isArray = (JSObjectRef)JSObjectGetProperty(context, array, isArrayString, NULL);
-    if (ArrayString != NULL) {
-      JSStringRelease(ArrayString);
-    }
-    if (isArrayString != NULL) {
-      JSStringRelease(isArrayString);
-    }
+    JSStringRelease(ArrayString);
+    JSStringRelease(isArrayString);
     retval = JSObjectCallAsFunction(context, isArray, NULL, 1, &value, NULL);
 
     if (JSValueIsBoolean(context, retval))
