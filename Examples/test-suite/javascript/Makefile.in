@@ -50,21 +50,17 @@ SWIG_LIB_DIR = $(top_srcdir)/Lib
 
 ifneq (, $(ENGINE))
     JSENGINE=$(ENGINE)
-else
-ifneq (, $(NODEJS))
+else ifneq (, $(NODEJS))
     JSENGINE=node
-else
-ifneq (, @JSCENABLED@)
+else ifneq (, @JSCENABLED@)
     JSENGINE=jsc
-else
-ifneq (, @JSV8ENABLED@)
+else ifneq (, @JSC6ENABLED@)
+    JSENGINE=jsc6
+else ifneq (, @JSV8ENABLED@)
     JSENGINE=v8
 else
     # Shouldn't happen, but avoid empty value if it does.
     JSENGINE=node
-endif
-endif
-endif
 endif
 
 include $(srcdir)/../common.mk

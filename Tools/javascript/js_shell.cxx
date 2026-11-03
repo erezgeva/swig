@@ -130,17 +130,25 @@ std::string JSShell::ReadFile(const std::string& fileName)
 #ifdef ENABLE_JSC
 extern JSShell* JSCShell_Create();
 #endif
+#ifdef ENABLE_JSC6
+extern JSShell* JSC6Shell_Create();
+#endif
 #ifdef ENABLE_V8
 extern JSShell* V8Shell_Create();
 #endif
 
 typedef JSShell*(*ShellFactory)();
 
-static ShellFactory js_shell_factories[2] = {
+static ShellFactory js_shell_factories[] = {
 #ifdef ENABLE_JSC
 JSCShell_Create,
 #else
 0,
+#endif
+#ifdef ENABLE_JSC6
+JSC6Shell_Create,
+#else
+NULL,
 #endif
 #ifdef ENABLE_V8
 V8Shell_Create,
