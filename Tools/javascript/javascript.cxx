@@ -8,7 +8,7 @@
 #include "js_shell.h"
 
 void print_usage() {
-  std::cout << "javascript [-i] [-jsc|-v8] [-l module] <js-file>" << std::endl;
+  std::cout << "javascript [-i] [-jsc|-jsc6|-v8] [-l module] <js-file>" << std::endl;
 }
 
 int main(int argc, char* argv[]) try {
@@ -31,6 +31,8 @@ int main(int argc, char* argv[]) try {
       shell = JSShell::Create(JSShell::V8);
     } else if(strcmp(argv[idx], "-jsc") == 0) {
       shell = JSShell::Create(JSShell::JSC);
+    } else if(strcmp(argv[idx], "-jsc6") == 0) {
+      shell = JSShell::Create(JSShell::JSC6);
     } else if(strcmp(argv[idx], "-i") == 0) {
       interactive = true;
     } else if(strcmp(argv[idx], "-L") == 0) {

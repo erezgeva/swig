@@ -1348,58 +1348,136 @@ else
   fi
 
   #----------------------------------------------------------------
-  # Look for JavaScriptCore (Webkit) settings
+  # Look for WebKit Apple JavaScriptCore C-API settings
   #----------------------------------------------------------------
 
-  # check for include files
-  AC_ARG_WITH(jscoreinc, [  --with-jscoreinc=path      Set location of JavaScriptCore/Webkit include directory], [JSCOREINCDIR="$withval"], [JSCOREINCDIR=])
-  # check for JavaScriptCore/Webkit libraries
-  AC_ARG_WITH(jscorelib,[  --with-jscorelib=path      Set location of the JavaScriptCore/Webkit library directory],[JSCORELIB="-L$withval"], [JSCORELIB=])
+  AS_UNSET([JSCOREINCDIR])
+  AS_UNSET([JSCORELIB])
+  AS_UNSET([JSCEN])
+  AS_UNSET([JSCOREINC])
+  AS_UNSET([JSCOREVERSION])
+  AS_UNSET([JSCENABLED])
 
-  JSCOREVERSION=
+  # check for include files
+  AC_ARG_WITH([jscoreinc],
+              [AS_HELP_STRING([--with-jscoreinc=path],
+                              [Set location of JavaScriptCore/Webkit include directory])],
+              [AS_VAR_COPY([JSCOREINCDIR], [withval])])
+  # check for JavaScriptCore/Webkit libraries
+  AC_ARG_WITH([jscorelib],
+              [AS_HELP_STRING([--with-jscorelib=path],
+                              [Set location of the JavaScriptCore/Webkit library directory])],
+              [AS_VAR_SET([JSCORELIB], ["'-L$withval'"])])
 
   if test -z "$JSCOREINCDIR" && test -z "$JSCORELIB"; then
     if test -n "$PKG_CONFIG"; then
-      AC_MSG_CHECKING(for JavaScriptCore/Webkit)
-      if $PKG_CONFIG javascriptcoregtk-4.1 2>/dev/null ; then
-        JSCORELIB=`$PKG_CONFIG --libs javascriptcoregtk-4.1`
-        JSCOREINC=`$PKG_CONFIG --cflags-only-I javascriptcoregtk-4.1`
-        JSCOREVERSION=`$PKG_CONFIG --modversion javascriptcoregtk-4.1`
-      elif $PKG_CONFIG javascriptcoregtk-4.0 2>/dev/null ; then
-        JSCORELIB=`$PKG_CONFIG --libs javascriptcoregtk-4.0`
-        JSCOREINC=`$PKG_CONFIG --cflags-only-I javascriptcoregtk-4.0`
-        JSCOREVERSION=`$PKG_CONFIG --modversion javascriptcoregtk-4.0`
-      elif $PKG_CONFIG javascriptcoregtk-3.0 2>/dev/null ; then
-        JSCORELIB=`$PKG_CONFIG --libs javascriptcoregtk-3.0`
-        JSCOREINC=`$PKG_CONFIG --cflags-only-I javascriptcoregtk-3.0`
-        JSCOREVERSION=`$PKG_CONFIG --modversion javascriptcoregtk-3.0`
-      elif $PKG_CONFIG javascriptcoregtk-1.0 2>/dev/null ; then
-        JSCORELIB=`$PKG_CONFIG --libs javascriptcoregtk-1.0`
-        JSCOREVERSION=`$PKG_CONFIG --modversion javascriptcoregtk-1.0`
-      fi
-      if test -z "$JSCORELIB"; then
-        AC_MSG_RESULT(not found)
-        JSCENABLED=
+      AC_MSG_CHECKING([for WebKit Apple JavaScriptCore])
+      AS_VAR_COPY([save_CPPFLAGS], [CPPFLAGS])
+      AS_VAR_COPY([save_LDFLAGS], [LDFLAGS])
+      AS_VAR_COPY([save_LIBS], [LIBS])
+      AS_UNSET([LDFLAGS])
+      for n in 4.1 4.0 3.0 1.0; do
+        if $PKG_CONFIG javascriptcoregtk-$n 2>/dev/null ; then
+          AS_VAR_SET([JSCORELIB], ["`$PKG_CONFIG --libs javascriptcoregtk-$n`"])
+          AS_VAR_SET([JSCOREINC], ["`$PKG_CONFIG --cflags-only-I javascriptcoregtk-$n`"])
+          if test "$n" != "1.0"; then
+            AS_VAR_SET([JSCOREVERSION], ["`$PKG_CONFIG --modversion javascriptcoregtk-$n`"])
+          fi
+          AS_VAR_COPY([CPPFLAGS], [JSCOREINC])
+          AS_VAR_COPY([LIBS], [JSCORELIB])
+          AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <JavaScriptCore/JavaScript.h>],
+                                          [JSGlobalContextCreate(NULL)])],
+                         [AS_VAR_SET([JSCENABLED], [1])
+                          break])
+        fi
+      done
+      AS_VAR_COPY([CPPFLAGS], [save_CPPFLAGS])
+      AS_VAR_COPY([LDFLAGS], [save_LDFLAGS])
+      AS_VAR_COPY([LIBS], [save_LIBS])
+      if test -z "$JSCENABLED"; then
+        AC_MSG_RESULT([not found])
       else
         AC_MSG_RESULT([version $JSCOREVERSION])
-        AC_MSG_CHECKING(for JavaScriptCore/Webkit include flags)
+        AC_MSG_CHECKING([for JavaScriptCore/Webkit include flags])
         AC_MSG_RESULT([$JSCOREINC])
-        AC_MSG_CHECKING(for JavaScriptCore/Webkit link flags)
+        AC_MSG_CHECKING([for JavaScriptCore/Webkit link flags])
         AC_MSG_RESULT([$JSCORELIB])
-        JSCOREDYNAMICLINKING="$JSCORELIB"
-        JSCENABLED=1
+        AS_VAR_COPY([JSCOREDYNAMICLINKING], [JSCORELIB])
       fi
     fi
   elif test -z "$JSCOREINCDIR" || test -z "$JSCORELIB"; then
     AC_MSG_ERROR([Either both or none of --with-jcoreinc --with-jscorelib should be specified])
   else
-    AC_MSG_CHECKING(for JavaScriptCore/Webkit include flags)
-    JSCOREINC=-I\"$JSCOREINCDIR\"
+    AC_MSG_CHECKING([for JavaScriptCore/Webkit include flags])
+    AS_VAR_SET([JSCOREINC], ["'-I$JSCOREINCDIR'"])
     AC_MSG_RESULT([$JSCOREINC])
-    AC_MSG_CHECKING(for JavaScriptCore/Webkit link flags)
+    AC_MSG_CHECKING([for JavaScriptCore/Webkit link flags])
     AC_MSG_RESULT([$JSCORELIB])
-    JSCOREDYNAMICLINKING="$JSCORELIB"
-    JSCENABLED=1
+    AS_VAR_COPY([JSCOREDYNAMICLINKING], [JSCORELIB])
+    AS_VAR_SET([JSCENABLED], [1])
+  fi
+
+  #----------------------------------------------------------------
+  # Look for WebKit JavaScriptCore 6.0 GLib C-API settings
+  #----------------------------------------------------------------
+
+  AS_UNSET([JSCORE6INCDIR])
+  AS_UNSET([JSCORE6LIB])
+  AS_UNSET([JSCORE6VERSION])
+  AS_UNSET([JSCORE6INC])
+  AS_UNSET([JSCORE6DYNAMICLINKING])
+  AS_UNSET([JSC6ENABLED])
+
+  dnl check for include files
+  AC_ARG_WITH([jscoreinc6],
+              [AS_HELP_STRING([--with-jscoreinc6=path],
+                              [Set location of WebKit JavaScriptCore-6.0 include directory])],
+              [AS_VAR_COPY([JSCORE6INCDIR], [withval])])
+  dnl check for WebKit JavaScriptCore-6.0 libraries
+  AC_ARG_WITH([jscorelib6],
+              [AS_HELP_STRING([--with-jscorelib6=path],
+                              [Set location of WebKit JavaScriptCore-6.0 library directory])],
+              [AS_VAR_COPY([JSCORE6LIB], [withval])])
+  if test -z "$JSCORE6INCDIR" && test -z "$JSCORE6LIB"; then
+    AS_VAR_SET_IF([PKG_CONFIG],
+       [AC_MSG_CHECKING([for WebKit JavaScriptCore-6.0])
+        AS_VAR_COPY([save_CPPFLAGS], [CPPFLAGS])
+        AS_VAR_COPY([save_LDFLAGS], [LDFLAGS])
+        AS_VAR_COPY([save_LIBS], [LIBS])
+        AS_UNSET([LDFLAGS])
+        for n in 6.0 4.1 4.0; do
+          AS_IF([$PKG_CONFIG javascriptcoregtk-$n 2>/dev/null],
+            [AS_VAR_SET([JSCORE6LIB], [`$PKG_CONFIG --libs javascriptcoregtk-$n`])
+             AS_VAR_SET([JSCORE6INC], [`$PKG_CONFIG --cflags-only-I javascriptcoregtk-$n`])
+             AS_VAR_SET([JSCORE6VERSION], [`$PKG_CONFIG --modversion javascriptcoregtk-$n`])
+             AS_VAR_COPY([CPPFLAGS], [JSCORE6INC])
+             AS_VAR_COPY([LIBS], [JSCORE6LIB])
+             AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <jsc/jsc.h>],
+                                             [jsc_context_new()])],
+                            [AS_VAR_SET([JSC6ENABLED], [1])
+                             break])])
+        done
+        AS_VAR_COPY([CPPFLAGS], [save_CPPFLAGS])
+        AS_VAR_COPY([LDFLAGS], [save_LDFLAGS])
+        AS_VAR_COPY([LIBS], [save_LIBS])
+        AS_VAR_SET_IF([JSC6ENABLED],
+          [AC_MSG_RESULT([version $JSCORE6VERSION])
+           AC_MSG_CHECKING([for JavaScriptCore/Webkit include flags])
+           AC_MSG_RESULT([$JSCORE6INC])
+           AC_MSG_CHECKING([for JavaScriptCore/Webkit link flags])
+           AC_MSG_RESULT([$JSCORE6LIB])
+           AS_VAR_COPY([JSCORE6DYNAMICLINKING], [JSCORE6LIB])],
+          [AC_MSG_RESULT([not found])])])
+  elif test -z "$JSCORE6INCDIR" || test -z "$JSCORE6LIB"; then
+    AC_MSG_ERROR([Either both or none of --with-jcoreinc6 --with-jscorelib6 should be specified])
+  else
+    AC_MSG_CHECKING([for WebKit JavaScriptCore-6.0 include flags])
+    AS_VAR_SET([JSCORE6INC], ["'-I$JSCORE6INCDIR'"])
+    AC_MSG_RESULT([$JSCORE6INC])
+    AC_MSG_CHECKING([for WebKit JavaScriptCore-6.0 link flags])
+    AC_MSG_RESULT([$JSCORE6LIB])
+    AS_VAR_SET([JSCORE6DYNAMICLINKING], ["'-L=$JSCORE6LIB'"])
+    AS_VAR_SET([JSC6ENABLED], [1])
   fi
 
   #----------------------------------------------------------------
@@ -1472,20 +1550,26 @@ else
 
 fi
 
-AC_SUBST(JSINTERPRETERCXX)
-AC_SUBST(JSINTERPRETERLINKFLAGS)
+AC_SUBST([JSINTERPRETERCXX])
+AC_SUBST([JSINTERPRETERLINKFLAGS])
 
-AC_SUBST(JSCOREINC)
-AC_SUBST(JSCOREDYNAMICLINKING)
-AC_SUBST(JSCOREVERSION)
-AC_SUBST(JSV8INC)
-AC_SUBST(JSV8DYNAMICLINKING)
+AC_SUBST([JSCOREINC])
+AC_SUBST([JSCOREDYNAMICLINKING])
+AC_SUBST([JSCOREVERSION])
 
-AC_SUBST(JSCENABLED)
-AC_SUBST(JSV8ENABLED)
+AC_SUBST([JSCORE6INC])
+AC_SUBST([JSCORE6DYNAMICLINKING])
+AC_SUBST([JSCORE6VERSION])
 
-AC_SUBST(NODEJS)
-AC_SUBST(NODEGYP)
+AC_SUBST([JSV8INC])
+AC_SUBST([JSV8DYNAMICLINKING])
+
+AC_SUBST([JSCENABLED])
+AC_SUBST([JSC6ENABLED])
+AC_SUBST([JSV8ENABLED])
+
+AC_SUBST([NODEJS])
+AC_SUBST([NODEGYP])
 
 #----------------------------------------------------------------
 # Look for Lua

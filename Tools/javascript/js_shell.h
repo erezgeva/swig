@@ -12,6 +12,7 @@ class JSShell {
 public:
   enum Engine {
     JSC = 0,
+    JSC6,
     V8
   };
 
