@@ -39,6 +39,20 @@ int placeholder() { return 0; }
         return Napi::Value();
     }
 
+#elif defined JSC_MAJOR_VERSION  /* Engine: JavaScriptCore-6 */
+
+    static JSCValue* JavaScript_do_work(GPtrArray *args, gpointer user_data) {
+        JSCContext *context = jsc_context_get_current();
+        JSCException** exception = &SWIG_main_exception;
+        int argc = args->len;
+        const int MY_MAGIC_NUMBER = 5;
+        if (argc != 0)
+            SWIG_exception_fail(SWIG_ERROR, "Illegal number of arguments.");
+        return SWIG_From_int SWIG_JSC6_FROM_CALL_ARGS(static_cast<int>(MY_MAGIC_NUMBER));
+    fail:
+        return jsc_value_new_undefined(context);
+    }
+
 #else /* Engine: JavaScriptCore */
 
     static JSValueRef JavaScript_do_work(JSContextRef context,
