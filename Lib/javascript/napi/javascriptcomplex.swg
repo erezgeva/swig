@@ -13,17 +13,13 @@
           fragment=SWIG_From_frag(double))
 {
 SWIGINTERNINLINE Napi::Value
-#if defined(__cplusplus)
 SWIG_From_dec(Type)(const Type& c)
-#else
-SWIG_From_dec(Type)(Type c)
-#endif
 {
-  Napi::Array vals = Napi::Array::New(0);
+  Napi::Array array = Napi::Array::New(env, 2);
 
-  vals.Set(0, SWIG_From(double)(Real(c)));
-  vals.Set(1, SWIG_From(double)(Imag(c)));
-  return vals;
+  array.Set((uint32_t)0, SWIG_From(double)(Real(c)));
+  array.Set((uint32_t)1, SWIG_From(double)(Imag(c)));
+  return array;
 }
 }
 %enddef
@@ -31,35 +27,34 @@ SWIG_From_dec(Type)(Type c)
 /* the double case */
 %define %swig_cplxdbl_conv(Type, Constructor, Real, Imag)
 %fragment(SWIG_AsVal_frag(Type),"header",
-	  fragment=SWIG_AsVal_frag(double))
-{
+	      fragment=SWIG_AsVal_frag(double)) {
 SWIGINTERN int
 SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
 {
   if (o.IsArray()) {
-    Napi::Array array = Napi::Array::Cast(o);
-    
-    if (array->Length() != 2) SWIG_Error(SWIG_TypeError, "Illegal argument for complex: must be array[2].");
-    double re, im;
-    Napi::Value r;
+    Napi::Array array = o.As<Napi::Array>();
 
-    r = array.Get(0);
-    if (!r.IsNumber()) {
+    if (array.Length() != 2)
       return SWIG_TypeError;
-    }
-    re = r.ToNumber().DoubleValue();
-    
-    r = array.Get(1);
-    if (!r.IsNumber()) {
+
+    Napi::Value r = array.Get((uint32_t)0);
+    if (!r.IsNumber())
       return SWIG_TypeError;
-    }
-    im = r.ToNumber().DoubleValue();
-    
-    if (val) *val = Constructor(re, im);
+
+    double re = r.ToNumber().DoubleValue();
+
+    r = array.Get((uint32_t)1);
+    if (!r.IsNumber())
+      return SWIG_TypeError;
+
+    double im = r.ToNumber().DoubleValue();
+
+    if (val)
+      *val = Constructor(re, im);
     return SWIG_OK;
   } else if (o.IsNumber()) {
-    double d = o.ToNumber().DoubleValue();
-    if (val) *val = Constructor(d, 0.0);
+    if (val)
+      *val = Constructor(o.ToNumber().DoubleValue(), 0.0);
     return SWIG_OK;
   }
   return SWIG_TypeError;
@@ -77,33 +72,37 @@ SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
 {
   if (o.IsArray()) {
     Napi::Array array = o.As<Napi::Array>();
-    
-    if (array.Length() != 2) SWIG_Error(SWIG_TypeError, "Illegal argument for complex: must be array[2].");
-    double re, im;
-    Napi::Value r;
-    
-    r = array.Get(0);
-    if (!r.IsNumber()) {
+
+    if (array.Length() != 2)
       return SWIG_TypeError;
-    }
-    re = r.ToNumber().DoubleValue();
-    
-    r = array.Get(1);
-    if (!r.IsNumber()) {
+
+
+    Napi::Value r = array.Get((uint32_t)0);
+    if (!r.IsNumber())
       return SWIG_TypeError;
-    }
-    im = r.ToNumber().DoubleValue();
-    
-    if ((-FLT_MAX <= re && re <= FLT_MAX) && (-FLT_MAX <= im && im <= FLT_MAX)) {
-      if (val) *val = Constructor(%numeric_cast(re, float),
-                                  %numeric_cast(im, float));
-      return SWIG_OK;
-    } else {
+
+    double re = r.ToNumber().DoubleValue();
+
+    r = array.Get((uint32_t)1);
+    if (!r.IsNumber())
+      return SWIG_TypeError;
+
+    double im = r.ToNumber().DoubleValue();
+
+    if (-FLT_MAX > re || re > FLT_MAX || -FLT_MAX > im || im > FLT_MAX)
       return SWIG_OverflowError;
-    }    
+
+    if (val)
+      *val = Constructor(%numeric_cast(re, float),
+                         %numeric_cast(im, float));
+    return SWIG_OK;
   } else if (o.IsNumber()) {
-    float f = static_cast<float>(o.ToNumber().DoubleValue());
-    if (val) *val = Constructor(f, 0.0);
+    double re = o.ToNumber().DoubleValue();
+    if (-FLT_MAX > re || re > FLT_MAX)
+      return SWIG_OverflowError;
+
+    if (val)
+      *val = Constructor((float)re, 0.0);
     return SWIG_OK;
   }
   return SWIG_TypeError;

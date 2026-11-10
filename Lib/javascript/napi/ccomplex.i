@@ -10,6 +10,7 @@
 
 %{
 #include <complex.h>
+#include <float.h>
 %}
 
 #define complex _Complex
