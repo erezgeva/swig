@@ -26,8 +26,7 @@ SWIG_From_dec(Type)(const Type& c)
 
 /* the double case */
 %define %swig_cplxdbl_conv(Type, Constructor, Real, Imag)
-%fragment(SWIG_AsVal_frag(Type),"header",
-	      fragment=SWIG_AsVal_frag(double)) {
+%fragment(SWIG_AsVal_frag(Type),"header", fragment=SWIG_AsVal_frag(double)) {
 SWIGINTERN int
 SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
 {
@@ -49,12 +48,12 @@ SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
 
     double im = r.ToNumber().DoubleValue();
 
-    if (val)
+    if (val != NULL)
       *val = Constructor(re, im);
     return SWIG_OK;
   } else if (o.IsNumber()) {
-    if (val)
-      *val = Constructor(o.ToNumber().DoubleValue(), 0.0);
+    if (val != NULL)
+      *val = Constructor(o.ToNumber().DoubleValue(), 0);
     return SWIG_OK;
   }
   return SWIG_TypeError;
@@ -65,8 +64,7 @@ SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
 
 /* the float case */
 %define %swig_cplxflt_conv(Type, Constructor, Real, Imag)
-%fragment(SWIG_AsVal_frag(Type),"header",
-          fragment=SWIG_AsVal_frag(float)) {
+%fragment(SWIG_AsVal_frag(Type),"header", fragment=SWIG_AsVal_frag(float)) {
 SWIGINTERN int
 SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
 {
@@ -75,7 +73,6 @@ SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
 
     if (array.Length() != 2)
       return SWIG_TypeError;
-
 
     Napi::Value r = array.Get((uint32_t)0);
     if (!r.IsNumber())
@@ -92,7 +89,7 @@ SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
     if (-FLT_MAX > re || re > FLT_MAX || -FLT_MAX > im || im > FLT_MAX)
       return SWIG_OverflowError;
 
-    if (val)
+    if (val != NULL)
       *val = Constructor(%numeric_cast(re, float),
                          %numeric_cast(im, float));
     return SWIG_OK;
@@ -101,8 +98,8 @@ SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
     if (-FLT_MAX > re || re > FLT_MAX)
       return SWIG_OverflowError;
 
-    if (val)
-      *val = Constructor((float)re, 0.0);
+    if (val != NULL)
+      *val = Constructor(%numeric_cast(re, float), 0);
     return SWIG_OK;
   }
   return SWIG_TypeError;
@@ -113,7 +110,6 @@ SWIG_AsVal_dec(Type) (Napi::Value o, Type* val)
 
 #define %swig_cplxflt_convn(Type, Constructor, Real, Imag) \
 %swig_cplxflt_conv(Type, Constructor, Real, Imag)
-
 
 #define %swig_cplxdbl_convn(Type, Constructor, Real, Imag) \
 %swig_cplxdbl_conv(Type, Constructor, Real, Imag)
